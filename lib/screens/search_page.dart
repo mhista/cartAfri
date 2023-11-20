@@ -34,8 +34,6 @@ class SearchPageWidget {
             ),
             itemBuilder: (context, index) {
               return Card(
-                elevation: 3.0,
-                color: kCardColor,
                 child: Padding(
                   padding: const EdgeInsets.all(6.0),
                   child: Column(
@@ -72,16 +70,7 @@ class SearchPageWidget {
                       SizedBox(
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            children: [
-                              StarIcon(starType: Icons.star),
-                              StarIcon(starType: Icons.star),
-                              StarIcon(starType: Icons.star),
-                              StarIcon(starType: Icons.star),
-                              StarIcon(starType: Icons.star_border),
-                              Text(' 4.5', style: kProductStyle),
-                            ],
-                          ),
+                          child: RowTextReview(),
                         ),
                       ),
                       Text('15,000', style: kProductStyle),

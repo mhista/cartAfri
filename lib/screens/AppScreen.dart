@@ -1,7 +1,9 @@
 import 'package:cartafri/app_config/constants.dart';
 import 'package:cartafri/app_config/reusables.dart';
+import 'package:cartafri/screens/cart.dart';
 import 'package:cartafri/screens/home.dart';
-import 'package:cartafri/screens/home_page.dart';
+import 'package:cartafri/screens/product_detail.dart';
+import 'package:cartafri/screens/search_page.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -28,34 +30,32 @@ class _HomePageState extends State<HomePage> {
           child: [
             ColumnWidget(children: HomePageWidget().widgetList()),
             ColumnWidget(children: SearchPageWidget().widgetList()),
-            ColumnWidget(children: HomePageWidget().widgetList()),
-            ColumnWidget(children: SearchPageWidget().widgetList())
+            CartPage(),
+            ItemDetail()
           ][currentPageIndex],
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
-        child: Icon(
-          Icons.shopping_cart_outlined,
-          color: kButtonColor,
-        ),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(50.0),
         ),
-        backgroundColor: kCardColor,
+        child: const Icon(
+          Icons.shopping_cart_outlined,
+          color: kButtonColor,
+        ),
       ),
       bottomNavigationBar: NavigationBar(
+        labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
         onDestinationSelected: (int index) {
           setState(() {
             currentPageIndex = index;
           });
         },
-        labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
-        animationDuration: Duration(seconds: 2),
-        indicatorColor: kButtonColorOpaque,
+        animationDuration: const Duration(seconds: 2),
         selectedIndex: currentPageIndex,
-        destinations: [
+        destinations: const [
           BottomBarIcons(
             iconData: Icons.home,
             label: 'Home',
@@ -72,15 +72,11 @@ class _HomePageState extends State<HomePage> {
             selectedIcon: Icons.feed,
           ),
           BottomBarIcons(
-            iconData: Icons.manage_accounts,
+            iconData: Icons.person,
             label: 'Accounts',
-            selectedIcon: Icons.manage_accounts_outlined,
+            selectedIcon: Icons.person_2_outlined,
           )
         ],
-        backgroundColor: kCardColor,
-        indicatorShape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(50.0),
-        ),
       ),
     );
   }

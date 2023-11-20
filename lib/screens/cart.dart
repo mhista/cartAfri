@@ -3,93 +3,165 @@ import 'package:cartafri/app_config/reusables.dart';
 import 'package:cartafri/functionality/Image_selector.dart';
 import 'package:flutter/material.dart';
 
-class CartPage {
-  CartPage({this.cartImage});
-  final ImagePicker? cartImage;
+class CartPage extends StatefulWidget {
+  const CartPage({Key? key}) : super(key: key);
+
+  @override
+  State<CartPage> createState() => _CartPageState();
+}
+
+class _CartPageState extends State<CartPage> {
   final carts = ImagePicker();
 
-  List<Widget> widgetList() => [
-        Container(
-            margin: EdgeInsets.only(left: 9.0, top: 11.0, bottom: 3.0),
-            child: Text('Product Name', style: kProductStyle)),
-        Expanded(
-          child: ListView.builder(
-            padding: EdgeInsets.only(top: 10),
-            itemCount: carts.getLength(),
-            itemBuilder: (context, position) {
-              return Card(
-                elevation: 3.0,
-                color: kCardColor,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 5.0, horizontal: 9.0),
-                  child: Row(
-                    children: [
-                      SizedBox(
-                        height: 90.0,
-                        width: 100.0,
-                        child: ClipRRect(
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+            title: const AppBarTitle(
+          title: 'CART',
+        )),
+        body: Column(
+          children: [
+            Card(
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 5.0, horizontal: 9.0),
+                child: Row(
+                  children: [
+                    SizedBox(
+                      height: 100.0,
+                      width: 100.0,
+                      child: ClipRRect(
                           borderRadius: BorderRadius.circular(8.0),
-                          child: Image.asset(carts?.getImageList()[position],
-                              height: 1000.0, fit: BoxFit.fill),
-                        ),
-                      ),
-                      Expanded(
+                          child: Image.asset(
+                            carts.getFirstImage(),
+                            height: 1000.0,
+                            fit: BoxFit.fill,
+                          )),
+                    ),
+                    Expanded(
                         child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                      padding: const EdgeInsets.only(left: 16.0, top: 10),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        textDirection: TextDirection.ltr,
+                        children: [
+                          const Text(
+                            'Product Name',
+                            style: kProductStyle,
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          const Row(
+                            children: [
+                              Text('\$24.00'),
+                              SizedBox(width: 10.0),
+                              Text('\$34.00', style: kProductStyle),
+                            ],
+                          ),
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                Container(
-                                    margin: EdgeInsets.only(
-                                        left: 9.0, top: 11.0, bottom: 3.0),
-                                    child: Text('Product Name',
-                                        style: kProductStyle)),
-                                Padding(
-                                  padding: const EdgeInsets.all(3.0),
-                                  child: Row(
-                                    children: [
-                                      Text('\$39.99', style: kProductStyle),
-                                      Text('\$25.00', style: kProductStyle),
-                                    ],
-                                  ),
+                                RoundIconButton(
+                                  iconChild: Icons.remove,
+                                  onPressed: () {},
+                                  fillColor: const Color(0x734065f4),
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.all(3.0),
-                                  child: Row(children: [
-                                    Icon(Icons.store_mall_directory_outlined,
-                                        color: kGreyColor2),
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 3.0),
-                                      child: Text('Shop Name'),
-                                    ),
-                                  ]),
-                                )
-                              ]),
-                        ),
+                                // SizedBox(
+                                //   width:10
+                                // ),
+                                const Text('2'),
+                                RoundIconButton(
+                                  iconChild: Icons.add,
+                                  onPressed: () {},
+                                  fillColor: const Color(0xff4065f4),
+                                ),
+                              ])
+                        ],
                       ),
-                      Expanded(
-                        child: Row(children: [
-                          RoundIconButton(
-                              IconChild: Icons.add, onPressed: () {}),
-                          Text('2'),
-                          RoundIconButton(
-                              IconChild: Icons.remove, onPressed: () {}),
-                        ]),
+                    )),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 10),
+            ListTile(
+              leading: const Icon(Icons.money_rounded),
+              title: const Text('Promo Code'),
+              trailing: CustomFilledButton(
+                text: 'Find',
+                onPress: () {},
+              ),
+            ),
+            const SizedBox(height: 10),
+            const Padding(
+              padding: EdgeInsets.all(16.0),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'SubTotal',
+                      ),
+                      Text(
+                        '\$86.50',
+                        style: kProductStyle,
                       ),
                     ],
                   ),
-                ),
-              );
-              ;
-            },
-          ),
-        ),
-        Expanded(
-          child: ListTile(
-            leading: Icon(Icons.money_rounded),
-            title: Text('Promo Code'),
-          ),
-        )
-      ];
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Delivery',
+                        ),
+                        Text(
+                          '\$18.30',
+                          style: kProductStyle,
+                        ),
+                      ]),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Tax & Fee',
+                      ),
+                      Text(
+                        '\$6.50',
+                        style: kProductStyle,
+                      ),
+                    ],
+                  ),
+                  Text('----------------------------',
+                      style: TextStyle(
+                        fontSize: 20,
+                        letterSpacing: 5,
+                      )),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Total',
+                        style: kProductStyle,
+                      ),
+                      Text(
+                        '\$99.50',
+                        style: kProductStyle,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            Center(
+              child: CustomFilledButton(
+                text: 'CHECKOUT',
+                onPress: () {},
+              ),
+            ),
+          ],
+        ));
+  }
 }

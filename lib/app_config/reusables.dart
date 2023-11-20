@@ -22,7 +22,7 @@ class StarIcon extends StatelessWidget {
   final IconData starType;
   @override
   Widget build(BuildContext context) {
-    return Icon(starType, size: 20, color: Color(0xffe3ca00));
+    return Icon(starType, size: 20, color: kYellow);
   }
 }
 
@@ -40,8 +40,8 @@ class PrimaryIconButton extends StatelessWidget {
   }
 }
 
-class ElevatedIconButton extends StatelessWidget {
-  const ElevatedIconButton(
+class CategoryIconButton extends StatelessWidget {
+  const CategoryIconButton(
       {required this.iconData,
       required this.onPressed,
       this.color,
@@ -54,29 +54,31 @@ class ElevatedIconButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: onPressed,
-      child: Icon(iconData, size: 25, color: color),
       style: ElevatedButton.styleFrom(
           shape: CircleBorder(),
           backgroundColor: bgColor,
           padding: EdgeInsets.all(14.0)),
+      child: Icon(iconData, size: 25, color: color),
     );
   }
 }
 
 class RoundIconButton extends StatelessWidget {
-  RoundIconButton({required this.IconChild, required this.onPressed});
+  RoundIconButton(
+      {required this.iconChild, required this.onPressed, this.fillColor});
 
-  final IconData IconChild;
+  final IconData iconChild;
   final Function() onPressed;
+  final Color? fillColor;
 
   @override
   Widget build(BuildContext context) {
     return RawMaterialButton(
-      child: Icon(IconChild),
-      shape: RoundedRectangleBorder(),
-      fillColor: Color(0xFF4C4F5E),
-      constraints: BoxConstraints.tightFor(width: 56.0, height: 56.0),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+      fillColor: fillColor,
+      constraints: BoxConstraints.tightFor(width: 30.0, height: 30.0),
       onPressed: onPressed,
+      child: Icon(iconChild, color: Colors.white70),
     );
   }
 }
@@ -86,6 +88,107 @@ class FilledTextButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FilledButton(onPressed: (){}, child: Text('promo'));
+    return FilledButton(onPressed: () {}, child: Text('promo'));
+  }
+}
+
+//custom filled button for checkout, cart etc
+class CustomFilledButton extends StatelessWidget {
+  const CustomFilledButton({
+    required this.text,
+    required this.onPress,
+  });
+  final String text;
+  final Function()? onPress;
+  @override
+  Widget build(BuildContext context) {
+    return FilledButton(
+        onPressed: onPress,
+        style: FilledButton.styleFrom(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8.0))),
+        child: Text(text));
+  }
+}
+
+//custom appbar for the project
+class CustomAppBar extends StatelessWidget {
+  const CustomAppBar({
+    super.key,
+    required this.title,
+  });
+  final String title;
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+        surfaceTintColor: null,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        scrolledUnderElevation: 0.0,
+        elevation: 0.0,
+        title: AppBarTitle(
+          title: title,
+        ));
+  }
+}
+
+// the appbar text widget
+class AppBarTitle extends StatelessWidget {
+  const AppBarTitle({
+    super.key,
+    required this.title,
+  });
+
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text(
+        title,
+        style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+      ),
+    );
+  }
+}
+
+//star review class with text
+class RowTextReview extends StatelessWidget {
+  const RowTextReview({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        StarIcon(starType: Icons.star),
+        StarIcon(starType: Icons.star),
+        StarIcon(starType: Icons.star),
+        StarIcon(starType: Icons.star),
+        StarIcon(starType: Icons.star_border),
+        Text(' 4.5', style: kProductStyle),
+      ],
+    );
+  }
+}
+
+//Star review without text
+class ColumnTextReview extends StatelessWidget {
+  const ColumnTextReview({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        StarIcon(starType: Icons.star),
+        StarIcon(starType: Icons.star),
+        StarIcon(starType: Icons.star),
+        StarIcon(starType: Icons.star),
+        StarIcon(starType: Icons.star_border),
+      ],
+    );
   }
 }

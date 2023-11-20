@@ -1,21 +1,57 @@
+import 'package:cartafri/app_config/constants.dart';
 import 'package:cartafri/screens/AppScreen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(CartAfri());
+  var theming = Themeing();
+  runApp(CartAfri(
+    theme: theming.lightTheme(),
+  ));
 }
 
 class CartAfri extends StatelessWidget {
-  const CartAfri({Key? key}) : super(key: key);
-
+  const CartAfri({Key? key, this.theme}) : super(key: key);
+  final ThemeData? theme;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: HomePage(),
-      theme: ThemeData(
-        useMaterial3: true,
-      ),
+      theme: theme,
       debugShowCheckedModeBanner: false,
+    );
+  }
+}
+
+class Themeing {
+  ThemeData lightTheme() {
+    return ThemeData(
+        useMaterial3: true,
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color(0xff4065f4),
+        ),
+        cardTheme: const CardTheme(
+          shadowColor: kCardColor,
+          surfaceTintColor: kCardColor,
+          color: kCardColor,
+          elevation: 2.0,
+        ),
+        navigationBarTheme: NavigationBarThemeData(
+          backgroundColor: kCardColor,
+          indicatorColor: kButtonColorOpaque,
+          surfaceTintColor: kCardColor,
+          indicatorShape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(50.0),
+          ),
+        ),
+        floatingActionButtonTheme: FloatingActionButtonThemeData(
+            backgroundColor: kCardColor, splashColor: kCardColor,foregroundColor: kCardColor),
+    appBarTheme: AppBarTheme(
+      surfaceTintColor: null,
+      shape:
+      RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      scrolledUnderElevation: 0.0,
+      elevation: 0.0,
+    ),
     );
   }
 }
