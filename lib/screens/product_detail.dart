@@ -1,7 +1,11 @@
 import 'package:cartafri/app_config/constants.dart';
 import 'package:cartafri/app_config/reusables.dart';
 import 'package:cartafri/functionality/Image_selector.dart';
+import 'package:cartafri/main.dart';
+import 'package:cartafri/models/product_model.dart';
+import 'package:cartafri/screens/cart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ProductDetail extends StatelessWidget {
   ProductDetail({super.key, required this.product});
@@ -167,7 +171,7 @@ class ProductDetail extends StatelessWidget {
   }
 }
 
-class ChipBuilder extends StatefulWidget {
+class ChipBuilder extends ConsumerStatefulWidget {
   ChipBuilder({
     super.key,
     required this.productSize,
@@ -178,10 +182,10 @@ class ChipBuilder extends StatefulWidget {
   final Map<String, dynamic> product;
 
   @override
-  State<ChipBuilder> createState() => _ChipBuilderState();
+  ConsumerState<ChipBuilder> createState() => _ChipBuilderState();
 }
 
-class _ChipBuilderState extends State<ChipBuilder> {
+class _ChipBuilderState extends ConsumerState<ChipBuilder> {
   int selectedSize = 0;
 
   @override
@@ -201,6 +205,20 @@ class _ChipBuilderState extends State<ChipBuilder> {
             onTap: () {
               setState(() {
                 selectedSize = size;
+                // ref.read(cartProvider.notifier).addToCart({
+                //   'id': widget.product['id'],
+                //   'title': widget.product['title'],
+                //   'price': widget.product['price'],
+                //   'company': widget.product['company'],
+                //   'size': size,
+                //   'imageUrl': widget.product['imageUrl']
+                // });
+                print('ooo');
+                // print(ref.watch(cartProvider).toString());
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) {
+                  return CartPage();
+                }));
               });
             },
             child: Chip(
@@ -219,3 +237,25 @@ class _ChipBuilderState extends State<ChipBuilder> {
         });
   }
 }
+
+// ignore: non_constant_identifier_names
+// class Mark extends ConsumerStatefulWidget {
+//   @override
+//   _MarkState createState() => _MarkState();
+// }
+
+// class _MarkState extends ConsumerState<Mark> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return GestureDetector(
+//       onTap: (){
+//         setState(() {
+//           ref.read(provider)
+//         });
+//       },
+//           child: Container(
+
+//       ),
+//     );
+//   }
+// }

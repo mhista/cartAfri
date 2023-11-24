@@ -1,20 +1,25 @@
 import 'package:cartafri/app_config/constants.dart';
 import 'package:cartafri/app_config/reusables.dart';
 import 'package:cartafri/functionality/Image_selector.dart';
+import 'package:cartafri/main.dart';
+import 'package:cartafri/models/product_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class CartPage extends StatefulWidget {
+class CartPage extends ConsumerStatefulWidget {
   const CartPage({Key? key}) : super(key: key);
 
   @override
-  State<CartPage> createState() => _CartPageState();
+  ConsumerState<CartPage> createState() => _CartPageState();
 }
 
-class _CartPageState extends State<CartPage> {
+class _CartPageState extends ConsumerState<CartPage> {
   final carts = ImagePicker();
 
   @override
   Widget build(BuildContext context) {
+    final cart = ref.watch(cartProvider.notifier).cart;
+    print(cart);
     return Scaffold(
         appBar: AppBar(
             title: const AppBarTitle(

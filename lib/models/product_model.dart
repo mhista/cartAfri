@@ -163,11 +163,13 @@ class Cart {
   }
 }
 
-class CartProvider extends StateNotifier {
+final cartProviderNotifier = Provider((ref) => CartProvider());
+
+class CartProvider extends StateNotifier<Cart> {
   CartProvider()
       : super(Cart(
             id: 0, title: '', price: 0.0, company: '', size: 0, imageUrl: ''));
-  final List<Map<String, dynamic>> cart = [];
+  final List<Cart> cart = [];
   void addToCart(Map p) {
     state = state.copyWith(
       id: p['id'],
