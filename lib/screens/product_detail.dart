@@ -3,14 +3,14 @@ import 'package:cartafri/app_config/reusables.dart';
 import 'package:cartafri/functionality/Image_selector.dart';
 import 'package:flutter/material.dart';
 
-class ItemDetail extends StatefulWidget {
-  const ItemDetail({Key? key}) : super(key: key);
-
+class ProductDetail extends StatefulWidget {
+  const ProductDetail({super.key, required this.product});
+  final Map<String, dynamic> product;
   @override
-  State<ItemDetail> createState() => _ItemDetailState();
+  State<ProductDetail> createState() => _ProductDetailState();
 }
 
-class _ItemDetailState extends State<ItemDetail> {
+class _ProductDetailState extends State<ProductDetail> {
   final item = ImagePicker();
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class _ItemDetailState extends State<ItemDetail> {
             iconData: Icons.arrow_back,
             onPressed: () {},
           ),
-          title: Text('Product Detail',
+          title: Text(widget.product['title'].toString(),
               style: TextStyle(
                 fontSize: 15,
                 fontWeight: FontWeight.w500,
@@ -44,25 +44,25 @@ class _ItemDetailState extends State<ItemDetail> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(7.0),
-                child: Text('\$ 1,500.00',
+                padding: EdgeInsets.all(7.0),
+                child: Text('\$${widget.product['price'] as double}',
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                     )),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
+              const Padding(
+                padding: EdgeInsets.all(8.0),
                 child: Text('Brief product detail',
                     style: TextStyle(fontSize: 15)),
               ),
-              Center(child: ColumnTextReview()),
+              const Center(child: ColumnTextReview()),
               TextButton(
                 style: TextButton.styleFrom(
                   backgroundColor: kYellow2,
                 ),
                 onPressed: () {},
-                child: Text(
+                child: const Text(
                   '4.5(27)',
                   style: TextStyle(
                       fontSize: 13,
@@ -70,7 +70,7 @@ class _ItemDetailState extends State<ItemDetail> {
                       color: kYellow),
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               CustomFilledButton(
                 text: 'BUY NOW',
                 onPress: () {},
@@ -84,37 +84,105 @@ class _ItemDetailState extends State<ItemDetail> {
                       isScrollControlled: true,
                       context: context,
                       builder: (BuildContext context) {
-                        return Container(
-                          color: Colors.white,
-                          child: Column(
-                            children: [
-                              Expanded(
-                                child: Text('Product Detail',
-                                    style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w500,
-                                    )),
-                              ),
-                              Expanded(
-                                child: GridView.builder(
-                                    itemCount: 10,
-                                    gridDelegate:
-                                        SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 5,
-                                    ),
-                                    itemBuilder: (context, index) {
-                                      return Chip(
-                                        label: Text(index.toString()),
-                                      );
-                                    }),
-                              )
-                            ],
+                        return Material(
+                          borderRadius: BorderRadius.vertical(
+                            top: Radius.circular(12),
+                          ),
+                          child: SizedBox(
+                            height: 350,
+                            child: Column(
+                              children: [
+                                SizedBox(height: 30.0),
+                                FittedBox(
+                                  child: Text('Select a Size',
+                                      style: TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w500,
+                                      )),
+                                ),
+                                SizedBox(height: 10.0),
+                                SizedBox(
+                                  height: 170,
+                                  child: GridView.builder(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 16.0, vertical: 10.0),
+                                      itemCount: 10,
+                                      gridDelegate:
+                                          const SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 5,
+                                        crossAxisSpacing: 0.0,
+                                        mainAxisSpacing: 0.0,
+                                        childAspectRatio: 1.0,
+                                      ),
+                                      itemBuilder: (context, index) {
+                                        return Chip(
+                                          padding: EdgeInsets.all(16.0),
+                                          // labelPadding: EdgeInsets.all(16.0),
+                                          label: Text(index.toString()),
+                                          shape: CircleBorder(),
+                                          side: BorderSide(
+                                              width: 0.1,
+                                              strokeAlign:
+                                                  BorderSide.strokeAlignOutside,
+                                              color: Colors.grey),
+                                        );
+                                      }),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 16.0),
+                                  child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        Column(
+                                          children: [
+                                            CategoryIconButton(
+                                                elevation: 0.0,
+                                                color: Colors.white,
+                                                bgColor: kButtonColor,
+                                                iconData:
+                                                    Icons.open_in_new_outlined,
+                                                onPressed: () {}),
+                                            SizedBox(height: 7),
+                                            Text('Size Guide',
+                                                style: TextStyle(
+                                                    fontSize: 12,
+                                                    fontWeight:
+                                                        FontWeight.bold))
+                                          ],
+                                        ),
+                                        Material(
+                                            color: Colors.grey,
+                                            child: SizedBox(
+                                                height: 70, width: 0.5)),
+                                        Column(
+                                          children: [
+                                            CategoryIconButton(
+                                                elevation: 0.0,
+                                                color: Colors.white,
+                                                bgColor: kButtonColor,
+                                                iconData: Icons
+                                                    .emoji_emotions_outlined,
+                                                onPressed: () {}),
+                                            SizedBox(height: 7),
+                                            Text("Can't find?",
+                                                style: TextStyle(
+                                                    fontSize: 12,
+                                                    fontWeight:
+                                                        FontWeight.bold))
+                                          ],
+                                        ),
+                                      ]),
+                                )
+                              ],
+                            ),
                           ),
                         );
                       },
                     );
                   },
-                  child: Text('ADD TO CART', style: kMediumFont)),
+                  child: const Text('ADD TO CART', style: kMediumFont)),
             ],
           ),
         ));

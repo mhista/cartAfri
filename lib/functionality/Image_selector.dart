@@ -37,4 +37,5 @@ class ImagePicker {
   int getLength() => imageList.length;
   List getImageList() => imageList;
   dynamic getFirstImage() => imageList[0];
+  String getImageAtIndex(index) => imageList[index];
 }

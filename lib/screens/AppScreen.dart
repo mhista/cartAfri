@@ -1,8 +1,8 @@
 import 'package:cartafri/app_config/constants.dart';
 import 'package:cartafri/app_config/reusables.dart';
+import 'package:cartafri/screens/account-settings.dart';
 import 'package:cartafri/screens/cart.dart';
 import 'package:cartafri/screens/home.dart';
-import 'package:cartafri/screens/product_detail.dart';
 import 'package:cartafri/screens/search_page.dart';
 import 'package:flutter/material.dart';
 
@@ -28,10 +28,10 @@ class _HomePageState extends State<HomePage> {
             right: 8.0,
           ),
           child: [
-            ColumnWidget(children: HomePageWidget().widgetList()),
+            AppHomePage(),
             ColumnWidget(children: SearchPageWidget().widgetList()),
             CartPage(),
-            ItemDetail()
+            AccountPage()
           ][currentPageIndex],
         ),
       ),

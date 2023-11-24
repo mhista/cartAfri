@@ -45,11 +45,12 @@ class CategoryIconButton extends StatelessWidget {
       {required this.iconData,
       required this.onPressed,
       this.color,
-      this.bgColor});
+      this.bgColor, this.elevation});
   final IconData? iconData;
   final Function()? onPressed;
   final Color? color;
   final Color? bgColor;
+  final double? elevation;
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
@@ -57,6 +58,7 @@ class CategoryIconButton extends StatelessWidget {
       style: ElevatedButton.styleFrom(
           shape: CircleBorder(),
           backgroundColor: bgColor,
+          elevation:elevation,
           padding: EdgeInsets.all(14.0)),
       child: Icon(iconData, size: 25, color: color),
     );

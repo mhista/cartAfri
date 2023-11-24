@@ -1,11 +1,13 @@
 import 'package:cartafri/app_config/constants.dart';
 import 'package:cartafri/screens/AppScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {
   var theming = Themeing();
-  runApp(CartAfri(
-    theme: theming.lightTheme(),
+  runApp(
+      ProviderScope(child:CartAfri(
+    theme: theming.lightTheme(),)
   ));
 }
 
