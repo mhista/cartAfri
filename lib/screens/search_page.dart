@@ -20,12 +20,12 @@ class SearchPageWidget {
                   iconData: Icons.filter_list_outlined, onPressed: () {})
             ]),
         Container(
-            padding: EdgeInsets.fromLTRB(8.0, 8.0, 0.0, 5.0),
-            child: Text('Result for "Cosmetics"')),
+            padding: const EdgeInsets.fromLTRB(8.0, 8.0, 0.0, 5.0),
+            child: const Text('Result for "Cosmetics"')),
         Expanded(
           child: GridView.builder(
-            itemCount: carts?.getLength(),
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            itemCount: carts.getLength(),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               crossAxisSpacing: 10.0,
               mainAxisSpacing: 10.0,
@@ -57,7 +57,7 @@ class SearchPageWidget {
                                 top: 2,
                                 child: IconButton(
                                   onPressed: () {},
-                                  icon: Icon(Icons.favorite_border),
+                                  icon: const Icon(Icons.favorite_border),
                                 ),
                               ),
                             ],
@@ -65,15 +65,16 @@ class SearchPageWidget {
                         ),
                       ),
                       Container(
-                          margin: EdgeInsets.only(top: 16.0),
-                          child: Text('Product Name', style: kProductStyle)),
-                      SizedBox(
+                          margin: const EdgeInsets.only(top: 16.0),
+                          child:
+                              const Text('Product Name', style: kProductStyle)),
+                      const SizedBox(
                         child: Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: EdgeInsets.all(8.0),
                           child: RowTextReview(),
                         ),
                       ),
-                      Text('15,000', style: kProductStyle),
+                      const Text('15,000', style: kProductStyle),
                     ],
                   ),
                 ),
