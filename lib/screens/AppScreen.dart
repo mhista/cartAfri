@@ -1,5 +1,5 @@
-import 'package:cartafri/app_config/constants.dart';
-import 'package:cartafri/app_config/reusables.dart';
+import 'package:cartafri/core/constants/constants.dart';
+import 'package:cartafri/core/commons/reusables.dart';
 import 'package:cartafri/screens/account-settings.dart';
 import 'package:cartafri/screens/cart.dart';
 import 'package:cartafri/screens/home.dart';

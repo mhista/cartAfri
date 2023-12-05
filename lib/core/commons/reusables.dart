@@ -1,6 +1,7 @@
-import 'package:cartafri/app_config/constants.dart';
+import 'package:cartafri/core/constants/constants.dart';
 import 'package:flutter/material.dart';
 
+// Bottom Navigation Icons
 class BottomBarIcons extends StatelessWidget {
   const BottomBarIcons(
       {required this.iconData, required this.label, this.selectedIcon});
@@ -17,6 +18,7 @@ class BottomBarIcons extends StatelessWidget {
   }
 }
 
+// the star review icons
 class StarIcon extends StatelessWidget {
   StarIcon({required this.starType});
   final IconData starType;
@@ -40,12 +42,14 @@ class PrimaryIconButton extends StatelessWidget {
   }
 }
 
+// Icon button for the categories
 class CategoryIconButton extends StatelessWidget {
   const CategoryIconButton(
       {required this.iconData,
       required this.onPressed,
       this.color,
-      this.bgColor, this.elevation});
+      this.bgColor,
+      this.elevation});
   final IconData? iconData;
   final Function()? onPressed;
   final Color? color;
@@ -58,7 +62,7 @@ class CategoryIconButton extends StatelessWidget {
       style: ElevatedButton.styleFrom(
           shape: CircleBorder(),
           backgroundColor: bgColor,
-          elevation:elevation,
+          elevation: elevation,
           padding: EdgeInsets.all(14.0)),
       child: Icon(iconData, size: 25, color: color),
     );
@@ -85,6 +89,7 @@ class RoundIconButton extends StatelessWidget {
   }
 }
 
+// the promo button
 class FilledTextButton extends StatelessWidget {
   const FilledTextButton({Key? key}) : super(key: key);
 
@@ -192,5 +197,15 @@ class ColumnTextReview extends StatelessWidget {
         StarIcon(starType: Icons.star_border),
       ],
     );
+  }
+}
+
+// Icons used in the project
+class AuthIcons extends StatelessWidget {
+  const AuthIcons({super.key, required this.authIcon});
+  final IconData authIcon;
+  @override
+  Widget build(BuildContext context) {
+    return Icon(authIcon, size: 30);
   }
 }

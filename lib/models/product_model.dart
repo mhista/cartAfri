@@ -71,6 +71,7 @@ class Cart {
     required this.company,
     required this.size,
     required this.imageUrl,
+    required this.itemCount,
   });
   final int id;
   final String title;
@@ -78,6 +79,7 @@ class Cart {
   final String company;
   final int size;
   final String imageUrl;
+  int itemCount;
 
   Cart copyWith({
     int? id,
@@ -86,6 +88,7 @@ class Cart {
     String? company,
     int? size,
     String? imageUrl,
+    int? itemCount,
   }) {
     return Cart(
       id: id ?? this.id,
@@ -94,6 +97,7 @@ class Cart {
       company: company ?? this.company,
       size: size ?? this.size,
       imageUrl: imageUrl ?? this.imageUrl,
+      itemCount: itemCount ?? this.itemCount,
     );
   }
 
@@ -116,6 +120,7 @@ class Cart {
       'company': company,
       'size': size,
       'imageUrl': imageUrl,
+      'itemCount': itemCount,
     };
   }
 
@@ -127,6 +132,7 @@ class Cart {
       company: map['company'] ?? '',
       size: map['size'] ?? 0,
       imageUrl: map['imageUrl'] ?? 0,
+      itemCount: map['itemCount'] ?? 0,
     );
   }
 
@@ -136,7 +142,7 @@ class Cart {
 
   @override
   String toString() {
-    return 'Cart(id: $id, title: $title, price: $price, company: $company, size: $size, imageUrl: $imageUrl)';
+    return 'Cart(id: $id, title: $title, price: $price, company: $company, size: $size, imageUrl: $imageUrl, itemCount: $itemCount)';
   }
 
   @override
@@ -159,6 +165,7 @@ class Cart {
         price.hashCode ^
         company.hashCode ^
         size.hashCode ^
+        itemCount.hashCode ^
         imageUrl.hashCode;
   }
 }
@@ -168,9 +175,15 @@ final cartProviderNotifier = Provider((ref) => CartProvider());
 class CartProvider extends StateNotifier<Cart> {
   CartProvider()
       : super(Cart(
-            id: 0, title: '', price: 0.0, company: '', size: 0, imageUrl: ''));
-  final List<Cart> cart = [];
-  void addToCart(Map p) {
+            id: 0,
+            title: '',
+            price: 0.0,
+            company: '',
+            size: 0,
+            imageUrl: '',
+            itemCount: 0));
+  final List<Cart> _cart = [];
+  void removeFromCart(Map<String, dynamic> p) {
     state = state.copyWith(
       id: p['id'],
       title: p['title'],
@@ -178,19 +191,59 @@ class CartProvider extends StateNotifier<Cart> {
       company: p['company'],
       size: p['size'],
       imageUrl: p['imageUrl'],
+      itemCount: p['itemCount'],
     );
-    cart.add(state);
+    _cart.remove(state);
   }
 
-  void removeFromCart(Map p) {
+  get cart => _cart;
+  void addToCart(Map<String, dynamic> p) {
     state = state.copyWith(
       id: p['id'],
       title: p['title'],
       price: p['price'],
       company: p['company'],
       size: p['size'],
+      itemCount: p['itemCount'],
       imageUrl: p['imageUrl'],
     );
-    cart.remove(state);
+    if (_cart.isEmpty) {
+      print('cart is empty');
+      _cart.add(state);
+      print('added product ${_cart}');
+    } else if (_cart.isNotEmpty) {
+      print(_cart.length);
+      if (_cart.length == 1 && _cart[0].id == (p["id"] as int)) {
+        print('same object ${_cart[0]}');
+        _cart[0].itemCount = _cart[0].itemCount += 1;
+        print(_cart);
+      } else if (_cart.length == 1 && _cart[0].id != (p["id"] as int)) {
+        print('cart is not empty');
+        _cart.add(state);
+        print('added product ${_cart}');
+      } else {
+        int hi = _cart.length;
+        int low = 0;
+        while (low <= hi) {
+          var mid = (hi + low) % 2;
+          print(mid);
+          var midNumber = _cart[mid];
+          print(midNumber);
+          if ((p['id'] as int) == midNumber.id) {
+            print('yes middle');
+            midNumber.itemCount += 1;
+          } else if (midNumber.id < (p['id'] as int)) {
+            print('found at low');
+            low = mid;
+          } else if (midNumber.id > (p['id'] as int)) {
+            print('found at hi');
+            low = mid;
+          } else {
+            _cart.add(state);
+            print('created new');
+          }
+        }
+      }
+    }
   }
 }

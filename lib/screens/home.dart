@@ -1,12 +1,12 @@
-import 'package:cartafri/app_config/constants.dart';
-import 'package:cartafri/app_config/reusables.dart';
-import 'package:cartafri/functionality/Image_selector.dart';
+import 'package:cartafri/core/constants/constants.dart';
+import 'package:cartafri/core/commons/reusables.dart';
+import 'package:cartafri/features/functionality/Image_selector.dart';
 import 'package:cartafri/models/product_model.dart';
 import 'package:cartafri/screens/product_detail.dart';
 import 'package:flutter/material.dart';
 
 class AppHomePage extends StatelessWidget {
-  AppHomePage({this.productImages});
+  AppHomePage({super.key, this.productImages});
   final ImagePicker? productImages;
   final carts = ImagePicker();
   final product = product_list;

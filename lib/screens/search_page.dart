@@ -1,6 +1,6 @@
-import 'package:cartafri/app_config/constants.dart';
-import 'package:cartafri/app_config/reusables.dart';
-import 'package:cartafri/functionality/Image_selector.dart';
+import 'package:cartafri/core/constants/constants.dart';
+import 'package:cartafri/core/commons/reusables.dart';
+import 'package:cartafri/features/functionality/Image_selector.dart';
 import 'package:flutter/material.dart';
 
 class SearchPageWidget {

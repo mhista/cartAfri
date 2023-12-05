@@ -1,8 +1,7 @@
-import 'package:cartafri/app_config/constants.dart';
-import 'package:cartafri/app_config/reusables.dart';
-import 'package:cartafri/functionality/Image_selector.dart';
+import 'package:cartafri/core/constants/constants.dart';
+import 'package:cartafri/core/commons/reusables.dart';
+import 'package:cartafri/features/functionality/Image_selector.dart';
 import 'package:cartafri/main.dart';
-import 'package:cartafri/models/product_model.dart';
 import 'package:cartafri/screens/cart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -205,16 +204,15 @@ class _ChipBuilderState extends ConsumerState<ChipBuilder> {
             onTap: () {
               setState(() {
                 selectedSize = size;
-                // ref.read(cartProvider.notifier).addToCart({
-                //   'id': widget.product['id'],
-                //   'title': widget.product['title'],
-                //   'price': widget.product['price'],
-                //   'company': widget.product['company'],
-                //   'size': size,
-                //   'imageUrl': widget.product['imageUrl']
-                // });
-                print('ooo');
-                // print(ref.watch(cartProvider).toString());
+                ref.read(cartProvider.notifier).addToCart({
+                  'id': widget.product['id'],
+                  'title': widget.product['title'],
+                  'price': widget.product['price'],
+                  'company': widget.product['company'],
+                  'size': size,
+                  'imageUrl': widget.product['imageUrl'],
+                  'ItemCount': 1,
+                });
                 Navigator.of(context)
                     .push(MaterialPageRoute(builder: (context) {
                   return CartPage();
@@ -233,7 +231,6 @@ class _ChipBuilderState extends ConsumerState<ChipBuilder> {
                   color: Colors.grey),
             ),
           );
-          ;
         });
   }
 }
