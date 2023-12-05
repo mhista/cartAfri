@@ -56,19 +56,9 @@ class _AccountPageState extends State<AccountPage> {
                   onPressed: () {},
                   child: Text('Privacy policy', style: kSmallFont)),
             ]),
-            SizedBox(
-              width: double.infinity,
-              child: FilledButton(
-                  onPressed: () {},
-                  style: FilledButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8.0))),
-                  child: const Text('Sign Out')),
-            ),
-
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 10.0, vertical: 12.0),
+            ExpandedButton(onpress: () {}, title: 'Sign Out'),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 12.0),
               child: Divider(
                 height: 0.5,
               ),
