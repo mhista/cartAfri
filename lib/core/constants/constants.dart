@@ -25,3 +25,10 @@ const kOutlineInputBorder = OutlineInputBorder(
   ),
 );
 const kFormColor = Color.fromARGB(218, 234, 237, 244);
+const kSizedBox = SizedBox(
+  height: 15,
+);
+const kForgetPaswwordStyle =
+    TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: Colors.black);
+const kTextStyleSpacing =
+    TextStyle(fontWeight: FontWeight.bold, letterSpacing: 1.2);

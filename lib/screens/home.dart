@@ -13,98 +13,109 @@ class AppHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Column(children: [
-      ListTile(
-          contentPadding: const EdgeInsets.symmetric(horizontal: 8.0),
-          title: const Text('Hi, Diwe!',
-              style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500)),
-          subtitle: const Text('what would you buy today?',
-              style: TextStyle(fontWeight: FontWeight.w300)),
-          trailing: IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.notifications_none_outlined))),
-      ListTile(
-        leading: const Text(
-          'Categories',
-          style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
-        ),
-        trailing: TextButton(
-          onPressed: () {},
-          child: const Text('See all'),
-        ),
-      ),
-      Padding(
-        padding: const EdgeInsets.only(bottom: 10.0),
-        child: Material(
-          shape: RoundedRectangleBorder(
-              side: const BorderSide(
-                  width: 0.1,
-                  strokeAlign: BorderSide.strokeAlignOutside,
-                  color: Colors.grey),
-              borderRadius: BorderRadius.circular(12.0)),
-          elevation: 1.0,
-          child: Container(
-            padding:
-                const EdgeInsets.symmetric(vertical: 10.0, horizontal: 12.0),
-            child: Row(
-              children: [
-                Expanded(
-                    child: Column(
-                  children: [
-                    CategoryIconButton(
-                      iconData: Icons.shopping_cart_outlined,
-                      onPressed: () {},
-                      color: kButtonColor,
-                    ),
-                    const Text(
-                      'Grocery',
-                      style: kMediumFont,
-                    )
-                  ],
-                )),
-                Expanded(
-                    child: Column(
-                  children: [
-                    CategoryIconButton(
-                      iconData: Icons.change_history_outlined,
-                      onPressed: () {},
-                      bgColor: kButtonColor,
-                      color: kCardColor,
-                    ),
-                    const Text('Cloth', style: kMediumFont)
-                  ],
-                )),
-                Expanded(
-                    child: Column(
-                  children: [
-                    CategoryIconButton(
-                      iconData: Icons.wine_bar_outlined,
-                      onPressed: () {},
-                      color: kButtonColor,
-                    ),
-                    const Text('Liquor', style: kMediumFont)
-                  ],
-                )),
-                Expanded(
-                    child: Column(
-                  children: [
-                    CategoryIconButton(
-                      iconData: Icons.fastfood_outlined,
-                      onPressed: () {},
-                      bgColor: kButtonColor,
-                      color: kCardColor,
-                    ),
-                    const Text('Food', style: kMediumFont)
-                  ],
-                )),
-              ],
-            ),
+      body: CustomScrollView(slivers: [
+        SliverAppBar(
+          centerTitle: false,
+          flexibleSpace: FlexibleSpaceBar(
+            background: ListTile(
+                contentPadding: const EdgeInsets.symmetric(horizontal: 8.0),
+                title: const Text('Hi, Diwe!',
+                    style:
+                        TextStyle(fontSize: 30, fontWeight: FontWeight.w500)),
+                subtitle: const Text('what would you buy today?',
+                    style: TextStyle(fontWeight: FontWeight.w300)),
+                trailing: IconButton(
+                    onPressed: () {},
+                    icon: const Icon(Icons.notifications_none_outlined))),
           ),
         ),
-      ),
-      Expanded(
-        child: ListView.builder(
-          padding: const EdgeInsets.only(top: 10),
+        SliverAppBar(
+          bottom: PreferredSize(
+            preferredSize: Size.fromHeight(-10.0),
+            child: Column(children: [
+              ListTile(
+                leading: const Text(
+                  'Categories',
+                  style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+                ),
+                trailing: TextButton(
+                  onPressed: () {},
+                  child: const Text('See all'),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10.0),
+                child: Material(
+                  shape: RoundedRectangleBorder(
+                      side: const BorderSide(
+                          width: 0.1,
+                          strokeAlign: BorderSide.strokeAlignOutside,
+                          color: Colors.grey),
+                      borderRadius: BorderRadius.circular(12.0)),
+                  elevation: 1.0,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 10.0, horizontal: 12.0),
+                    child: Row(
+                      children: [
+                        Expanded(
+                            child: Column(
+                          children: [
+                            CategoryIconButton(
+                              iconData: Icons.shopping_cart_outlined,
+                              onPressed: () {},
+                              color: kButtonColor,
+                            ),
+                            const Text(
+                              'Grocery',
+                              style: kMediumFont,
+                            )
+                          ],
+                        )),
+                        Expanded(
+                            child: Column(
+                          children: [
+                            CategoryIconButton(
+                              iconData: Icons.change_history_outlined,
+                              onPressed: () {},
+                              bgColor: kButtonColor,
+                              color: kCardColor,
+                            ),
+                            const Text('Cloth', style: kMediumFont)
+                          ],
+                        )),
+                        Expanded(
+                            child: Column(
+                          children: [
+                            CategoryIconButton(
+                              iconData: Icons.wine_bar_outlined,
+                              onPressed: () {},
+                              color: kButtonColor,
+                            ),
+                            const Text('Liquor', style: kMediumFont)
+                          ],
+                        )),
+                        Expanded(
+                            child: Column(
+                          children: [
+                            CategoryIconButton(
+                              iconData: Icons.fastfood_outlined,
+                              onPressed: () {},
+                              bgColor: kButtonColor,
+                              color: kCardColor,
+                            ),
+                            const Text('Food', style: kMediumFont)
+                          ],
+                        )),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ]),
+          ),
+        ),
+        SliverList.builder(
           itemCount: product.length,
           itemBuilder: (context, index) {
             final item = product[index];
@@ -189,8 +200,8 @@ class AppHomePage extends StatelessWidget {
               ),
             );
           },
-        ),
-      )
-    ]));
+        )
+      ]),
+    );
   }
 }

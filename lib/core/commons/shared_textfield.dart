@@ -4,9 +4,12 @@ import 'package:flutter/material.dart';
 class InputTextWidget extends StatelessWidget {
   final String hintText;
   final IconData iconData;
-
+  final TextInputType? textInputType;
   const InputTextWidget(
-      {super.key, required this.hintText, required this.iconData});
+      {super.key,
+      this.textInputType,
+      required this.hintText,
+      required this.iconData});
 
   @override
   Widget build(BuildContext context) {
@@ -14,9 +17,9 @@ class InputTextWidget extends StatelessWidget {
       style: const TextStyle(
         color: Colors.black,
       ),
-      keyboardType: TextInputType.emailAddress,
+      keyboardType: textInputType,
       decoration: InputDecoration(
-          contentPadding: const EdgeInsets.symmetric(vertical: 11),
+          contentPadding: const EdgeInsets.symmetric(vertical: 15),
           hintText: hintText,
           hintStyle: const TextStyle(fontWeight: FontWeight.w400, fontSize: 15),
           prefixIcon: Padding(

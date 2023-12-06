@@ -206,7 +206,7 @@ class AuthIcons extends StatelessWidget {
   final IconData authIcon;
   @override
   Widget build(BuildContext context) {
-    return Icon(authIcon, size: 30);
+    return Icon(authIcon, size: 30, color: kButtonColor);
   }
 }
 
