@@ -15,6 +15,7 @@ class AppHomePage extends StatelessWidget {
     return Scaffold(
       body: CustomScrollView(slivers: [
         SliverAppBar(
+          expandedHeight: 0,
           centerTitle: false,
           flexibleSpace: FlexibleSpaceBar(
             background: ListTile(
@@ -22,27 +23,30 @@ class AppHomePage extends StatelessWidget {
                 title: const Text('Hi, Diwe!',
                     style:
                         TextStyle(fontSize: 30, fontWeight: FontWeight.w500)),
-                subtitle: const Text('what would you buy today?',
-                    style: TextStyle(fontWeight: FontWeight.w300)),
                 trailing: IconButton(
                     onPressed: () {},
                     icon: const Icon(Icons.notifications_none_outlined))),
           ),
         ),
         SliverAppBar(
-          bottom: PreferredSize(
-            preferredSize: Size.fromHeight(-10.0),
-            child: Column(children: [
-              ListTile(
-                leading: const Text(
-                  'Categories',
-                  style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
-                ),
-                trailing: TextButton(
-                  onPressed: () {},
-                  child: const Text('See all'),
-                ),
+          flexibleSpace: FlexibleSpaceBar(
+            background: ListTile(
+              leading: const Text(
+                'Categories',
+                style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
               ),
+              trailing: TextButton(
+                onPressed: () {},
+                child: const Text('See all'),
+              ),
+            ),
+          ),
+        ),
+        SliverAppBar(
+          pinned: true,
+          bottom: PreferredSize(
+            preferredSize: Size.fromHeight(50),
+            child: Column(children: [
               Padding(
                 padding: const EdgeInsets.only(bottom: 10.0),
                 child: Material(
