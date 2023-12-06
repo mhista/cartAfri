@@ -49,7 +49,7 @@ class Themeing {
           borderRadius: BorderRadius.circular(50.0),
         ),
       ),
-      floatingActionButtonTheme: FloatingActionButtonThemeData(
+      floatingActionButtonTheme: const FloatingActionButtonThemeData(
           backgroundColor: kCardColor,
           splashColor: kCardColor,
           foregroundColor: kCardColor),

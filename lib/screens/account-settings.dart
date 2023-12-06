@@ -16,7 +16,7 @@ class _AccountPageState extends State<AccountPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: AppBarTitle(title: 'Profile'),
+        title: const AppBarTitle(title: 'Profile'),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -29,7 +29,7 @@ class _AccountPageState extends State<AccountPage> {
               flex: 8,
               child: ListView.separated(
                 separatorBuilder: (context, index) {
-                  return Divider(height: 1);
+                  return const Divider(height: 1);
                 },
                 itemBuilder: (context, index) {
                   return AccountListTile(
@@ -46,17 +46,20 @@ class _AccountPageState extends State<AccountPage> {
                       splashFactory: NoSplash.splashFactory,
                     ),
                     onPressed: () {},
-                    child: Text('Terms of Use', style: kSmallFont)),
+                    child: const Text('Terms of Use', style: kSmallFont)),
               ),
-              Text('and', style: kSmallFont),
+              const Text('and', style: kSmallFont),
               TextButton(
                   style: TextButton.styleFrom(
                     splashFactory: NoSplash.splashFactory,
                   ),
                   onPressed: () {},
-                  child: Text('Privacy policy', style: kSmallFont)),
+                  child: const Text('Privacy policy', style: kSmallFont)),
             ]),
-            ExpandedButton(onpress: () {}, title: 'Sign Out'),
+            ExpandedButton(
+              onpress: () {},
+              text: const Text('Sign Out'),
+            ),
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 12.0),
               child: Divider(
@@ -69,9 +72,9 @@ class _AccountPageState extends State<AccountPage> {
                   splashFactory: NoSplash.splashFactory,
                 ),
                 onPressed: () {},
-                child: Text('@ 2023 CartAfri, Built by SomTech',
+                child: const Text('@ 2023 CartAfri, Built by SomTech',
                     style: kMediumFont)),
-            Spacer(flex: 1)
+            const Spacer(flex: 1)
           ],
         ),
       ),
@@ -95,10 +98,10 @@ class AccountListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       focusColor: kButtonColorOpaque,
-      contentPadding: EdgeInsets.symmetric(horizontal: 0),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 0),
       leading: accountTiles.getIcon(index),
       title: Text(accountTiles.getTitle(index), style: kMediumFont),
-      trailing: Icon(Icons.arrow_forward_ios, size: 14),
+      trailing: const Icon(Icons.arrow_forward_ios, size: 14),
     );
   }
 }

@@ -17,3 +17,11 @@ const kSmallFont = TextStyle(
     fontSize: 12,
     fontWeight: FontWeight.w400,
     decoration: TextDecoration.underline);
+
+const kOutlineInputBorder = OutlineInputBorder(
+  borderSide: BorderSide.none,
+  borderRadius: BorderRadius.all(
+    Radius.circular(14.0),
+  ),
+);
+const kFormColor = Color.fromARGB(218, 234, 237, 244);

@@ -213,20 +213,24 @@ class AuthIcons extends StatelessWidget {
 // Expanded Flat Button
 class ExpandedButton extends StatelessWidget {
   final Function()? onpress;
-  final String title;
+  final Widget text;
 
-  const ExpandedButton({super.key, required this.onpress, required this.title});
+  const ExpandedButton({
+    super.key,
+    required this.text,
+    required this.onpress,
+  });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: double.infinity,
-      child: FilledButton(
+        width: double.infinity,
+        child: FilledButton(
           onPressed: onpress,
           style: FilledButton.styleFrom(
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8.0))),
-          child: Text(title)),
-    );
+          child: text,
+        ));
   }
 }
