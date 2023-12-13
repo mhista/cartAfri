@@ -9,56 +9,80 @@ final product_list = [
     'title': "women's handbag",
     'price': 54.70,
     'company': 'gucci',
-    'size': [8, 9, 10, 12, 13, 14, 15, 16, 17]
+    'size': [8, 9, 10, 12, 13, 14, 15, 16, 17],
+    'image': [
+      'images/bag (1).jpg',
+    ]
   },
   {
     'id': 2,
     'title': "women's wallet",
     'price': 44.20,
     'company': 'ballet',
-    'size': [8, 10, 16, 17]
+    'size': [8, 10, 16, 17],
+    'image': [
+      'images/bag (2).jpg',
+    ]
   },
   {
     'id': 3,
     'title': "the louvre",
     'price': 22.40,
     'company': 'fendi',
-    'size': [7, 8, 9, 14, 16, 12, 27]
+    'size': [7, 8, 9, 14, 16, 12, 27],
+    'image': [
+      'images/bag (3).jpg',
+    ]
   },
   {
     'id': 4,
     'title': "women's handbag",
     'price': 54.43,
     'company': 'gucci',
-    'size': [8, 9, 10, 11]
+    'size': [8, 9, 10, 11],
+    'image': [
+      'images/bag (4).jpg',
+    ]
   },
   {
     'id': 5,
     'title': "katafe handbag",
     'price': 74.49,
     'company': 'ballet',
-    'size': [8, 9, 10]
+    'size': [8, 9, 10],
+    'image': [
+      'images/bag (5).jpg',
+    ]
   },
   {
     'id': 6,
     'title': "sceneric purse",
     'price': 54.4,
     'company': 'fendi',
-    'size': [8, 9, 11, 12]
+    'size': [8, 9, 11, 12],
+    'image': [
+      'images/bags (6).jpg',
+    ]
   },
   {
     'id': 7,
     'title': "memoir cloth",
     'price': 84.4,
     'company': 'ballet',
-    'size': [8, 9, 10, 12, 16, 17]
+    'size': [8, 9, 10, 12, 16, 17],
+    'image': [
+      'images/cos (3).jpg',
+    ]
   },
   {
     'id': 8,
     'title': "handbag",
     'price': 54.4,
     'company': 'louis vitton',
-    'size': [8, 9, 10]
+    'size': [8, 9, 10],
+    'image': [
+      'images/cos (2).jpg',
+    ]
   }
 ];
 

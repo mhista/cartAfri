@@ -1,3 +1,4 @@
+import 'package:cartafri/core/commons/animations.dart';
 import 'package:cartafri/core/constants/constants.dart';
 import 'package:cartafri/core/commons/reusables.dart';
 import 'package:cartafri/features/functionality/Image_selector.dart';
@@ -7,10 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ProductDetail extends StatelessWidget {
-  ProductDetail({super.key, required this.product});
+  ProductDetail({super.key, required this.product, required this.tag});
   final Map<String, dynamic> product;
-
-  final item = ImagePicker();
+  final String tag;
 
   @override
   Widget build(BuildContext context) {
@@ -18,17 +18,20 @@ class ProductDetail extends StatelessWidget {
         appBar: AppBar(
           leading: PrimaryIconButton(
             iconData: Icons.arrow_back,
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pop(context);
+            },
           ),
           title: Text(product['title'].toString(),
               style: const TextStyle(
                 fontSize: 15,
                 fontWeight: FontWeight.w500,
               )),
-          actions: [
-            PrimaryIconButton(
-              iconData: Icons.favorite_border,
-              onPressed: () {},
+          actions: const [
+            IconAnimation(
+              iconData: Icons.favorite_border_outlined,
+              startColor: kButtonColor,
+              endColor: Colors.red,
             )
           ],
         ),
@@ -39,8 +42,11 @@ class ProductDetail extends StatelessWidget {
               SizedBox(
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(8.0),
-                  child: Image.asset(item?.getFirstImage(),
-                      height: 200.0, width: 200, fit: BoxFit.fill),
+                  child: Hero(
+                    tag: tag,
+                    child: Image.asset((product['image'] as List<String>)[0],
+                        height: 200.0, width: 200, fit: BoxFit.fill),
+                  ),
                 ),
               ),
               Padding(
@@ -215,7 +221,7 @@ class _ChipBuilderState extends ConsumerState<ChipBuilder> {
                 });
                 Navigator.of(context)
                     .push(MaterialPageRoute(builder: (context) {
-                  return CartPage();
+                  return const CartPage();
                 }));
               });
             },
