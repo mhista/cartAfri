@@ -38,8 +38,8 @@ class IconAnimation extends StatefulWidget {
 
 class _IconAnimationState extends State<IconAnimation>
     with SingleTickerProviderStateMixin {
-  AnimationController _controller;
-  Animation _colorAnimation;
+  late AnimationController _controller;
+  late Animation _colorAnimation;
   bool isfav = false;
 
   @override
@@ -49,7 +49,7 @@ class _IconAnimationState extends State<IconAnimation>
       vsync: this,
       duration: const Duration(milliseconds: 500),
     );
-    _colorAnimation = ColorTween(begin: widget.startColor, end: widget.endColor)
+    _colorAnimation = ColorTween(begin: widget.endColor, end: widget.startColor)
         .animate(_controller);
     _controller.forward();
     _controller.addStatusListener((status) {
