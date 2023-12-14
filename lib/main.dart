@@ -22,7 +22,7 @@ class CartAfri extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: HomePage(),
-      theme: Theme,
+      theme: theme,
       // ThemeData.dark(
       //   useMaterial3: true,
       // ),

@@ -37,6 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   provider: ^6.1.1
   flutter_riverpod: ^2.4.8
+  animations: ^2.0.8
 
 
 dev_dependencies:

@@ -133,10 +133,10 @@ class AppHomePage extends StatelessWidget {
             final tag = (item['image'] as List<String>)[0];
             return GestureDetector(
               onTap: () {
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (context) {
-                  return ProductDetail(product: item, tag: tag);
-                }));
+                Navigator.push(context,
+                    PageTransition(ProductDetail(product: item, tag: tag))
+                    // return;
+                    );
               },
               child: Card(
                 child: Padding(
