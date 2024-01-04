@@ -3,12 +3,14 @@ import 'package:cartafri/models/product_model.dart';
 import 'package:cartafri/screens/AppScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 
 
 final cartProvider =
     StateNotifierProvider<CartProvider, Cart>((ref) => CartProvider());
 
 void main() {
   var theming = Themeing();
+  
   runApp(ProviderScope(
       child: CartAfri(
     theme: theming.lightTheme(),

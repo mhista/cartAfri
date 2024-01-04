@@ -31,9 +31,11 @@ class IconAnimation extends StatefulWidget {
       {super.key,
       required this.iconData,
       required this.startColor,
-      required this.endColor});
+      required this.endColor,
+      this.selectedIconData});
   final IconData iconData;
   final Color startColor;
+  final IconData? selectedIconData;
   final Color endColor;
   @override
   State<IconAnimation> createState() => _IconAnimationState();
@@ -83,6 +85,7 @@ class _IconAnimationState extends State<IconAnimation>
         return IconButton(
           iconSize: _sizeAnimation.value,
           icon: Icon(widget.iconData),
+          selectedIcon: Icon(widget.selectedIconData),
           color: _colorAnimation.value,
           onPressed: () {
             isfav ? _controller.reverse() : _controller.forward();
@@ -145,8 +148,8 @@ class PageTransition extends PageRouteBuilder {
   PageTransition(this.page)
       : super(
             pageBuilder: (context, animation, anotherAnimation) => page,
-            transitionDuration: const Duration(milliseconds: 1000),
-            reverseTransitionDuration: const Duration(milliseconds: 200),
+            transitionDuration: const Duration(milliseconds: 1200),
+            reverseTransitionDuration: const Duration(milliseconds: 300),
             transitionsBuilder: (context, animation, anotherAnimation, child) {
               animation = CurvedAnimation(
                   curve: Curves.fastLinearToSlowEaseIn,

@@ -32,6 +32,7 @@ class ProductDetail extends StatelessWidget {
               iconData: Icons.favorite_border_outlined,
               startColor: kButtonColor,
               endColor: Colors.red,
+              selectedIconData: Icons.favorite,
             )
           ],
         ),
@@ -219,10 +220,10 @@ class _ChipBuilderState extends ConsumerState<ChipBuilder> {
                   'imageUrl': widget.product['imageUrl'],
                   'ItemCount': 1,
                 });
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (context) {
-                  return const CartPage();
-                }));
+
+                Navigator.push(context, PageTransition(const CartPage())
+                    // return;
+                    );
               });
             },
             child: Chip(

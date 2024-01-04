@@ -17,7 +17,7 @@ class _CartPageState extends ConsumerState<CartPage> {
   final carts = ImagePicker();
 
   @override
-  Widget build(BuildContext context) {
+  build(BuildContext context) {
     final cart = ref.watch(cartProvider.notifier).cart;
     return Scaffold(
         appBar: AppBar(
