@@ -1,6 +1,8 @@
-import "package:cartafri/core/commons/reusables.dart";
-import "package:cartafri/core/commons/shared_textfield.dart";
+import 'package:cartafri/core/utils/reusables.dart';
+import 'package:cartafri/core/utils/shared_textfield.dart';
 import "package:cartafri/core/constants/constants.dart";
+import 'package:cartafri/services/auth_methods.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import "package:flutter/material.dart";
 
 class SignUpPage extends StatefulWidget {
@@ -15,6 +17,13 @@ class _SignUpPageState extends State<SignUpPage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   // final TextEditingController passwordController2 = TextEditingController();
+  void signUpUser() async {
+    print(emailController.text);
+    FireBaseAuthMethods(FirebaseAuth.instance).signUpWithEmail(
+        email: emailController.text,
+        password: passwordController.text,
+        context: context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,12 +38,12 @@ class _SignUpPageState extends State<SignUpPage> {
               kSizedBox,
               const Text('CREATE ACCOUNT', style: kTextStyleSpacing),
               kSizedBox,
-              InputTextWidget(
-                hintText: 'Name',
-                iconData: Icons.person,
-                controller: nameController,
-              ),
-              kSizedBox,
+              // InputTextWidget(
+              //   hintText: 'Name',
+              //   iconData: Icons.person,
+              //   controller: nameController,
+              // ),
+              // kSizedBox,
               InputTextWidget(
                 hintText: 'Email Address',
                 iconData: Icons.mail_outline,
@@ -50,7 +59,7 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
               kSizedBox,
               ExpandedButton(
-                onpress: () {},
+                onpress: signUpUser,
                 text: const Padding(
                   padding: EdgeInsets.symmetric(vertical: 15.0),
                   child: Text(

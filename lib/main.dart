@@ -13,9 +13,7 @@ final cartProvider =
 void main() async {
   // var theming = Themeing();
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options:DefaultFirebaseOptions.currentPlatform
-  )
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const CartAfri());
 }
 

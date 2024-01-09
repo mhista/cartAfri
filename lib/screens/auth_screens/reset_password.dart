@@ -1,5 +1,5 @@
-import "package:cartafri/core/commons/reusables.dart";
-import "package:cartafri/core/commons/shared_textfield.dart";
+import 'package:cartafri/core/utils/reusables.dart';
+import 'package:cartafri/core/utils/shared_textfield.dart';
 import "package:cartafri/core/constants/constants.dart";
 import "package:flutter/material.dart";
 
