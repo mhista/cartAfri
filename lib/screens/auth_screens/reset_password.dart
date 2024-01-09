@@ -3,8 +3,15 @@ import "package:cartafri/core/commons/shared_textfield.dart";
 import "package:cartafri/core/constants/constants.dart";
 import "package:flutter/material.dart";
 
-class ResetPasswordPage extends StatelessWidget {
+class ResetPasswordPage extends StatefulWidget {
   const ResetPasswordPage({super.key});
+
+  @override
+  State<ResetPasswordPage> createState() => _ResetPasswordPageState();
+}
+
+class _ResetPasswordPageState extends State<ResetPasswordPage> {
+  final TextEditingController emailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -22,10 +29,11 @@ class ResetPasswordPage extends StatelessWidget {
                 style: kTextStyleSpacing,
               ),
               kSizedBox,
-              const InputTextWidget(
+              InputTextWidget(
                 hintText: 'Email Address',
                 iconData: Icons.mail_outline,
                 textInputType: TextInputType.emailAddress,
+                controller: emailController,
               ),
               kSizedBox,
               ExpandedButton(
@@ -52,5 +60,11 @@ class ResetPasswordPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    emailController.dispose();
   }
 }

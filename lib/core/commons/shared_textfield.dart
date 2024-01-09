@@ -5,15 +5,18 @@ class InputTextWidget extends StatelessWidget {
   final String hintText;
   final IconData iconData;
   final TextInputType? textInputType;
+  final TextEditingController controller;
   const InputTextWidget(
       {super.key,
       this.textInputType,
       required this.hintText,
-      required this.iconData});
+      required this.iconData,
+      required this.controller});
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      controller: controller,
       style: const TextStyle(
         color: Colors.black,
       ),

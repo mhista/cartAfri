@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "611840348446",
+    "project_id": "cartafri-ad8e1",
+    "storage_bucket": "cartafri-ad8e1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:611840348446:android:c523e83fbb3b39038df90f",
+        "android_client_info": {
+          "package_name": "com.example.cartafri"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9rN5NE17Al8e1_0LMUd8i7GB5BhENpUs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

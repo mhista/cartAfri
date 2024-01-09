@@ -3,8 +3,18 @@ import "package:cartafri/core/commons/shared_textfield.dart";
 import "package:cartafri/core/constants/constants.dart";
 import "package:flutter/material.dart";
 
-class SignUpPage extends StatelessWidget {
+class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
+
+  @override
+  State<SignUpPage> createState() => _SignUpPageState();
+}
+
+class _SignUpPageState extends State<SignUpPage> {
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  // final TextEditingController passwordController2 = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -19,21 +29,24 @@ class SignUpPage extends StatelessWidget {
               kSizedBox,
               const Text('CREATE ACCOUNT', style: kTextStyleSpacing),
               kSizedBox,
-              const InputTextWidget(
+              InputTextWidget(
                 hintText: 'Name',
                 iconData: Icons.person,
+                controller: nameController,
               ),
               kSizedBox,
-              const InputTextWidget(
+              InputTextWidget(
                 hintText: 'Email Address',
                 iconData: Icons.mail_outline,
                 textInputType: TextInputType.emailAddress,
+                controller: emailController,
               ),
               kSizedBox,
-              const InputTextWidget(
+              InputTextWidget(
                 hintText: 'Password',
                 iconData: Icons.lock_outline,
                 textInputType: TextInputType.visiblePassword,
+                controller: passwordController,
               ),
               kSizedBox,
               ExpandedButton(
@@ -61,5 +74,13 @@ class SignUpPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    nameController.dispose();
   }
 }

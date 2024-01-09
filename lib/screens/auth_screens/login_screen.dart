@@ -3,8 +3,16 @@ import "package:cartafri/core/commons/shared_textfield.dart";
 import "package:cartafri/core/constants/constants.dart";
 import "package:flutter/material.dart";
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -19,16 +27,18 @@ class LoginPage extends StatelessWidget {
               kSizedBox,
               const Text('WELCOME BACK', style: kTextStyleSpacing),
               kSizedBox,
-              const InputTextWidget(
+              InputTextWidget(
                 hintText: 'Email Address',
                 iconData: Icons.mail_outline,
                 textInputType: TextInputType.emailAddress,
+                controller: emailController,
               ),
               kSizedBox,
-              const InputTextWidget(
+              InputTextWidget(
                 hintText: 'Password',
                 iconData: Icons.lock_outline,
                 textInputType: TextInputType.visiblePassword,
+                controller: passwordController,
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 4.0),
@@ -66,5 +76,13 @@ class LoginPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    emailController.dispose();
+    passwordController.dispose();
   }
 }
