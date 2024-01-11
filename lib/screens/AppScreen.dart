@@ -15,11 +15,11 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  var allItems = List.generate(50, (index) => 'item $index');
-  var item = [];
-  var searchHistory = [];
+  // var allItems = List.generate(50, (index) => 'item $index');
+  // var item = [];
+  // var searchHistory = [];
   int currentPageIndex = 0;
-  final TextEditingController searchController = TextEditingController();
+  // final TextEditingController searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
