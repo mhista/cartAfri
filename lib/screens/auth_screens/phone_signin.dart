@@ -44,7 +44,10 @@ class _PhoneSignInState extends State<PhoneSignIn> {
               ),
               kSizedBox,
               ExpandedButton(
-                onpress: phoneSignIn,
+                onpress: () {
+                  FireBaseAuthMethods(FirebaseAuth.instance)
+                      .signInWithGoogle(context);
+                },
                 text: const Padding(
                   padding: EdgeInsets.symmetric(vertical: 15.0),
                   child: Text(
@@ -60,7 +63,10 @@ class _PhoneSignInState extends State<PhoneSignIn> {
                   style: TextButton.styleFrom(
                     splashFactory: NoSplash.splashFactory,
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    FireBaseAuthMethods(FirebaseAuth.instance)
+                        .signInWithGoogle(context);
+                  },
                   child: const Text('I have no account', style: kSmallFont)),
             ],
           ),

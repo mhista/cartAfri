@@ -1,10 +1,14 @@
 // ignore_for_file: use_build_context_synchronously
 
 // import 'dart:html';
+// import 'dart:html';
+
 import 'package:cartafri/core/utils/showOTPdialog.dart';
 import 'package:cartafri/core/utils/snackbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class FireBaseAuthMethods {
   final FirebaseAuth _auth;
@@ -53,34 +57,83 @@ class FireBaseAuthMethods {
   // PHONE SIGN IN
   Future<void> phoneSignIn(BuildContext context, String phoneNumber) async {
     TextEditingController codeController = TextEditingController();
-    await _auth.verifyPhoneNumber(
-      phoneNumber: phoneNumber,
-      verificationCompleted: (phoneAuthCredential) async {
-        await _auth.signInWithCredential(phoneAuthCredential);
-        showSnackbar(context, 'verification completed');
-      },
-      verificationFailed: (e) {
-        showSnackbar(context, e.message!);
-      },
-      codeSent: (verificationId, forceResendingToken) {
-        showOTPDialog(
-          context: context,
-          codeController: codeController,
-          onPressed: () async {
-            PhoneAuthCredential phoneAuthCredential =
-                PhoneAuthProvider.credential(
-              verificationId: verificationId,
-              smsCode: codeController.text.trim(),
-            );
-            await _auth.signInWithCredential(phoneAuthCredential);
-            Navigator.of(context).pop();
-          },
-        );
-      },
-      codeAutoRetrievalTimeout: (verificationId) {
-        // Auto resolution timeout
-      },
-    );
+    if (kIsWeb) {
+      ConfirmationResult result =
+          await _auth.signInWithPhoneNumber(phoneNumber);
+      showOTPDialog(
+        context: context,
+        codeController: codeController,
+        onPressed: () async {
+          PhoneAuthCredential phoneAuthCredential =
+              PhoneAuthProvider.credential(
+            verificationId: result.verificationId,
+            smsCode: codeController.text.trim(),
+          );
+          await _auth.signInWithCredential(phoneAuthCredential);
+          Navigator.of(context).pop();
+        },
+      );
+    } else {
+      await _auth.verifyPhoneNumber(
+        phoneNumber: phoneNumber,
+        verificationCompleted: (phoneAuthCredential) async {
+          await _auth.signInWithCredential(phoneAuthCredential);
+          showSnackbar(context, 'verification completed');
+        },
+        verificationFailed: (e) {
+          showSnackbar(context, e.message!);
+        },
+        codeSent: (verificationId, forceResendingToken) {
+          showOTPDialog(
+            context: context,
+            codeController: codeController,
+            onPressed: () async {
+              PhoneAuthCredential phoneAuthCredential =
+                  PhoneAuthProvider.credential(
+                verificationId: verificationId,
+                smsCode: codeController.text.trim(),
+              );
+              await _auth.signInWithCredential(phoneAuthCredential);
+              Navigator.of(context).pop();
+            },
+          );
+        },
+        codeAutoRetrievalTimeout: (verificationId) {
+          // Auto resolution timeout
+        },
+      );
+    }
+  }
+
+  // GOOGLE SIGNIN
+  Future<void> signInWithGoogle(BuildContext context) async {
+    try {
+      // GoogleAuthProvider _googleAuthProvider = GoogleAuthProvider();
+      // await _auth.signInWithProvider(_googleAuthProvider);
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+      final GoogleSignInAuthentication? googleAuth =
+          await googleUser?.authentication;
+      // print(googleAuth?.accessToken);
+      print(googleAuth?.idToken);
+      if (googleAuth?.accessToken != null && googleAuth?.idToken != null) {
+        print(googleUser);
+        final credential = GoogleAuthProvider.credential(
+            idToken: googleAuth?.idToken, accessToken: googleAuth?.accessToken);
+
+        showSnackbar(context, credential.toString());
+        UserCredential userCredential =
+            await _auth.signInWithCredential(credential);
+        showSnackbar(context, 'signed in');
+
+        if (userCredential.user != null) {
+          // checks if the user is already signed up
+          if (userCredential.additionalUserInfo!.isNewUser) {}
+        }
+      }
+    } on FirebaseAuthException catch (e) {
+      showSnackbar(context, e.message!);
+    }
   }
 }
 // keytool -list -v -keystore ~/.android/debug.keystore -alias androiddebugkey -storepass android -keypass android 
