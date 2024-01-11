@@ -69,6 +69,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '611840348446',
     projectId: 'cartafri-ad8e1',
     storageBucket: 'cartafri-ad8e1.appspot.com',
+    androidClientId: '611840348446-i0mer62i93tni42p555fd4f2jrcavru3.apps.googleusercontent.com',
+    iosClientId: '611840348446-vm6kvqbj60ot8e7he24odilujcdl7mmo.apps.googleusercontent.com',
     iosBundleId: 'com.example.cartafri',
   );
 }

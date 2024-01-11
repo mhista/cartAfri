@@ -12,7 +12,20 @@
           "package_name": "com.example.cartafri"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "611840348446-i0mer62i93tni42p555fd4f2jrcavru3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.cartafri",
+            "certificate_hash": "593e9bc6756b83bac2edb18a414ef2e83ec420eb"
+          }
+        },
+        {
+          "client_id": "611840348446-llgkt9os85o91a2ub94sagdfbu5bgk1a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyD9rN5NE17Al8e1_0LMUd8i7GB5BhENpUs"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "611840348446-llgkt9os85o91a2ub94sagdfbu5bgk1a.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "611840348446-vm6kvqbj60ot8e7he24odilujcdl7mmo.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.cartafri"
+              }
+            }
+          ]
         }
       }
     }

@@ -46,7 +46,7 @@ class _PhoneSignInState extends State<PhoneSignIn> {
               ExpandedButton(
                 onpress: () {
                   FireBaseAuthMethods(FirebaseAuth.instance)
-                      .signInUserAnonimously(context);
+                      .signInWithGoogle(context);
                 },
                 text: const Padding(
                   padding: EdgeInsets.symmetric(vertical: 15.0),

@@ -1,6 +1,9 @@
-import "package:cartafri/core/commons/reusables.dart";
-import "package:cartafri/core/commons/shared_textfield.dart";
+import 'package:cartafri/core/utils/reusables.dart';
+import 'package:cartafri/core/utils/shared_textfield.dart';
 import "package:cartafri/core/constants/constants.dart";
+import 'package:cartafri/services/auth_methods.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import "package:flutter/material.dart";
 
 class LoginPage extends StatefulWidget {
@@ -13,6 +16,12 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  void loginUser() {
+    FireBaseAuthMethods(FirebaseAuth.instance).loginWithEmail(
+        email: emailController.text,
+        password: passwordController.text,
+        context: context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +62,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               kSizedBox,
               ExpandedButton(
-                onpress: () {},
+                onpress: loginUser,
                 text: const Padding(
                   padding: EdgeInsets.symmetric(vertical: 15.0),
                   child: Text(

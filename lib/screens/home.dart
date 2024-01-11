@@ -1,6 +1,6 @@
-import 'package:cartafri/core/commons/animations.dart';
+import 'package:cartafri/core/utils/animations.dart';
 import 'package:cartafri/core/constants/constants.dart';
-import 'package:cartafri/core/commons/reusables.dart';
+import 'package:cartafri/core/utils/reusables.dart';
 import 'package:cartafri/models/product_model.dart';
 import 'package:cartafri/screens/product_detail.dart';
 import 'package:flutter/material.dart';

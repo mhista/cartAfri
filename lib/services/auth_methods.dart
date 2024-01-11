@@ -1,4 +1,8 @@
 // ignore_for_file: use_build_context_synchronously
+
+// import 'dart:html';
+// import 'dart:html';
+
 import 'package:cartafri/core/utils/showOTPdialog.dart';
 import 'package:cartafri/core/utils/snackbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -111,12 +115,17 @@ class FireBaseAuthMethods {
       final GoogleSignInAuthentication? googleAuth =
           await googleUser?.authentication;
       // print(googleAuth?.accessToken);
+      print(googleAuth?.idToken);
       if (googleAuth?.accessToken != null && googleAuth?.idToken != null) {
+        print(googleUser);
         final credential = GoogleAuthProvider.credential(
             idToken: googleAuth?.idToken, accessToken: googleAuth?.accessToken);
+
+        showSnackbar(context, credential.toString());
         UserCredential userCredential =
             await _auth.signInWithCredential(credential);
         showSnackbar(context, 'signed in');
+
         if (userCredential.user != null) {
           // checks if the user is already signed up
           if (userCredential.additionalUserInfo!.isNewUser) {}
@@ -125,14 +134,6 @@ class FireBaseAuthMethods {
     } on FirebaseAuthException catch (e) {
       showSnackbar(context, e.message!);
     }
-  }
-
-  // ANONYMOUS SIGN IN
-  Future<void> signInUserAnonimously(BuildContext context) async {
-    try {
-      await _auth.signInAnonymously();
-      showSnackbar(context, 'User Signed in');
-    } on FirebaseAuthException catch (e) {}
   }
 }
 // keytool -list -v -keystore ~/.android/debug.keystore -alias androiddebugkey -storepass android -keypass android 

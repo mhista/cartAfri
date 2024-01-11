@@ -1,10 +1,12 @@
 import 'package:cartafri/core/constants/constants.dart';
-import 'package:cartafri/core/commons/reusables.dart';
+import 'package:cartafri/core/utils/reusables.dart';
 import 'package:cartafri/screens/account-settings.dart';
 import 'package:cartafri/screens/auth_screens/reset_password.dart';
 import 'package:cartafri/screens/cart.dart';
 import 'package:cartafri/screens/home.dart';
 import 'package:cartafri/screens/auth_screens/login_screen.dart';
+import 'package:cartafri/screens/auth_screens/phone_signin.dart';
+
 import 'package:cartafri/screens/auth_screens/signup.dart';
 import 'package:cartafri/screens/search_page.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +36,7 @@ class _HomePageState extends State<HomePage> {
             AppHomePage(),
             ColumnWidget(children: SearchPageWidget().widgetList()),
             const CartPage(),
-            const SignUpPage()
+            const PhoneSignIn()
           ][currentPageIndex],
         ),
       ),
