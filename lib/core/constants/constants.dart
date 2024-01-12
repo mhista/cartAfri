@@ -32,3 +32,5 @@ const kForgetPaswwordStyle =
     TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: Colors.black);
 const kTextStyleSpacing =
     TextStyle(fontWeight: FontWeight.bold, letterSpacing: 1.2);
+const kWTextStyleSpacing = TextStyle(
+    fontWeight: FontWeight.w500, letterSpacing: 1.2, color: Colors.black);

@@ -5,6 +5,8 @@
 
 import 'package:cartafri/core/utils/showOTPdialog.dart';
 import 'package:cartafri/core/utils/snackbar.dart';
+import 'package:cartafri/screens/AppScreen.dart';
+import 'package:cartafri/screens/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
@@ -121,11 +123,12 @@ class FireBaseAuthMethods {
         final credential = GoogleAuthProvider.credential(
             idToken: googleAuth?.idToken, accessToken: googleAuth?.accessToken);
 
-        showSnackbar(context, credential.toString());
         UserCredential userCredential =
             await _auth.signInWithCredential(credential);
         showSnackbar(context, 'signed in');
-
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => HomePage()));
+        GoogleSignIn().signOut();
         if (userCredential.user != null) {
           // checks if the user is already signed up
           if (userCredential.additionalUserInfo!.isNewUser) {}

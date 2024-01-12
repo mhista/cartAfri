@@ -5,6 +5,7 @@ import 'package:cartafri/services/auth_methods.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import "package:flutter/material.dart";
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -80,6 +81,28 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   onPressed: () {},
                   child: const Text('I have no account', style: kSmallFont)),
+              SocialAccountButoons(
+                onpress: () {
+                  FireBaseAuthMethods(FirebaseAuth.instance)
+                      .signInWithGoogle(context);
+                },
+                text: const Text(
+                  'Continue With Google',
+                  style: kWTextStyleSpacing,
+                ),
+                socialIcon: FontAwesomeIcons.google,
+              ),
+              const SizedBox(
+                height: 12.0,
+              ),
+              SocialAccountButoons(
+                onpress: () {},
+                text: const Text(
+                  'Continue With Phone',
+                  style: kWTextStyleSpacing,
+                ),
+                socialIcon: FontAwesomeIcons.phone,
+              )
             ],
           ),
         ),

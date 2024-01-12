@@ -36,7 +36,7 @@ class _HomePageState extends State<HomePage> {
             AppHomePage(),
             ColumnWidget(children: SearchPageWidget().widgetList()),
             const CartPage(),
-            const PhoneSignIn()
+            const SignUpPage()
           ][currentPageIndex],
         ),
       ),

@@ -10,8 +10,8 @@ class AppHomePage extends StatelessWidget {
   final product = product_list;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: CustomScrollView(slivers: [
+    return SafeArea(
+      child: CustomScrollView(slivers: [
         // greeting widget
         SliverAppBar(
           expandedHeight: 0,

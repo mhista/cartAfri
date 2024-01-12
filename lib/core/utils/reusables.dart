@@ -1,5 +1,6 @@
 import 'package:cartafri/core/constants/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 // Bottom Navigation Icons
 class BottomBarIcons extends StatelessWidget {
@@ -232,5 +233,45 @@ class ExpandedButton extends StatelessWidget {
                   borderRadius: BorderRadius.circular(8.0))),
           child: text,
         ));
+  }
+}
+
+class SocialAccountButoons extends StatelessWidget {
+  const SocialAccountButoons({
+    super.key,
+    required this.onpress,
+    required this.text,
+    required this.socialIcon,
+  });
+
+  final Function()? onpress;
+  final Widget text;
+  final IconData socialIcon;
+
+  @override
+  Widget build(BuildContext context) {
+    return FilledButton(
+      onPressed: onpress,
+      style: FilledButton.styleFrom(
+          backgroundColor: kFormColor,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0))),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 15.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              socialIcon,
+              color: Color.fromARGB(255, 36, 35, 35),
+            ),
+            const SizedBox(
+              width: 10.0,
+            ),
+            text
+          ],
+        ),
+      ),
+    );
   }
 }
