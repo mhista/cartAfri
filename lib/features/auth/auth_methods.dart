@@ -119,11 +119,10 @@ class FireBaseAuthMethods {
       // print(googleAuth?.accessToken);
       print(googleAuth?.idToken);
       if (googleAuth?.accessToken != null && googleAuth?.idToken != null) {
-        print(googleUser);
         final credential = GoogleAuthProvider.credential(
             idToken: googleAuth?.idToken, accessToken: googleAuth?.accessToken);
 
-        UserCredential userCredential =
+        final UserCredential userCredential =
             await _auth.signInWithCredential(credential);
         showSnackbar(context, 'signed in');
         Navigator.push(

@@ -1,7 +1,7 @@
 import 'package:cartafri/core/utils/reusables.dart';
 import 'package:cartafri/core/utils/shared_textfield.dart';
 import "package:cartafri/core/constants/constants.dart";
-import 'package:cartafri/services/auth_methods.dart';
+import 'package:cartafri/features/auth/auth_methods.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import "package:flutter/material.dart";
 

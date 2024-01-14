@@ -14,7 +14,7 @@ void main() async {
   // var theming = Themeing();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  runApp(CartAfri(theme: theming));
+  runApp(ProviderScope(child: CartAfri(theme: theming)));
 }
 
 class CartAfri extends StatelessWidget {

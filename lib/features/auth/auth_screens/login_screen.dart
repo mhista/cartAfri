@@ -1,7 +1,7 @@
 import 'package:cartafri/core/utils/reusables.dart';
 import 'package:cartafri/core/utils/shared_textfield.dart';
 import "package:cartafri/core/constants/constants.dart";
-import 'package:cartafri/services/auth_methods.dart';
+import 'package:cartafri/features/auth/auth_methods.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import "package:flutter/material.dart";
@@ -82,10 +82,6 @@ class _LoginPageState extends State<LoginPage> {
                   onPressed: () {},
                   child: const Text('I have no account', style: kSmallFont)),
               SocialAccountButoons(
-                onpress: () {
-                  FireBaseAuthMethods(FirebaseAuth.instance)
-                      .signInWithGoogle(context);
-                },
                 text: const Text(
                   'Continue With Google',
                   style: kWTextStyleSpacing,
@@ -96,7 +92,6 @@ class _LoginPageState extends State<LoginPage> {
                 height: 12.0,
               ),
               SocialAccountButoons(
-                onpress: () {},
                 text: const Text(
                   'Continue With Phone',
                   style: kWTextStyleSpacing,

@@ -1,5 +1,7 @@
 import 'package:cartafri/core/constants/constants.dart';
+import 'package:cartafri/features/auth/controller/authController.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 // Bottom Navigation Icons
@@ -236,22 +238,23 @@ class ExpandedButton extends StatelessWidget {
   }
 }
 
-class SocialAccountButoons extends StatelessWidget {
+// GOOGLE SIGIN BUTTON AND FUNCTIONALITY
+class SocialAccountButoons extends ConsumerWidget {
   const SocialAccountButoons({
     super.key,
-    required this.onpress,
     required this.text,
     required this.socialIcon,
   });
-
-  final Function()? onpress;
   final Widget text;
   final IconData socialIcon;
+  void signInWithGoogle(WidgetRef ref) {
+    ref.read(authControllerProvider).signInWithGoogle();
+  }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return FilledButton(
-      onPressed: onpress,
+      onPressed: () => signInWithGoogle(ref),
       style: FilledButton.styleFrom(
           backgroundColor: kFormColor,
           shape:
