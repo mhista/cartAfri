@@ -247,14 +247,14 @@ class SocialAccountButoons extends ConsumerWidget {
   });
   final Widget text;
   final IconData socialIcon;
-  void signInWithGoogle(WidgetRef ref) {
-    ref.read(authControllerProvider).signInWithGoogle();
+  void signInWithGoogle(WidgetRef ref, context) {
+    ref.read(authControllerProvider.notifier).signInWithGoogle(context);
   }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return FilledButton(
-      onPressed: () => signInWithGoogle(ref),
+      onPressed: () => signInWithGoogle(ref, context),
       style: FilledButton.styleFrom(
           backgroundColor: kFormColor,
           shape:

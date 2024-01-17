@@ -222,52 +222,54 @@ class CartProvider extends StateNotifier<Cart> {
 
   get cart => _cart;
   void addToCart(Map<String, dynamic> p) {
-    state = state.copyWith(
-      id: p['id'],
-      title: p['title'],
-      price: p['price'],
-      company: p['company'],
-      size: p['size'],
-      itemCount: p['itemCount'],
-      imageUrl: p['imageUrl'],
-    );
-    if (_cart.isEmpty) {
-      print('cart is empty');
-      _cart.add(state);
-      print('added product ${_cart}');
-    } else if (_cart.isNotEmpty) {
-      print(_cart.length);
-      if (_cart.length == 1 && _cart[0].id == (p["id"] as int)) {
-        print('same object ${_cart[0]}');
-        _cart[0].itemCount = _cart[0].itemCount += 1;
-        print(_cart);
-      } else if (_cart.length == 1 && _cart[0].id != (p["id"] as int)) {
-        print('cart is not empty');
-        _cart.add(state);
-        print('added product ${_cart}');
-      } else {
-        int hi = _cart.length;
-        int low = 0;
-        while (low <= hi) {
-          var mid = (hi + low) % 2;
-          print(mid);
-          var midNumber = _cart[mid];
-          print(midNumber);
-          if ((p['id'] as int) == midNumber.id) {
-            print('yes middle');
-            midNumber.itemCount += 1;
-          } else if (midNumber.id < (p['id'] as int)) {
-            print('found at low');
-            low = mid;
-          } else if (midNumber.id > (p['id'] as int)) {
-            print('found at hi');
-            low = mid;
-          } else {
-            _cart.add(state);
-            print('created new');
-          }
-        }
-      }
-    }
+    //
   }
 }
+
+// state = state.copyWith(
+//       id: p['id'],
+//       title: p['title'],
+//       price: p['price'],
+//       company: p['company'],
+//       size: p['size'],
+//       itemCount: p['itemCount'],
+//       imageUrl: p['imageUrl'],
+//     );
+//     if (_cart.isEmpty) {
+//       print('cart is empty');
+//       _cart.add(state);
+//       print('added product ${_cart}');
+//     } else if (_cart.isNotEmpty) {
+//       print(_cart.length);
+//       if (_cart.length == 1 && _cart[0].id == (p["id"] as int)) {
+//         print('same object ${_cart[0]}');
+//         _cart[0].itemCount = _cart[0].itemCount += 1;
+//         print(_cart);
+//       } else if (_cart.length == 1 && _cart[0].id != (p["id"] as int)) {
+//         print('cart is not empty');
+//         _cart.add(state);
+//         print('added product ${_cart}');
+//       } else {
+//         int hi = _cart.length;
+//         int low = 0;
+//         while (low <= hi) {
+//           var mid = (hi + low) % 2;
+//           print(mid);
+//           var midNumber = _cart[mid];
+//           print(midNumber);
+//           if ((p['id'] as int) == midNumber.id) {
+//             print('yes middle');
+//             midNumber.itemCount += 1;
+//           } else if (midNumber.id < (p['id'] as int)) {
+//             print('found at low');
+//             low = mid;
+//           } else if (midNumber.id > (p['id'] as int)) {
+//             print('found at hi');
+//             low = mid;
+//           } else {
+//             _cart.add(state);
+//             print('created new');
+//           }
+//         }
+//       }
+//     }

@@ -1,13 +1,16 @@
 // import 'dart:html';
 
 import 'package:cartafri/core/constants/firestore_constants.dart';
+import 'package:cartafri/core/failure.dart';
 import 'package:cartafri/core/functionality/firebase_provider.dart';
+import 'package:cartafri/core/type_defs.dart';
 import 'package:cartafri/core/utils/showOTPdialog.dart';
 import 'package:cartafri/core/utils/snackbar.dart';
 import 'package:cartafri/models/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter/material.dart';
 
@@ -30,8 +33,9 @@ class AuthRepository {
   // GET THE USERS COLLETION
   CollectionReference get _users =>
       _firestore.collection(FireStoreConstants.userCollections);
+  Stream<User?> get authStateChange => _auth.authStateChanges();
 // SIGNIN IN WTH GOOGLE
-  void signInWithGoogle() async {
+  FutureEither<UserModel> signInWithGoogle() async {
     try {
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
       final googleAuth = await googleUser?.authentication;
@@ -41,6 +45,7 @@ class AuthRepository {
           await _auth.signInWithCredential(credential);
       final user = userCredential.user!;
       UserModel userModel;
+
       if (userCredential.additionalUserInfo!.isNewUser) {
         userModel = UserModel(
             name: user.displayName ?? '',
@@ -49,13 +54,24 @@ class AuthRepository {
             isAuthenticated: true,
             phoneNumber: user.phoneNumber ?? '');
         await _users.doc(user.uid).set(userModel.toMap());
-        _googleSignIn.signOut();
+      } else {
+        userModel = await getUserData(user.uid).first;
       }
+      _googleSignIn.signOut();
+      return right(userModel);
 
       // showSnackbar(BuildContext context, text).
-    } catch (e) {}
+    } on FirebaseAuthException catch (e) {
+      throw e.message!;
+    } catch (e) {
+      return left(Failure(e.toString()));
+    }
   }
 
+  Stream<UserModel> getUserData(String uid) {
+    return _users.doc(uid).snapshots().map(
+        (event) => UserModel.fromMap(event.data() as Map<String, dynamic>));
+  }
   // void signInWithPhone(String phoneNumber) async {
   //   await _auth.verifyPhoneNumber(
   //       phoneNumber: phoneNumber,
