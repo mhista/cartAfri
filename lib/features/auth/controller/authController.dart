@@ -7,10 +7,12 @@ import 'package:cartafri/core/utils/snackBar.dart';
 
 // PROVIDER FOR STORING USER INFO
 final userProvider = StateProvider<UserModel?>((ref) => null);
+
 // A POVIDER THAT NOTIFIES THE AUTH CONTROLLER OF ANY CHANGE IN THE AUTH REPOSITORY
 final authControllerProvider = StateNotifierProvider<AuthController, bool>(
     (ref) => AuthController(
         authRepository: ref.watch(authRepositoryProvider), ref: ref));
+
 // A STREAM PROVIDER THAT STORES THE CURRENT AUTHENTICATION STATE
 final authStateChangeProvider = StreamProvider.autoDispose((ref) {
   final authController = ref.watch(authControllerProvider.notifier);
@@ -32,6 +34,7 @@ class AuthController extends StateNotifier<bool> {
 
 //  USED TO KNOW IF THE USER IS AUTHENTICATED OR NOT, THROUGH A FIREBASE CALL. THIS IS TO KNOW WHICH SCREEN TO DISPLAY TO THE USER
   Stream<User?> get authStateChange => _authRepository.authStateChange;
+
   // FETCHES THE USER DATA FROM FIEBASE AND STORES IT IN A PROVIDER
   Stream<UserModel> getUserData(String uid) => _authRepository.getUserData(uid);
 

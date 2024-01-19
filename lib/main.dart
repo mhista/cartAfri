@@ -3,7 +3,7 @@ import 'package:cartafri/core/utils/error_test.dart';
 import 'package:cartafri/core/utils/isLoading.dart';
 import 'package:cartafri/features/auth/controller/authController.dart';
 import 'package:cartafri/firebase_options.dart';
-import 'package:cartafri/models/product_model.dart';
+import 'package:cartafri/features/products/product_model.dart';
 import 'package:cartafri/models/user_model.dart';
 import 'package:cartafri/router.dart';
 import 'package:cartafri/screens/AppScreen.dart';
@@ -14,8 +14,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:routemaster/routemaster.dart';
 // import
 
-final cartProvider =
-    StateNotifierProvider<CartProvider, Cart>((ref) => CartProvider());
+// final cartProvider =
+//     StateNotifierProvider<CartProvider, Cart>((ref) => CartProvider());
 
 void main() async {
   // var theming = Themeing();

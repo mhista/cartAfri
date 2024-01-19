@@ -1,15 +1,38 @@
 import 'package:cartafri/core/utils/animations.dart';
 import 'package:cartafri/core/constants/constants.dart';
+import 'package:cartafri/core/utils/error_test.dart';
+import 'package:cartafri/core/utils/isLoading.dart';
 import 'package:cartafri/core/utils/reusables.dart';
 import 'package:cartafri/features/auth/controller/authController.dart';
-import 'package:cartafri/models/product_model.dart';
+import 'package:cartafri/features/products/product_controller.dart';
+import 'package:cartafri/features/products/product_model.dart';
 import 'package:cartafri/screens/product_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:routemaster/routemaster.dart';
+import 'package:uuid/uuid.dart';
 
 class AppHomePage extends ConsumerWidget {
   AppHomePage({super.key});
   final product = product_list;
+
+  void addToFireBase(
+      BuildContext context, WidgetRef ref, List<Map<String, dynamic>> product) {
+    // print(product);
+    final productController = ref.read(productControllerProvider.notifier);
+    const uuid = Uuid();
+    for (var el in product) {
+      productController.createProduct(context,
+          id: uuid.v4(),
+          title: el['title'],
+          price: el['price'],
+          company: el['company'],
+          size: el['size'],
+          imageUrl: el['imageUrl'],
+          itemCount: el['itemCount']);
+    }
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(userProvider)!;
@@ -31,7 +54,7 @@ class AppHomePage extends ConsumerWidget {
                         fontSize: 20, fontWeight: FontWeight.w500),
                   ),
                   trailing: IconButton(
-                    onPressed: () {},
+                    onPressed: () => addToFireBase(context, ref, product),
                     icon: const Icon(Icons.notifications_none_outlined),
                   ),
                 ),
@@ -134,18 +157,34 @@ class AppHomePage extends ConsumerWidget {
                 ]),
               ),
             ),
-            SliverList.builder(
-              itemCount: product.length,
+            const ProductListBuilder()
+          ]),
+        ),
+      ),
+    );
+  }
+}
+
+class ProductListBuilder extends ConsumerWidget {
+  const ProductListBuilder({
+    super.key,
+  });
+
+  void navigateToDetail(BuildContext context, Product product) {
+    Routemaster.of(context).push('/product/${product.id}');
+  }
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return ref.watch(productsProvider).when(
+          data: (products) {
+            return SliverList.builder(
+              itemCount: products.length,
               itemBuilder: (context, index) {
-                final item = product[index];
-                final tag = (item['image'] as List<String>)[0];
+                final product = products[index];
+                final tag = product.imageUrl[0];
                 return GestureDetector(
-                  onTap: () {
-                    Navigator.push(context,
-                        PageTransition(ProductDetail(product: item, tag: tag))
-                        // return;
-                        );
-                  },
+                  onTap: () => navigateToDetail(context, product),
                   child: Card(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
@@ -176,7 +215,7 @@ class AppHomePage extends ConsumerWidget {
                                     Container(
                                         margin: const EdgeInsets.only(
                                             left: 9.0, top: 11.0, bottom: 3.0),
-                                        child: Text(item['title'] as String,
+                                        child: Text(product.title,
                                             style: kProductStyle)),
                                     const Padding(
                                       padding: EdgeInsets.all(3.0),
@@ -191,8 +230,7 @@ class AppHomePage extends ConsumerWidget {
                                         Padding(
                                           padding:
                                               const EdgeInsets.only(left: 3.0),
-                                          child:
-                                              Text(item['company'] as String),
+                                          child: Text(product.company),
                                         ),
                                       ]),
                                     )
@@ -214,7 +252,7 @@ class AppHomePage extends ConsumerWidget {
                                       )),
                                   Padding(
                                     padding: const EdgeInsets.only(top: 8.0),
-                                    child: Text('\$${item['price'] as double}',
+                                    child: Text('\$${product.price}',
                                         style: kProductStyle),
                                   ),
                                 ]),
@@ -225,10 +263,16 @@ class AppHomePage extends ConsumerWidget {
                   ),
                 );
               },
-            )
-          ]),
-        ),
-      ),
-    );
+            );
+          },
+          error: (error, stackTrace) {
+            return SliverToBoxAdapter(
+              child: ErrorText(
+                error: error.toString(),
+              ),
+            );
+          },
+          loading: () => const SliverToBoxAdapter(child: Loader()),
+        );
   }
 }

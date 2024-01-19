@@ -47,6 +47,7 @@ dependencies:
   font_awesome_flutter: ^10.6.0
   fpdart: ^1.1.0
   routemaster: ^1.0.1
+  uuid: ^4.3.3
 
 
 dev_dependencies:

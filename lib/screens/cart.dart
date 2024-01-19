@@ -2,7 +2,7 @@ import 'package:cartafri/core/constants/constants.dart';
 import 'package:cartafri/core/utils/reusables.dart';
 import 'package:cartafri/core/functionality/Image_selector.dart';
 import 'package:cartafri/main.dart';
-import 'package:cartafri/models/product_model.dart';
+import 'package:cartafri/features/products/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -15,10 +15,11 @@ class CartPage extends ConsumerStatefulWidget {
 
 class _CartPageState extends ConsumerState<CartPage> {
   final carts = ImagePicker();
+  final product = product_list;
 
   @override
   build(BuildContext context) {
-    final cart = ref.watch(cartProvider.notifier).cart;
+    final cart = product_list;
     return Scaffold(
         appBar: AppBar(
             title: const AppBarTitle(
@@ -57,16 +58,17 @@ class _CartPageState extends ConsumerState<CartPage> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               textDirection: TextDirection.ltr,
                               children: [
-                                Text(
-                                  item.title,
+                                const Text(
+                                  'title',
                                   style: kProductStyle,
                                 ),
                                 const SizedBox(
                                   height: 5,
                                 ),
-                                Row(
+                                const Row(
                                   children: [
-                                    Text('\$${item.price}'),
+                                    // Text('\$${item.price}'),
+                                    Text('1000'),
                                     SizedBox(width: 10.0),
                                     Text('\$34.00', style: kProductStyle),
                                   ],
