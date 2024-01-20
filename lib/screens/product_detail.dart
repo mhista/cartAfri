@@ -4,6 +4,7 @@ import 'package:cartafri/core/utils/error_test.dart';
 import 'package:cartafri/core/utils/isLoading.dart';
 import 'package:cartafri/core/utils/reusables.dart';
 import 'package:cartafri/core/functionality/Image_selector.dart';
+import 'package:cartafri/core/utils/show_add_to_cart_sizes.dart';
 import 'package:cartafri/features/products/product_controller.dart';
 import 'package:cartafri/features/products/product_model.dart';
 import 'package:cartafri/main.dart';
@@ -48,7 +49,7 @@ class ProductDetail extends ConsumerWidget {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(8.0),
                         child: Hero(
-                          tag: product.imageUrl[0],
+                          tag: product.id,
                           child: Image.asset(product.imageUrl[0],
                               height: 200.0, width: 200, fit: BoxFit.fill),
                         ),
@@ -91,88 +92,7 @@ class ProductDetail extends ConsumerWidget {
                           splashFactory: NoSplash.splashFactory,
                         ),
                         onPressed: () {
-                          showModalBottomSheet(
-                            isScrollControlled: true,
-                            context: context,
-                            builder: (BuildContext context) {
-                              final productSize =
-                                  (product.size as List<int>).length;
-                              return Material(
-                                borderRadius: const BorderRadius.vertical(
-                                  top: Radius.circular(12),
-                                ),
-                                child: SizedBox(
-                                  height: 350,
-                                  child: Column(
-                                    children: [
-                                      const SizedBox(height: 30.0),
-                                      const FittedBox(
-                                        child: Text('Select a Size',
-                                            style: TextStyle(
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.w500,
-                                            )),
-                                      ),
-                                      const SizedBox(height: 10.0),
-                                      SizedBox(
-                                        height: 170,
-                                        child: ChipBuilder(
-                                            productSize: productSize,
-                                            product: product),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 16.0),
-                                        child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceAround,
-                                            children: [
-                                              Column(
-                                                children: [
-                                                  CategoryIconButton(
-                                                      elevation: 0.0,
-                                                      color: Colors.white,
-                                                      bgColor: kButtonColor,
-                                                      iconData: Icons
-                                                          .open_in_new_outlined,
-                                                      onPressed: () {}),
-                                                  const SizedBox(height: 7),
-                                                  const Text('Size Guide',
-                                                      style: TextStyle(
-                                                          fontSize: 12,
-                                                          fontWeight:
-                                                              FontWeight.bold))
-                                                ],
-                                              ),
-                                              const Material(
-                                                  color: Colors.grey,
-                                                  child: SizedBox(
-                                                      height: 70, width: 0.5)),
-                                              Column(
-                                                children: [
-                                                  CategoryIconButton(
-                                                      elevation: 0.0,
-                                                      color: Colors.white,
-                                                      bgColor: kButtonColor,
-                                                      iconData: Icons
-                                                          .emoji_emotions_outlined,
-                                                      onPressed: () {}),
-                                                  const SizedBox(height: 7),
-                                                  const Text("Can't find?",
-                                                      style: TextStyle(
-                                                          fontSize: 12,
-                                                          fontWeight:
-                                                              FontWeight.bold))
-                                                ],
-                                              ),
-                                            ]),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              );
-                            },
-                          );
+                          showAddToCartSizeOptions(context, product);
                         },
                         child: const Text('ADD TO CART', style: kMediumFont)),
                   ],

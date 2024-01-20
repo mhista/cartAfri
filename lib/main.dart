@@ -19,6 +19,7 @@ import 'package:routemaster/routemaster.dart';
 
 void main() async {
   // var theming = Themeing();
+  // Initialisez the app
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const ProviderScope(child: CartAfri()));

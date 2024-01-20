@@ -16,22 +16,22 @@ class AppHomePage extends ConsumerWidget {
   AppHomePage({super.key});
   final product = product_list;
 
-  void addToFireBase(
-      BuildContext context, WidgetRef ref, List<Map<String, dynamic>> product) {
-    // print(product);
-    final productController = ref.read(productControllerProvider.notifier);
-    const uuid = Uuid();
-    for (var el in product) {
-      productController.createProduct(context,
-          id: uuid.v4(),
-          title: el['title'],
-          price: el['price'],
-          company: el['company'],
-          size: el['size'],
-          imageUrl: el['imageUrl'],
-          itemCount: el['itemCount']);
-    }
-  }
+  // void addToFireBase(
+  //     BuildContext context, WidgetRef ref, List<Map<String, dynamic>> product) {
+  //   // print(product);
+  //   final productController = ref.read(productControllerProvider.notifier);
+  //   const uuid = Uuid();
+  //   for (var el in product) {
+  //     productController.createProduct(context,
+  //         id: uuid.v4(),
+  //         title: el['title'],
+  //         price: el['price'],
+  //         company: el['company'],
+  //         size: el['size'],
+  //         imageUrl: el['imageUrl'],
+  //         itemCount: el['itemCount']);
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -54,7 +54,7 @@ class AppHomePage extends ConsumerWidget {
                         fontSize: 20, fontWeight: FontWeight.w500),
                   ),
                   trailing: IconButton(
-                    onPressed: () => addToFireBase(context, ref, product),
+                    onPressed: () {},
                     icon: const Icon(Icons.notifications_none_outlined),
                   ),
                 ),
@@ -182,7 +182,7 @@ class ProductListBuilder extends ConsumerWidget {
               itemCount: products.length,
               itemBuilder: (context, index) {
                 final product = products[index];
-                final tag = product.imageUrl[0];
+                final tag = product.id;
                 return GestureDetector(
                   onTap: () => navigateToDetail(context, product),
                   child: Card(

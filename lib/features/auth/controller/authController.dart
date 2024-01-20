@@ -5,25 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cartafri/core/utils/snackBar.dart';
 
-// PROVIDER FOR STORING USER INFO
-final userProvider = StateProvider<UserModel?>((ref) => null);
-
-// A POVIDER THAT NOTIFIES THE AUTH CONTROLLER OF ANY CHANGE IN THE AUTH REPOSITORY
-final authControllerProvider = StateNotifierProvider<AuthController, bool>(
-    (ref) => AuthController(
-        authRepository: ref.watch(authRepositoryProvider), ref: ref));
-
-// A STREAM PROVIDER THAT STORES THE CURRENT AUTHENTICATION STATE
-final authStateChangeProvider = StreamProvider.autoDispose((ref) {
-  final authController = ref.watch(authControllerProvider.notifier);
-  return authController.authStateChange;
-});
-
-final getUserProvider = StreamProvider.family.autoDispose((ref, String uid) {
-  final authController = ref.watch(authControllerProvider.notifier);
-  return authController.getUserData(uid);
-});
-
 class AuthController extends StateNotifier<bool> {
   final AuthRepository _authRepository;
   final Ref _ref;
@@ -48,3 +29,22 @@ class AuthController extends StateNotifier<bool> {
             _ref.read(userProvider.notifier).update((state) => userModel));
   }
 }
+
+// PROVIDER FOR STORING USER INFO
+final userProvider = StateProvider<UserModel?>((ref) => null);
+
+// A POVIDER THAT NOTIFIES THE AUTH CONTROLLER OF ANY CHANGE IN THE AUTH REPOSITORY
+final authControllerProvider = StateNotifierProvider<AuthController, bool>(
+    (ref) => AuthController(
+        authRepository: ref.watch(authRepositoryProvider), ref: ref));
+
+// A STREAM PROVIDER THAT STORES THE CURRENT AUTHENTICATION STATE
+final authStateChangeProvider = StreamProvider.autoDispose((ref) {
+  final authController = ref.watch(authControllerProvider.notifier);
+  return authController.authStateChange;
+});
+
+final getUserProvider = StreamProvider.family.autoDispose((ref, String uid) {
+  final authController = ref.watch(authControllerProvider.notifier);
+  return authController.getUserData(uid);
+});

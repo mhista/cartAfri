@@ -1,3 +1,4 @@
+import 'package:cartafri/core/type_defs.dart';
 import 'package:cartafri/core/utils/snackBar.dart';
 import 'package:cartafri/features/auth/controller/authController.dart';
 import 'package:cartafri/features/products/product_model.dart';
@@ -52,6 +53,9 @@ class ProductContoller extends StateNotifier<bool> {
   Stream<List<Product>> getProducts() => _productRepository.getProducts();
   Stream<Product> getProductDetail(String id) =>
       _productRepository.getProductDetail(id);
+  // FutureVoid uploadProductPhoto() async{
+  //   return _productRepository.uploadProductPhoto(product)
+  // }
 }
 /*
 ALL PROVIDER RELATED OOPERATIONS
