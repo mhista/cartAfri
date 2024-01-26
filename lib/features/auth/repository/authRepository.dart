@@ -6,7 +6,7 @@ import 'package:cartafri/core/functionality/firebase_provider.dart';
 import 'package:cartafri/core/type_defs.dart';
 import 'package:cartafri/core/utils/showOTPdialog.dart';
 import 'package:cartafri/core/utils/snackbar.dart';
-import 'package:cartafri/models/user_model.dart';
+import 'package:cartafri/features/auth/models/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -41,6 +41,7 @@ class AuthRepository {
       final googleAuth = await googleUser?.authentication;
       final credential = GoogleAuthProvider.credential(
           idToken: googleAuth?.idToken, accessToken: googleAuth?.accessToken);
+      print(googleAuth?.idToken);
       final UserCredential userCredential =
           await _auth.signInWithCredential(credential);
       final user = userCredential.user!;
@@ -57,7 +58,6 @@ class AuthRepository {
       } else {
         userModel = await getUserData(user.uid).first;
       }
-      _googleSignIn.signOut();
       return right(userModel);
 
       // showSnackbar(BuildContext context, text).
@@ -66,6 +66,11 @@ class AuthRepository {
     } catch (e) {
       return left(Failure(e.toString()));
     }
+  }
+
+  void signout() async {
+    await _googleSignIn.signOut();
+    await _auth.signOut();
   }
 
   Stream<UserModel> getUserData(String uid) {

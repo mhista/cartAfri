@@ -1,5 +1,5 @@
 import 'package:cartafri/features/auth/repository/authRepository.dart';
-import 'package:cartafri/models/user_model.dart';
+import 'package:cartafri/features/auth/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -36,7 +36,7 @@ final userProvider = StateProvider<UserModel?>((ref) => null);
 // A POVIDER THAT NOTIFIES THE AUTH CONTROLLER OF ANY CHANGE IN THE AUTH REPOSITORY
 final authControllerProvider = StateNotifierProvider<AuthController, bool>(
     (ref) => AuthController(
-        authRepository: ref.watch(authRepositoryProvider), ref: ref));
+        authRepository: ref.read(authRepositoryProvider), ref: ref));
 
 // A STREAM PROVIDER THAT STORES THE CURRENT AUTHENTICATION STATE
 final authStateChangeProvider = StreamProvider.autoDispose((ref) {

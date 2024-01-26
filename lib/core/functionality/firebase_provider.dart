@@ -8,3 +8,4 @@ final authProvider = Provider((ref) => FirebaseAuth.instance);
 final googleSignInProvider = Provider((ref) => GoogleSignIn());
 final storageProvider = Provider((ref) => FirebaseStorage.instance);
 final fireStoreProvider = Provider((ref) => FirebaseFirestore.instance);
+// final userProvider = Provider((ref) => ref.read(userProvider).)

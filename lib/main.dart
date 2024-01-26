@@ -4,7 +4,7 @@ import 'package:cartafri/core/utils/isLoading.dart';
 import 'package:cartafri/features/auth/controller/authController.dart';
 import 'package:cartafri/firebase_options.dart';
 import 'package:cartafri/features/products/product_model.dart';
-import 'package:cartafri/models/user_model.dart';
+import 'package:cartafri/features/auth/models/user_model.dart';
 import 'package:cartafri/router.dart';
 import 'package:cartafri/screens/AppScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';

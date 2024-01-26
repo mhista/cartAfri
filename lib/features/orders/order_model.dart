@@ -1,27 +1,27 @@
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
+import 'package:cartafri/features/order_items/order_item_model.dart';
+import 'package:collection/collection.dart';
+// / import 'package:flutter/foundation.dart';
 
 class Orders {
   final String id;
   final String userId;
   final DateTime startDate;
-  final DateTime orderedDate;
+  final DateTime? orderedDate;
   final bool ordered;
-  final int quantity;
-  final String shippingAddress;
-  final String billingAddress;
-  final List orderItemIds;
+  final String? shippingAddress;
+  final String? billingAddress;
+  final List orderItems;
   Orders({
     required this.id,
     required this.userId,
     required this.startDate,
     required this.orderedDate,
     required this.ordered,
-    required this.quantity,
     required this.shippingAddress,
     required this.billingAddress,
-    required this.orderItemIds,
+    required this.orderItems,
   });
 
   Orders copyWith({
@@ -30,10 +30,9 @@ class Orders {
     DateTime? startDate,
     DateTime? orderedDate,
     bool? ordered,
-    int? quantity,
     String? shippingAddress,
     String? billingAddress,
-    List? orderItemIds,
+    List? orderItems,
   }) {
     return Orders(
       id: id ?? this.id,
@@ -41,10 +40,9 @@ class Orders {
       startDate: startDate ?? this.startDate,
       orderedDate: orderedDate ?? this.orderedDate,
       ordered: ordered ?? this.ordered,
-      quantity: quantity ?? this.quantity,
       shippingAddress: shippingAddress ?? this.shippingAddress,
       billingAddress: billingAddress ?? this.billingAddress,
-      orderItemIds: orderItemIds ?? this.orderItemIds,
+      orderItems: orderItems ?? this.orderItems,
     );
   }
 
@@ -54,12 +52,17 @@ class Orders {
     result.addAll({'id': id});
     result.addAll({'userId': userId});
     result.addAll({'startDate': startDate.millisecondsSinceEpoch});
-    result.addAll({'orderedDate': orderedDate.millisecondsSinceEpoch});
+    if (orderedDate != null) {
+      result.addAll({'orderedDate': orderedDate!.millisecondsSinceEpoch});
+    }
     result.addAll({'ordered': ordered});
-    result.addAll({'quantity': quantity});
-    result.addAll({'shippingAddress': shippingAddress});
-    result.addAll({'billingAddress': billingAddress});
-    result.addAll({'orderItemIds': orderItemIds});
+    if (shippingAddress != null) {
+      result.addAll({'shippingAddress': shippingAddress});
+    }
+    if (billingAddress != null) {
+      result.addAll({'billingAddress': billingAddress});
+    }
+    result.addAll({'orderItems': orderItems});
 
     return result;
   }
@@ -69,12 +72,13 @@ class Orders {
       id: map['id'] ?? '',
       userId: map['userId'] ?? '',
       startDate: DateTime.fromMillisecondsSinceEpoch(map['startDate']),
-      orderedDate: DateTime.fromMillisecondsSinceEpoch(map['orderedDate']),
+      orderedDate: map['orderedDate'] != null
+          ? DateTime.fromMillisecondsSinceEpoch(map['orderedDate'])
+          : null,
       ordered: map['ordered'] ?? false,
-      quantity: map['quantity']?.toInt() ?? 0,
-      shippingAddress: map['shippingAddress'] ?? '',
-      billingAddress: map['billingAddress'] ?? '',
-      orderItemIds: List.from(map['orderItemIds']),
+      shippingAddress: map['shippingAddress'],
+      billingAddress: map['billingAddress'],
+      orderItems: List.from(map['orderItems']),
     );
   }
 
@@ -84,12 +88,13 @@ class Orders {
 
   @override
   String toString() {
-    return 'Orders(id: $id, userId: $userId, startDate: $startDate, orderedDate: $orderedDate, ordered: $ordered, quantity: $quantity, shippingAddress: $shippingAddress, billingAddress: $billingAddress, orderItemIds: $orderItemIds)';
+    return 'Orders(id: $id, userId: $userId, startDate: $startDate, orderedDate: $orderedDate, ordered: $ordered, shippingAddress: $shippingAddress, billingAddress: $billingAddress, orderItems: $orderItems)';
   }
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
+    final listEquals = const DeepCollectionEquality().equals;
 
     return other is Orders &&
         other.id == id &&
@@ -97,10 +102,9 @@ class Orders {
         other.startDate == startDate &&
         other.orderedDate == orderedDate &&
         other.ordered == ordered &&
-        other.quantity == quantity &&
         other.shippingAddress == shippingAddress &&
         other.billingAddress == billingAddress &&
-        listEquals(other.orderItemIds, orderItemIds);
+        listEquals(other.orderItems, orderItems);
   }
 
   @override
@@ -110,9 +114,8 @@ class Orders {
         startDate.hashCode ^
         orderedDate.hashCode ^
         ordered.hashCode ^
-        quantity.hashCode ^
         shippingAddress.hashCode ^
         billingAddress.hashCode ^
-        orderItemIds.hashCode;
+        orderItems.hashCode;
   }
 }

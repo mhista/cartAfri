@@ -4,6 +4,7 @@ import 'package:cartafri/core/utils/error_test.dart';
 import 'package:cartafri/core/utils/isLoading.dart';
 import 'package:cartafri/core/utils/reusables.dart';
 import 'package:cartafri/features/auth/controller/authController.dart';
+import 'package:cartafri/features/auth/repository/authRepository.dart';
 import 'package:cartafri/features/products/product_controller.dart';
 import 'package:cartafri/features/products/product_model.dart';
 import 'package:cartafri/screens/product_detail.dart';
@@ -32,6 +33,9 @@ class AppHomePage extends ConsumerWidget {
   //         itemCount: el['itemCount']);
   //   }
   // }
+  void signOut(WidgetRef ref) {
+    ref.read(authRepositoryProvider).signout();
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -54,7 +58,9 @@ class AppHomePage extends ConsumerWidget {
                         fontSize: 20, fontWeight: FontWeight.w500),
                   ),
                   trailing: IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      signOut(ref);
+                    },
                     icon: const Icon(Icons.notifications_none_outlined),
                   ),
                 ),
@@ -200,7 +206,7 @@ class ProductListBuilder extends ConsumerWidget {
                                 borderRadius: BorderRadius.circular(8.0),
                                 child: Hero(
                                   tag: tag,
-                                  child: Image.asset(tag,
+                                  child: Image.asset(product.imageUrl[0],
                                       height: 1000.0, fit: BoxFit.cover),
                                 ),
                               ),

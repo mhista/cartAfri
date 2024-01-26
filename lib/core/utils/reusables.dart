@@ -1,5 +1,6 @@
 import 'package:cartafri/core/constants/constants.dart';
 import 'package:cartafri/features/auth/controller/authController.dart';
+import 'package:cartafri/features/auth/repository/authRepository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -255,6 +256,47 @@ class SocialAccountButoons extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return FilledButton(
       onPressed: () => signInWithGoogle(ref, context),
+      style: FilledButton.styleFrom(
+          backgroundColor: kFormColor,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0))),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 15.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              socialIcon,
+              color: Color.fromARGB(255, 36, 35, 35),
+            ),
+            const SizedBox(
+              width: 10.0,
+            ),
+            text
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// PHONE SIGNIN
+class PhoneSigning extends ConsumerWidget {
+  const PhoneSigning({
+    super.key,
+    required this.text,
+    required this.socialIcon,
+  });
+  final Widget text;
+  final IconData socialIcon;
+  void signOut(WidgetRef ref) {
+    ref.read(authRepositoryProvider).signout();
+  }
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return FilledButton(
+      onPressed: () => signOut(ref),
       style: FilledButton.styleFrom(
           backgroundColor: kFormColor,
           shape:

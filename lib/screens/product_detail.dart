@@ -5,12 +5,16 @@ import 'package:cartafri/core/utils/isLoading.dart';
 import 'package:cartafri/core/utils/reusables.dart';
 import 'package:cartafri/core/functionality/Image_selector.dart';
 import 'package:cartafri/core/utils/show_add_to_cart_sizes.dart';
+import 'package:cartafri/features/order_items/order_item_controller.dart';
+import 'package:cartafri/features/order_items/order_item_model.dart';
+import 'package:cartafri/features/orders/order_controller.dart';
 import 'package:cartafri/features/products/product_controller.dart';
 import 'package:cartafri/features/products/product_model.dart';
 import 'package:cartafri/main.dart';
 import 'package:cartafri/screens/cart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:uuid/uuid.dart';
 
 class ProductDetail extends ConsumerWidget {
   const ProductDetail({super.key, required this.id});
@@ -122,6 +126,12 @@ class ChipBuilder extends ConsumerStatefulWidget {
 
 class _ChipBuilderState extends ConsumerState<ChipBuilder> {
   int selectedSize = 0;
+  // ADD THE PRODUCT TO CART
+  void addProductToCart(Product product, BuildContext context, int size) {
+    ref.read(orderControllerProvider.notifier).createOrUpdateOrderItem(context,
+        id: const Uuid().v4(), productId: product.id, quantity: 1, size: size);
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -135,26 +145,9 @@ class _ChipBuilderState extends ConsumerState<ChipBuilder> {
           childAspectRatio: 1.0,
         ),
         itemBuilder: (context, index) {
-          final size = (widget.product.size as List<int>)[index];
+          final size = (widget.product.size)[index];
           return GestureDetector(
-            onTap: () {
-              setState(() {
-                // selectedSize = size;
-                // ref.read(cartProvider.notifier).addToCart({
-                //   'id': widget.product['id'],
-                //   'title': widget.product['title'],
-                //   'price': widget.product['price'],
-                //   'company': widget.product['company'],
-                //   'size': size,
-                //   'imageUrl': widget.product['imageUrl'],
-                //   'ItemCount': 1,
-                // });
-
-                Navigator.push(context, PageTransition(const CartPage())
-                    // return;
-                    );
-              });
-            },
+            onTap: () => addProductToCart(widget.product, context, size),
             child: Chip(
               backgroundColor: selectedSize == size ? kButtonColor : null,
               padding: const EdgeInsets.all(16.0),

@@ -94,7 +94,7 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                   const SizedBox(
                     height: 12.0,
                   ),
-                  const SocialAccountButoons(
+                  const PhoneSigning(
                     text: Text(
                       'Continue With Phone',
                       style: kWTextStyleSpacing,

@@ -10,7 +10,7 @@ Future<dynamic> showAddToCartSizeOptions(
     isScrollControlled: true,
     context: context,
     builder: (BuildContext context) {
-      final productSize = (product.size as List<int>).length;
+      final productSize = (product.size).length;
       return Material(
         borderRadius: const BorderRadius.vertical(
           top: Radius.circular(12),
