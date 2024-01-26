@@ -24,36 +24,8 @@ class OrderController extends StateNotifier<bool> {
         _orderItemRepository = orderItemRepository,
         super(false);
 
-  // UPDATE AN ORDERITEM IN AN ORDER
-  void createOrUpdateOrderItem(
-    BuildContext context, {
-    required String id,
-    required String productId,
-    required int quantity,
-    required int size,
-  }) async {
-    OrderItem orderItem;
-    orderItem = OrderItem(
-        id: id,
-        productId: productId,
-        quantity: quantity,
-        size: size,
-        userId: _ref.read(userProvider)!.uid);
-    // state = true;
-    final res = await _orderItemRepository.createOrUpdateOrderItem(orderItem);
-    res.fold((l) {
-      return null;
-    }, (item) => orderItem = item);
-    final result = await _orderRepository.createOrUpdateOrder(
-        id: _ref.read(userProvider)!.uid,
-        orderItem: res.foldRight(orderItem, (acc, b) => b));
-    state = false;
-    result.fold((l) => showSnackbar2(context, l.message),
-        (r) => showSnackbar2(context, 'Item added to cart'));
-  }
-
   // GET THE UNORDER ORDER
-  Stream<Orders?> getUserCurrentOrder() {
+  Stream<Orders?> getUserCurrentOrder(String uid) {
     final userId = _ref.read(userProvider)!.uid;
     return _orderRepository.getUserCurrentOrder(userId);
   }
@@ -95,11 +67,14 @@ final orderControllerProvider = StateNotifierProvider<OrderController, bool>(
         orderRepository: ref.read(orderRepositoryProvider),
         ref: ref));
 
-final getCurrentOrderProvider = StreamProvider.autoDispose((ref) {
+final getCurrentOrderProvider =
+    StreamProvider.autoDispose.family((ref, String uid) {
   final orderController = ref.watch(orderControllerProvider.notifier);
-  return orderController.getUserCurrentOrder();
+  return orderController.getUserCurrentOrder(uid);
 });
 final getpreviousOrdersProvider = StreamProvider.autoDispose((ref) {
   final orderController = ref.watch(orderControllerProvider.notifier);
   return orderController.getUserPreviousOrders();
 });
+
+final orderProvider = StateProvider<Orders?>((ref) => null);

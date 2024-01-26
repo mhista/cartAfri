@@ -37,19 +37,47 @@ class OrderRepository {
       _firestore.collection(FireStoreConstants.orderItemCollections);
 
 // CREATE OR UPDATE ORDER 2
-  FutureVoid createOrder(Orders order) async {
-    try {
-      return right(_order.doc(order.id).set(order, SetOptions(merge: true)));
-    } catch (e) {
-      return left(Failure(e.toString()));
-    }
-  }
+  // FutureEither<Orders> createOrder(Orders order, String id) async {
+  //   try {
+  //     QuerySnapshot getDocument = await _userOrderCollections
+  //         .where(
+  //           'userId',
+  //           isEqualTo: id,
+  //         )
+  //         .where('ordered', isEqualTo: false)
+  //         .limit(1)
+  //         .get();
+  //     if (getDocument.docs.isNotEmpty) {
+  //       Orders orderr = Orders.fromMap(
+  //           getDocument.docs.first.data() as Map<String, dynamic>);
+  //       return right(orderr);
+  //     } else {
+  //       Orders order = Orders(
+  //           id: const Uuid().v4(),
+  //           userId: id,
+  //           startDate: DateTime.now(),
+  //           orderedDate: null,
+  //           ordered: false,
+  //           shippingAddress: null,
+  //           billingAddress: null, orderItems: []);
+  //       await _userOrderCollections
+  //           .doc(order.id)
+  //           .set(order.toMap(), SetOptions(merge: true));
+  //       Orders orderr = await getUserCurrentOrder(id)
+  //           .map((event) => Orders.fromMap(event as Map<String, dynamic>))
+  //           .first;
+  //       return right(orderr);
+  //     }
+  //     // return right(_order.doc(order.id).set(order, SetOptions(merge: true)));
+  //   } catch (e) {
+  //     return left(Failure(e.toString()));
+  //   }
+  // }
 
 // CREATE ORDER
   FutureEither<Orders> createOrUpdateOrder(
       {required String id, OrderItem? orderItem}) async {
     try {
-      print(orderItem);
       Orders order = Orders(
           id: const Uuid().v4(),
           userId: id,
@@ -71,13 +99,6 @@ class OrderRepository {
           .get();
       // CHECKS IF IT IS NOT EMPTY
       if (getDocument.docs.isNotEmpty) {
-        // GETS A QUERY SNAPSHOT OF THE ORDER ITEM AND RETRIEVES ITS FIRST ITEM
-        // QuerySnapshot orderItemQuery = await _orderItem
-        //     .where('productId', isEqualTo: orderItem!.productId)
-        //     .where('userId', isEqualTo: orderItem.userId)
-        //     .where('size', isEqualTo: orderItem.size)
-        //     .limit(1)
-        //     .get();
         Orders orderr = Orders.fromMap(
             getDocument.docs.first.data() as Map<String, dynamic>);
         // CHECKS IF THE ORDERITEM IS IN THE ORDER ALREADY
@@ -104,7 +125,6 @@ class OrderRepository {
         await _userOrderCollections.doc(order.id).update({
           'orderItems': FieldValue.arrayUnion([
             {orderItem!.id: orderItem.id}
-            // orderItem!.toMap()
           ])
         });
         Orders orderr = await getUserCurrentOrder(id)
@@ -120,7 +140,7 @@ class OrderRepository {
   }
 
   // GETTING THE CURRENT ORDER
-  Stream<OrderItem> getUserCurrentOrder(String id) {
+  Stream<Orders> getUserCurrentOrder(String id) {
     return _order
         .where('userId', isEqualTo: id)
         .where('ordered', isEqualTo: false)
@@ -130,7 +150,7 @@ class OrderRepository {
       for (var e in event.docs) {
         orders.add(Orders.fromMap(e.data() as Map<String, dynamic>));
       }
-      return orders.firstOrNull;
+      return orders.first;
     });
   }
 

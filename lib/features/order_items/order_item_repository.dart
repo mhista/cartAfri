@@ -3,6 +3,7 @@ import 'package:cartafri/core/failure.dart';
 import 'package:cartafri/core/functionality/firebase_provider.dart';
 import 'package:cartafri/core/type_defs.dart';
 import 'package:cartafri/features/order_items/order_item_model.dart';
+import 'package:cartafri/features/orders/order_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fpdart/fpdart.dart';
@@ -16,7 +17,8 @@ class OrderItemRepository {
       _firestore.collection(FireStoreConstants.orderCollections);
   CollectionReference get _orderItem =>
       _firestore.collection(FireStoreConstants.orderItemCollections);
-
+  CollectionReference get _products =>
+      _firestore.collection(FireStoreConstants.productCollections);
 // CREATES AN ORDER OR UPDATES IT
   FutureEither<OrderItem> createOrUpdateOrderItem(OrderItem orderItem) async {
     try {
@@ -32,6 +34,9 @@ class OrderItemRepository {
         DocumentSnapshot item = orderItemQuery.docs.first;
         // updates it
         await item.reference.update({'quantity': FieldValue.increment(1)});
+        await _products
+            .doc(orderItem.productId)
+            .update({'quantity': FieldValue.increment(-1)});
         OrderItem itemer =
             OrderItem.fromMap(item.data() as Map<String, dynamic>);
         // returns the updated item
@@ -54,12 +59,21 @@ class OrderItemRepository {
     }
   }
 
-  Stream<OrderItem> getOrderItem(String itemId) {
-    return _orderItem
-        .doc(itemId)
-        .snapshots()
-        .map((event) => OrderItem.fromMap(event.data as Map<String, dynamic>));
+// GET ALL ORDERITEMS
+  Stream<List<OrderItem>> getOrderItem(String id, List orderItemsId) {
+    return _orderItem.snapshots().map((event) {
+      List<OrderItem> orderItems = [];
+      for (var doc in event.docs) {
+        OrderItem item = OrderItem.fromMap(doc.data() as Map<String, dynamic>);
+        if (orderItemsId.contains(item.id)) {
+          orderItems.add(item);
+        }
+      }
+      return orderItems;
+    });
   }
+
+//
 }
 
 final orderItemRepositoryProvider = Provider((ref) =>

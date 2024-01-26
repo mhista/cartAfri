@@ -127,9 +127,11 @@ class ChipBuilder extends ConsumerStatefulWidget {
 class _ChipBuilderState extends ConsumerState<ChipBuilder> {
   int selectedSize = 0;
   // ADD THE PRODUCT TO CART
-  void addProductToCart(Product product, BuildContext context, int size) {
-    ref.read(orderControllerProvider.notifier).createOrUpdateOrderItem(context,
+  void addProductToCart(
+      Product product, BuildContext context, int size, int selectedSize) {
+    ref.read(orderItemController.notifier).createOrUpdateOrderItem(context,
         id: const Uuid().v4(), productId: product.id, quantity: 1, size: size);
+    selectedSize = size;
     setState(() {});
   }
 
@@ -147,7 +149,6 @@ class _ChipBuilderState extends ConsumerState<ChipBuilder> {
         itemBuilder: (context, index) {
           final size = (widget.product.size)[index];
           return GestureDetector(
-            onTap: () => addProductToCart(widget.product, context, size),
             child: Chip(
               backgroundColor: selectedSize == size ? kButtonColor : null,
               padding: const EdgeInsets.all(16.0),
@@ -159,6 +160,8 @@ class _ChipBuilderState extends ConsumerState<ChipBuilder> {
                   strokeAlign: BorderSide.strokeAlignOutside,
                   color: Colors.grey),
             ),
+            onTap: () =>
+                addProductToCart(widget.product, context, size, selectedSize),
           );
         });
   }
