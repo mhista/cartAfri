@@ -5,6 +5,7 @@ import 'package:cartafri/core/utils/isLoading.dart';
 import 'package:cartafri/core/utils/reusables.dart';
 import 'package:cartafri/core/functionality/Image_selector.dart';
 import 'package:cartafri/core/utils/show_add_to_cart_sizes.dart';
+import 'package:cartafri/core/utils/snackBar.dart';
 import 'package:cartafri/features/order_items/order_item_controller.dart';
 import 'package:cartafri/features/order_items/order_item_model.dart';
 import 'package:cartafri/features/orders/order_controller.dart';
@@ -14,6 +15,7 @@ import 'package:cartafri/main.dart';
 import 'package:cartafri/screens/cart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:routemaster/routemaster.dart';
 import 'package:uuid/uuid.dart';
 
 class ProductDetail extends ConsumerWidget {
@@ -130,9 +132,15 @@ class _ChipBuilderState extends ConsumerState<ChipBuilder> {
   void addProductToCart(
       Product product, BuildContext context, int size, int selectedSize) {
     ref.read(orderItemController.notifier).createOrUpdateOrderItem(context,
-        id: const Uuid().v4(), productId: product.id, quantity: 1, size: size);
-    selectedSize = size;
-    setState(() {});
+        id: const Uuid().v4(), product: product, quantity: 1, size: size);
+
+    setState(() {
+      selectedSize = size;
+      Routemaster.of(context).pop();
+
+      showSnackbar2(context, 'Item added to cart');
+      Routemaster.of(context).push('/cart');
+    });
   }
 
   @override

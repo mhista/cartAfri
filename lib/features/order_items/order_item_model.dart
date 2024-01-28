@@ -1,32 +1,38 @@
 import 'dart:convert';
 
+import 'package:cartafri/features/products/product_model.dart';
+
 class OrderItem {
   final String userId;
   final String id;
-  final String productId;
+  final bool ordered;
   final int quantity;
   final int size;
+  final Product product;
   OrderItem({
     required this.userId,
     required this.id,
-    required this.productId,
+    required this.ordered,
     required this.quantity,
     required this.size,
+    required this.product,
   });
 
   OrderItem copyWith({
     String? userId,
     String? id,
-    String? productId,
+    bool? ordered,
     int? quantity,
     int? size,
+    Product? product,
   }) {
     return OrderItem(
       userId: userId ?? this.userId,
       id: id ?? this.id,
-      productId: productId ?? this.productId,
+      ordered: ordered ?? this.ordered,
       quantity: quantity ?? this.quantity,
       size: size ?? this.size,
+      product: product ?? this.product,
     );
   }
 
@@ -35,9 +41,10 @@ class OrderItem {
 
     result.addAll({'userId': userId});
     result.addAll({'id': id});
-    result.addAll({'productId': productId});
+    result.addAll({'ordered': ordered});
     result.addAll({'quantity': quantity});
     result.addAll({'size': size});
+    result.addAll({'product': product.toMap()});
 
     return result;
   }
@@ -46,9 +53,10 @@ class OrderItem {
     return OrderItem(
       userId: map['userId'] ?? '',
       id: map['id'] ?? '',
-      productId: map['productId'] ?? '',
+      ordered: map['ordered'] ?? false,
       quantity: map['quantity']?.toInt() ?? 0,
       size: map['size']?.toInt() ?? 0,
+      product: Product.fromMap(map['product']),
     );
   }
 
@@ -59,7 +67,7 @@ class OrderItem {
 
   @override
   String toString() {
-    return 'OrderItem(userId: $userId, id: $id, productId: $productId, quantity: $quantity, size: $size)';
+    return 'OrderItem(userId: $userId, id: $id, ordered: $ordered, quantity: $quantity, size: $size, product: $product)';
   }
 
   @override
@@ -69,17 +77,19 @@ class OrderItem {
     return other is OrderItem &&
         other.userId == userId &&
         other.id == id &&
-        other.productId == productId &&
+        other.ordered == ordered &&
         other.quantity == quantity &&
-        other.size == size;
+        other.size == size &&
+        other.product == product;
   }
 
   @override
   int get hashCode {
     return userId.hashCode ^
         id.hashCode ^
-        productId.hashCode ^
+        ordered.hashCode ^
         quantity.hashCode ^
-        size.hashCode;
+        size.hashCode ^
+        product.hashCode;
   }
 }

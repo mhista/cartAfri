@@ -31,16 +31,16 @@ class _CartPageState extends ConsumerState<CartPage> {
         )),
         body: Column(
           children: [
-            ref.watch(getorderItemProvider()).when(
+            ref.watch(getorderItemProvider).when(
                 data: (data) => Column(
                       children: [
                         SizedBox(
-                          height: 200,
+                          height: 400,
                           child: ListView.builder(
                             padding: const EdgeInsets.only(top: 10),
-                            itemCount: cart.length,
+                            itemCount: data.length,
                             itemBuilder: (context, index) {
-                              final item = cart[index];
+                              final item = data[index];
                               return Card(
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(
@@ -54,7 +54,7 @@ class _CartPageState extends ConsumerState<CartPage> {
                                             borderRadius:
                                                 BorderRadius.circular(8.0),
                                             child: Image.asset(
-                                              carts.getFirstImage(),
+                                              item.product.imageUrl[0],
                                               height: 1000.0,
                                               fit: BoxFit.fill,
                                             )),
@@ -68,19 +68,20 @@ class _CartPageState extends ConsumerState<CartPage> {
                                               CrossAxisAlignment.start,
                                           textDirection: TextDirection.ltr,
                                           children: [
-                                            const Text(
-                                              'title',
+                                            Text(
+                                              item.product.title,
                                               style: kProductStyle,
                                             ),
                                             const SizedBox(
                                               height: 5,
                                             ),
-                                            const Row(
+                                            Row(
                                               children: [
                                                 // Text('\$${item.price}'),
-                                                Text('1000'),
-                                                SizedBox(width: 10.0),
-                                                Text('\$34.00',
+                                                Text(item.product.price
+                                                    .toString()),
+                                                const SizedBox(width: 10.0),
+                                                const Text('\$34.00',
                                                     style: kProductStyle),
                                               ],
                                             ),
@@ -125,24 +126,28 @@ class _CartPageState extends ConsumerState<CartPage> {
                           ),
                         ),
                         const SizedBox(height: 10),
-                        const Padding(
-                          padding: EdgeInsets.all(16.0),
+                        Padding(
+                          padding: const EdgeInsets.all(16.0),
                           child: Column(
                             children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    'SubTotal',
-                                  ),
-                                  Text(
-                                    '\$86.50',
-                                    style: kProductStyle,
-                                  ),
-                                ],
-                              ),
-                              Row(
+                              ref.watch(getOrderTotal).when(
+                                  data: (data) => Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          const Text(
+                                            'SubTotal',
+                                          ),
+                                          Text(
+                                            '\$$data',
+                                            style: kProductStyle,
+                                          ),
+                                        ],
+                                      ),
+                                  error: (error, stackTrace) =>
+                                      ErrorText(error: error.toString()),
+                                  loading: () => const Loader()),
+                              const Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
@@ -154,7 +159,7 @@ class _CartPageState extends ConsumerState<CartPage> {
                                       style: kProductStyle,
                                     ),
                                   ]),
-                              Row(
+                              const Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
@@ -167,12 +172,12 @@ class _CartPageState extends ConsumerState<CartPage> {
                                   ),
                                 ],
                               ),
-                              Text('----------------------------',
+                              const Text('----------------------------',
                                   style: TextStyle(
                                     fontSize: 20,
                                     letterSpacing: 5,
                                   )),
-                              Row(
+                              const Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [

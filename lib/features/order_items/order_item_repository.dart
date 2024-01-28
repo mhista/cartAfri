@@ -24,7 +24,7 @@ class OrderItemRepository {
     try {
       // gets a querysnapshot of all orderitems with the product id and a particular size
       QuerySnapshot orderItemQuery = await _orderItem
-          .where('productId', isEqualTo: orderItem.productId)
+          .where('product.id', isEqualTo: orderItem.product.id)
           .where('userId', isEqualTo: orderItem.userId)
           .where('size', isEqualTo: orderItem.size)
           .limit(1)
@@ -35,7 +35,7 @@ class OrderItemRepository {
         // updates it
         await item.reference.update({'quantity': FieldValue.increment(1)});
         await _products
-            .doc(orderItem.productId)
+            .doc(orderItem.product.id)
             .update({'quantity': FieldValue.increment(-1)});
         OrderItem itemer =
             OrderItem.fromMap(item.data() as Map<String, dynamic>);
@@ -60,19 +60,43 @@ class OrderItemRepository {
   }
 
 // GET ALL ORDERITEMS
-  Stream<List<OrderItem>> getOrderItem(String id, List orderItemsId) {
-    return _orderItem.snapshots().map((event) {
-      List<OrderItem> orderItems = [];
-      for (var doc in event.docs) {
-        OrderItem item = OrderItem.fromMap(doc.data() as Map<String, dynamic>);
-        if (orderItemsId.contains(item.id)) {
+  Stream<List<OrderItem>> getOrderItem() {
+    try {
+      return _orderItem
+          .where('ordered', isEqualTo: false)
+          .snapshots()
+          .map((QuerySnapshot snapshot) {
+        List<OrderItem> orderItems = [];
+        for (var doc in snapshot.docs) {
+          OrderItem item =
+              OrderItem.fromMap(doc.data() as Map<String, dynamic>);
           orderItems.add(item);
         }
-      }
-      return orderItems;
-    });
+        return orderItems;
+      });
+    } on FirebaseException catch (e) {
+      throw e.message!;
+    }
   }
 
+  Stream<double> getTotal() {
+    try {
+      return _orderItem
+          .where('ordered', isEqualTo: false)
+          .snapshots()
+          .map((QuerySnapshot snapshot) {
+        double total = 0;
+        for (var doc in snapshot.docs) {
+          OrderItem item =
+              OrderItem.fromMap(doc.data() as Map<String, dynamic>);
+          total = total + item.product.price;
+        }
+        return total;
+      });
+    } on FirebaseException catch (e) {
+      throw e.message!;
+    }
+  }
 //
 }
 

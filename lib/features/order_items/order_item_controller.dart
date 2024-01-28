@@ -1,4 +1,5 @@
 import 'package:cartafri/features/orders/order_model.dart';
+import 'package:cartafri/features/products/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cartafri/core/utils/snackbar.dart';
@@ -28,17 +29,18 @@ class OrderItemController extends StateNotifier<bool> {
   void createOrUpdateOrderItem(
     BuildContext context, {
     required String id,
-    required String productId,
+    required Product product,
     required int quantity,
     required int size,
   }) async {
     OrderItem orderItem;
     orderItem = OrderItem(
+        ordered: false,
         id: id,
-        productId: productId,
         quantity: quantity,
         size: size,
-        userId: _ref.read(userProvider)!.uid);
+        userId: _ref.read(userProvider)!.uid,
+        product: product);
     state = true;
     // CREATES OR UPDATES THE ORDERITEM AND RETRIEVES IT
     final res = await _orderItemRepository.createOrUpdateOrderItem(orderItem);
@@ -52,16 +54,17 @@ class OrderItemController extends StateNotifier<bool> {
     state = false;
     result.fold((l) => showSnackbar2(context, l.message), (order) {
       _ref.read(orderProvider.notifier).update((state) => order);
-      showSnackbar2(context, 'Item added to cart');
-      Routemaster.of(context).pop();
     });
   }
 
 //GET THE ORDERITEMS IN AN ORDER
-  Stream<List<OrderItem>> getOrderItem(String item) {
-    final userId = _ref.read(userProvider)!.uid;
-    final order = _ref.read(orderProvider)!.orderItems;
-    return _orderItemRepository.getOrderItem(userId, order);
+  Stream<List<OrderItem>> getOrderItem() {
+    return _orderItemRepository.getOrderItem();
+  }
+
+  //GET THE ORDERITEMS IN AN ORDER
+  Stream<double> getTotal() {
+    return _orderItemRepository.getTotal();
   }
 }
 
@@ -74,8 +77,11 @@ final orderItemController =
       orderRepository: ref.watch(orderRepositoryProvider));
 });
 
-final getorderItemProvider =
-    StreamProvider.family.autoDispose((ref, String itemId) {
+final getorderItemProvider = StreamProvider.autoDispose((ref) {
   final itemController = ref.watch(orderItemController.notifier);
-  return itemController.getOrderItem(itemId);
+  return itemController.getOrderItem();
+});
+final getOrderTotal = StreamProvider.autoDispose((ref) {
+  final itemController = ref.watch(orderItemController.notifier);
+  return itemController.getTotal();
 });
