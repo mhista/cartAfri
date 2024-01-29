@@ -3,20 +3,17 @@ import 'package:cartafri/core/constants/constants.dart';
 import 'package:cartafri/core/utils/error_test.dart';
 import 'package:cartafri/core/utils/isLoading.dart';
 import 'package:cartafri/core/utils/reusables.dart';
-import 'package:cartafri/core/functionality/Image_selector.dart';
 import 'package:cartafri/core/utils/show_add_to_cart_sizes.dart';
 import 'package:cartafri/core/utils/snackBar.dart';
 import 'package:cartafri/features/order_items/order_item_controller.dart';
-import 'package:cartafri/features/order_items/order_item_model.dart';
-import 'package:cartafri/features/orders/order_controller.dart';
 import 'package:cartafri/features/products/product_controller.dart';
 import 'package:cartafri/features/products/product_model.dart';
-import 'package:cartafri/main.dart';
-import 'package:cartafri/screens/cart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:routemaster/routemaster.dart';
 import 'package:uuid/uuid.dart';
+
+GlobalKey _scaffold = GlobalKey();
 
 class ProductDetail extends ConsumerWidget {
   const ProductDetail({super.key, required this.id});
@@ -26,6 +23,7 @@ class ProductDetail extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return ref.watch(productDetailProvider(id)).when(
         data: (product) => Scaffold(
+              key: _scaffold,
               appBar: AppBar(
                 leading: PrimaryIconButton(
                   iconData: Icons.arrow_back,
@@ -113,7 +111,7 @@ class ProductDetail extends ConsumerWidget {
 }
 
 class ChipBuilder extends ConsumerStatefulWidget {
-  ChipBuilder({
+  const ChipBuilder({
     super.key,
     required this.productSize,
     required this.product,
@@ -133,14 +131,13 @@ class _ChipBuilderState extends ConsumerState<ChipBuilder> {
       Product product, BuildContext context, int size, int selectedSize) {
     ref.read(orderItemController.notifier).createOrUpdateOrderItem(context,
         id: const Uuid().v4(), product: product, quantity: 1, size: size);
+    Routemaster.of(context).pop();
 
     setState(() {
-      selectedSize = size;
-      Routemaster.of(context).pop();
-
-      showSnackbar2(context, 'Item added to cart');
-      Routemaster.of(context).push('/cart');
+      selectedSize = 10;
     });
+    Routemaster.of(context).push('/cart');
+    showSnackbar2(context, 'Item added to cart');
   }
 
   @override
@@ -174,25 +171,3 @@ class _ChipBuilderState extends ConsumerState<ChipBuilder> {
         });
   }
 }
-
-// ignore: non_constant_identifier_names
-// class Mark extends ConsumerStatefulWidget {
-//   @override
-//   _MarkState createState() => _MarkState();
-// }
-
-// class _MarkState extends ConsumerState<Mark> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return GestureDetector(
-//       onTap: (){
-//         setState(() {
-//           ref.read(provider)
-//         });
-//       },
-//           child: Container(
-
-//       ),
-//     );
-//   }
-// }

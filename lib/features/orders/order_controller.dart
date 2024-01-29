@@ -1,19 +1,18 @@
 import 'package:cartafri/core/type_defs.dart';
 import 'package:cartafri/core/utils/snackBar.dart';
 import 'package:cartafri/features/auth/controller/authController.dart';
+import 'package:cartafri/features/auth/models/user_model.dart';
 import 'package:cartafri/features/order_items/order_item_model.dart';
 import 'package:cartafri/features/order_items/order_item_repository.dart';
 import 'package:cartafri/features/orders/order_model.dart';
 import 'package:cartafri/features/orders/order_repository.dart';
-import 'package:cartafri/features/products/product_model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:uuid/uuid.dart';
 
 class OrderController extends StateNotifier<bool> {
   final OrderRepository _orderRepository;
   final Ref _ref;
-  final OrderItemRepository _orderItemRepository;
 
   OrderController(
       {required OrderRepository orderRepository,
@@ -21,7 +20,6 @@ class OrderController extends StateNotifier<bool> {
       required OrderItemRepository orderItemRepository})
       : _orderRepository = orderRepository,
         _ref = ref,
-        _orderItemRepository = orderItemRepository,
         super(false);
 
   // GET THE UNORDER ORDER
@@ -37,15 +35,15 @@ class OrderController extends StateNotifier<bool> {
   }
 
   // DELETE ORDER
-  void deleteOrderItemFromOrder(
-      BuildContext context, Orders order, OrderItem orderItem) async {
-    state = true;
-    final res =
-        await _orderRepository.deleteOrderItemFromOrder(orderItem, order);
-    state = false;
-    res.fold((l) => showSnackbar2(context, l.message),
-        (r) => showSnackbar2(context, 'order deleted'));
-  }
+  // void deleteOrderItemFromOrder(BuildContext context,
+  //     {required id, required OrderItem orderItem}) async {
+  //   state = true;
+  //   final res =
+  //       await _orderRepository.deleteOrderItemFromOrder({i});
+  //   state = false;
+  //   res.fold((l) => showSnackbar2(context, l.message),
+  //       (r) => showSnackbar2(context, 'order deleted'));
+  // }
 
   // DELETE ORDER
   void deleteOrder(BuildContext context, Orders order, String userId) async {

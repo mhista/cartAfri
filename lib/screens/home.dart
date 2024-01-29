@@ -17,22 +17,23 @@ class AppHomePage extends ConsumerWidget {
   AppHomePage({super.key});
   final product = product_list;
 
-  // void addToFireBase(
-  //     BuildContext context, WidgetRef ref, List<Map<String, dynamic>> product) {
-  //   // print(product);
-  //   final productController = ref.read(productControllerProvider.notifier);
-  //   const uuid = Uuid();
-  //   for (var el in product) {
-  //     productController.createProduct(context,
-  //         id: uuid.v4(),
-  //         title: el['title'],
-  //         price: el['price'],
-  //         company: el['company'],
-  //         size: el['size'],
-  //         imageUrl: el['imageUrl'],
-  //         itemCount: el['itemCount']);
-  //   }
-  // }
+  void addToFireBase(
+      BuildContext context, WidgetRef ref, List<Map<String, dynamic>> product) {
+    // print(product);
+    final productController = ref.read(productControllerProvider.notifier);
+    const uuid = Uuid();
+    for (var el in product) {
+      productController.createProduct(context,
+          id: uuid.v4(),
+          title: el['title'],
+          price: el['price'],
+          company: el['company'],
+          size: el['size'],
+          imageUrl: el['imageUrl'],
+          itemCount: el['itemCount']);
+    }
+  }
+
   void signOut(WidgetRef ref) {
     ref.read(authRepositoryProvider).signout();
   }
@@ -60,6 +61,7 @@ class AppHomePage extends ConsumerWidget {
                   trailing: IconButton(
                     onPressed: () {
                       signOut(ref);
+                      // addToFireBase(context, ref, product);
                     },
                     icon: const Icon(Icons.notifications_none_outlined),
                   ),

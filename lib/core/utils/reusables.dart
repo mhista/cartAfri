@@ -156,7 +156,7 @@ class AppBarTitle extends StatelessWidget {
     return Center(
       child: Text(
         title,
-        style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+        style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
       ),
     );
   }

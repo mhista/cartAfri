@@ -25,7 +25,7 @@ class OrderItemController extends StateNotifier<bool> {
         _orderItemRepository = orderItemRepository,
         super(false);
 
-  // UPDATE THE ORDERITEM
+  // UPDATE OR CREATE THE ORDERITEM
   void createOrUpdateOrderItem(
     BuildContext context, {
     required String id,
@@ -45,7 +45,7 @@ class OrderItemController extends StateNotifier<bool> {
     // CREATES OR UPDATES THE ORDERITEM AND RETRIEVES IT
     final res = await _orderItemRepository.createOrUpdateOrderItem(orderItem);
     res.fold((l) {
-      return null;
+      return showSnackbar2(context, l.message);
     }, (item) => orderItem = item);
     // ADDS THE ORDERITEMS ID TO THE USERS CURRENT ORDER
     final result = await _orderRepository.createOrUpdateOrder(
@@ -53,18 +53,42 @@ class OrderItemController extends StateNotifier<bool> {
         orderItem: res.foldRight(orderItem, (acc, b) => b));
     state = false;
     result.fold((l) => showSnackbar2(context, l.message), (order) {
+      // showSnackbar2(context, order.toString());
       _ref.read(orderProvider.notifier).update((state) => order);
+    });
+  }
+
+// DECREAESE THE SIZE OF THE ORDERITEM
+  void decreaseOrderItem(
+    BuildContext context, {
+    required OrderItem orderItem,
+  }) async {
+    // OrderItem orderItemm;
+
+    state = true;
+    final res = await _orderItemRepository.decreaseOrderItem(orderItem);
+    res.fold((l) {
+      return showSnackbar2(context, l.message);
+    }, (item) => item);
+    final result = await _orderRepository.deleteOrderItemFromOrder(
+        id: _ref.read(userProvider)!.uid,
+        orderItem: res.foldRight(orderItem, (acc, b) => b));
+    state = false;
+    result.fold((l) => showSnackbar2(context, l.message), (order) {
+      showSnackbar2(context, 'Item deleted');
     });
   }
 
 //GET THE ORDERITEMS IN AN ORDER
   Stream<List<OrderItem>> getOrderItem() {
-    return _orderItemRepository.getOrderItem();
+    final user = _ref.read(userProvider)!.uid;
+    return _orderItemRepository.getOrderItems(user);
   }
 
-  //GET THE ORDERITEMS IN AN ORDER
+// GET THE ORDERITEM TOTAL
   Stream<double> getTotal() {
-    return _orderItemRepository.getTotal();
+    final user = _ref.read(userProvider)!.uid;
+    return _orderItemRepository.getTotal(user);
   }
 }
 

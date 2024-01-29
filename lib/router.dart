@@ -5,6 +5,7 @@
 import 'package:cartafri/features/auth/screens/login_screen.dart';
 import 'package:cartafri/features/auth/screens/signup.dart';
 import 'package:cartafri/screens/cart.dart';
+import 'package:cartafri/screens/checkout.dart';
 import 'package:cartafri/screens/home.dart';
 import 'package:cartafri/screens/product_detail.dart';
 import 'package:flutter/material.dart';
@@ -20,9 +21,13 @@ final loggedInRoute = RouteMap(
     '/product/:id': (route) => MaterialPage(
           child: ProductDetail(id: route.pathParameters['id']!),
         ),
-    '/cart': (route) => const MaterialPage(
+    '/cart': (routeData) => const MaterialPage(
           child: CartPage(),
+        ),
+    '/checkout': (routeData) => const MaterialPage(
+          child: CheckoutPage(),
         )
+
     // "/product:id":(_)=>MaterialPage(child: ProductDetail(product: product, tag: tag))
   },
 );

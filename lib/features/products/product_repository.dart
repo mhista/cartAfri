@@ -50,7 +50,12 @@ class ProductRepository {
     return _products.snapshots().map((event) {
       List<Product> products = [];
       for (var doc in event.docs) {
-        products.add(Product.fromMap(doc.data() as Map<String, dynamic>));
+        Product item = Product.fromMap(doc.data() as Map<String, dynamic>);
+        if (item.itemCount < 1) {
+          // _products.doc(item.id).delete();
+          continue;
+        }
+        products.add(item);
       }
       return products;
     });
