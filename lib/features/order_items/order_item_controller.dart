@@ -1,4 +1,3 @@
-import 'package:cartafri/features/orders/order_model.dart';
 import 'package:cartafri/features/products/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -8,8 +7,6 @@ import 'package:cartafri/features/order_items/order_item_model.dart';
 import 'package:cartafri/features/order_items/order_item_repository.dart';
 import 'package:cartafri/features/orders/order_controller.dart';
 import 'package:cartafri/features/orders/order_repository.dart';
-import 'package:routemaster/routemaster.dart';
-import 'package:uuid/uuid.dart';
 
 class OrderItemController extends StateNotifier<bool> {
   final OrderRepository _orderRepository;

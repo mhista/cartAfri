@@ -3,7 +3,6 @@ import 'package:cartafri/core/failure.dart';
 import 'package:cartafri/core/functionality/firebase_provider.dart';
 import 'package:cartafri/core/type_defs.dart';
 import 'package:cartafri/features/order_items/order_item_model.dart';
-import 'package:cartafri/features/orders/order_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fpdart/fpdart.dart';

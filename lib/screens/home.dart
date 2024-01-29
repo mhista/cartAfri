@@ -7,7 +7,6 @@ import 'package:cartafri/features/auth/controller/authController.dart';
 import 'package:cartafri/features/auth/repository/authRepository.dart';
 import 'package:cartafri/features/products/product_controller.dart';
 import 'package:cartafri/features/products/product_model.dart';
-import 'package:cartafri/screens/product_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:routemaster/routemaster.dart';

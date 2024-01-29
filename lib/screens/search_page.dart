@@ -49,7 +49,7 @@ class SearchPageWidget {
                             children: [
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(8.0),
-                                child: Image.asset(carts?.getImageList()[index],
+                                child: Image.asset(carts.getImageList()[index],
                                     height: 1000.0, fit: BoxFit.fill),
                               ),
                               Positioned(

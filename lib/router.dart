@@ -2,7 +2,6 @@
 // LOGGED OUT ROUTE
 // LOGGED IN ROUTE
 
-import 'package:cartafri/features/auth/screens/login_screen.dart';
 import 'package:cartafri/features/auth/screens/signup.dart';
 import 'package:cartafri/screens/cart.dart';
 import 'package:cartafri/screens/checkout.dart';

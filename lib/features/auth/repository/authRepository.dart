@@ -4,15 +4,12 @@ import 'package:cartafri/core/constants/firestore_constants.dart';
 import 'package:cartafri/core/failure.dart';
 import 'package:cartafri/core/functionality/firebase_provider.dart';
 import 'package:cartafri/core/type_defs.dart';
-import 'package:cartafri/core/utils/showOTPdialog.dart';
-import 'package:cartafri/core/utils/snackbar.dart';
 import 'package:cartafri/features/auth/models/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:flutter/material.dart';
 
 final authRepositoryProvider = Provider((ref) => AuthRepository(
     auth: ref.read(authProvider),

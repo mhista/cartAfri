@@ -1,6 +1,4 @@
-import 'package:cartafri/core/type_defs.dart';
 import 'package:cartafri/core/utils/snackBar.dart';
-import 'package:cartafri/features/auth/controller/authController.dart';
 import 'package:cartafri/features/products/product_model.dart';
 import 'package:cartafri/features/products/product_repository.dart';
 import 'package:flutter/material.dart';
@@ -9,12 +7,10 @@ import 'package:routemaster/routemaster.dart';
 
 class ProductContoller extends StateNotifier<bool> {
   final ProductRepository _productRepository;
-  final Ref _ref;
 
   ProductContoller(
       {required ProductRepository productRepository, required Ref ref})
       : _productRepository = productRepository,
-        _ref = ref,
         super(false);
 
 // CREATE A PRODUCT
