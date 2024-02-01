@@ -39,18 +39,17 @@ class OrderItemController extends StateNotifier<bool> {
         userId: _ref.read(userProvider)!.uid,
         product: product);
     state = true;
-    // CREATES OR UPDATES THE ORDERITEM AND RETRIEVES IT
     final res = await _orderItemRepository.createOrUpdateOrderItem(orderItem);
     res.fold((l) {
       return showSnackbar2(context, l.message);
     }, (item) => orderItem = item);
-    // ADDS THE ORDERITEMS ID TO THE USERS CURRENT ORDER
+
     final result = await _orderRepository.createOrUpdateOrder(
         id: _ref.read(userProvider)!.uid,
         orderItem: res.foldRight(orderItem, (acc, b) => b));
     state = false;
+
     result.fold((l) => showSnackbar2(context, l.message), (order) {
-      // showSnackbar2(context, order.toString());
       _ref.read(orderProvider.notifier).update((state) => order);
     });
   }

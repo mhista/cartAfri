@@ -106,6 +106,7 @@ class FilledTextButton extends StatelessWidget {
 //custom filled button for checkout, cart etc
 class CustomFilledButton extends StatelessWidget {
   const CustomFilledButton({
+    super.key,
     required this.text,
     required this.onPress,
   });

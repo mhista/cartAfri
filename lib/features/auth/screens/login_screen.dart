@@ -88,8 +88,8 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                         onPressed: () {},
                         child:
                             const Text('I have no account', style: kSmallFont)),
-                    SocialAccountButoons(
-                      text: const Text(
+                    const SocialAccountButoons(
+                      text: Text(
                         'Continue With Google',
                         style: kWTextStyleSpacing,
                       ),
@@ -98,8 +98,8 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                     const SizedBox(
                       height: 12.0,
                     ),
-                    SocialAccountButoons(
-                      text: const Text(
+                    const SocialAccountButoons(
+                      text: Text(
                         'Continue With Phone',
                         style: kWTextStyleSpacing,
                       ),

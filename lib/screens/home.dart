@@ -208,7 +208,7 @@ class ProductListBuilder extends ConsumerWidget {
                                 child: Hero(
                                   tag: tag,
                                   child: Image.asset(product.imageUrl[0],
-                                      height: 1000.0, fit: BoxFit.cover),
+                                      height: 100.0, fit: BoxFit.cover),
                                 ),
                               ),
                             ),

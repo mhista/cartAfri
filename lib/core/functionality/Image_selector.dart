@@ -4,7 +4,7 @@ class ImagePicker {
     'images/bag (2).jpg',
     'images/bag (3).jpg',
     'images/bag (4).jpg',
-    'images/bag (5).jpg',
+
     'images/bags (6).jpg',
     // 'images/bags (7).jpg',
     // 'images/bags (8).jpg',

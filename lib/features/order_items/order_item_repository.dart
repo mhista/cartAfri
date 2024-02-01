@@ -48,7 +48,6 @@ class OrderItemRepository {
           return right(itemer);
         }
         return right(itemer);
-        // returns the updated item
       } else {
         // creates a new order item
         await _orderItem
