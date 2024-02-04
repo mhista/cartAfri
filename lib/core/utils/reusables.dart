@@ -4,6 +4,7 @@ import 'package:cartafri/features/auth/repository/authRepository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:cartafri/core/constants/color_constants.dart';
 
 // Bottom Navigation Icons
 class BottomBarIcons extends StatelessWidget {
@@ -17,7 +18,7 @@ class BottomBarIcons extends StatelessWidget {
     return NavigationDestination(
       icon: Icon(iconData),
       label: label,
-      selectedIcon: Icon(selectedIcon, color: kButtonColor),
+      selectedIcon: Icon(selectedIcon, color: ColorConstants.kButtonColor),
     );
   }
 }
@@ -28,7 +29,7 @@ class StarIcon extends StatelessWidget {
   final IconData starType;
   @override
   Widget build(BuildContext context) {
-    return Icon(starType, size: 20, color: kYellow);
+    return Icon(starType, size: 20, color: ColorConstants.kYellow);
   }
 }
 
@@ -40,7 +41,7 @@ class PrimaryIconButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
       icon: Icon(iconData),
-      color: kButtonColor,
+      color: ColorConstants.kButtonColor,
       onPressed: onPressed,
     );
   }
@@ -211,7 +212,7 @@ class AuthIcons extends StatelessWidget {
   final IconData authIcon;
   @override
   Widget build(BuildContext context) {
-    return Icon(authIcon, size: 30, color: kButtonColor);
+    return Icon(authIcon, size: 30, color: ColorConstants.kButtonColor);
   }
 }
 

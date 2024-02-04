@@ -47,6 +47,10 @@ class ProductContoller extends StateNotifier<bool> {
 
   //CONTROLLER FO GETTING ALL PRODUCTS
   Stream<List<Product>> getProducts() => _productRepository.getProducts();
+  // SEARCH STREAM OF THE PRODUCTS
+  Stream<List<Product>> searchProducts(String query) =>
+      _productRepository.searchProducts(query);
+
   Stream<Product> getProductDetail(String id) =>
       _productRepository.getProductDetail(id);
   // FutureVoid uploadProductPhoto() async{
@@ -67,6 +71,10 @@ final productControllerProvider = StateNotifierProvider<ProductContoller, bool>(
 final productsProvider = StreamProvider((ref) {
   final productController = ref.watch(productControllerProvider.notifier);
   return productController.getProducts();
+});
+final searchProductsProvider = StreamProvider.family((ref, String query) {
+  final productController = ref.watch(productControllerProvider.notifier);
+  return productController.searchProducts(query);
 });
 
 final productDetailProvider =

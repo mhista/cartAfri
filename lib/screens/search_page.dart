@@ -1,6 +1,7 @@
 import 'package:cartafri/core/constants/constants.dart';
 import 'package:cartafri/core/utils/reusables.dart';
 import 'package:cartafri/core/functionality/Image_selector.dart';
+import 'package:cartafri/features/home/search_delegate.dart';
 import 'package:flutter/material.dart';
 
 class SearchPageWidget {
@@ -9,6 +10,7 @@ class SearchPageWidget {
   final carts = ImagePicker();
   List<Widget> widgetList() => [
         SearchBar(
+            // onTap: () => showSearch(context: context, delegate: SearchProductDelegate(ref: ref)),
             elevation: MaterialStateProperty.all(1.0),
             hintText: 'search',
             leading:

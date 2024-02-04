@@ -1,3 +1,4 @@
+import 'package:cartafri/core/constants/color_constants.dart';
 import 'package:cartafri/core/utils/animations.dart';
 import 'package:cartafri/core/constants/constants.dart';
 import 'package:cartafri/core/utils/error_test.dart';
@@ -5,8 +6,10 @@ import 'package:cartafri/core/utils/isLoading.dart';
 import 'package:cartafri/core/utils/reusables.dart';
 import 'package:cartafri/features/auth/controller/authController.dart';
 import 'package:cartafri/features/auth/repository/authRepository.dart';
+import 'package:cartafri/features/home/search_delegate.dart';
 import 'package:cartafri/features/products/product_controller.dart';
 import 'package:cartafri/features/products/product_model.dart';
+import 'package:cartafri/theme/pallete.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:routemaster/routemaster.dart';
@@ -40,134 +43,141 @@ class AppHomePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(userProvider)!;
-    return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: SafeArea(
-          child: CustomScrollView(slivers: [
-            // greeting widget
-            SliverAppBar(
-              expandedHeight: 0,
-              centerTitle: false,
-              flexibleSpace: FlexibleSpaceBar(
-                background: ListTile(
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  title: Text(
-                    'Hi, ${user.name}',
-                    style: const TextStyle(
-                        fontSize: 20, fontWeight: FontWeight.w500),
-                  ),
-                  trailing: IconButton(
-                    onPressed: () {
-                      signOut(ref);
-                      // addToFireBase(context, ref, product);
-                    },
-                    icon: const Icon(Icons.notifications_none_outlined),
-                  ),
-                ),
+    final colorTheme = ref.watch(themeNotifierProvider);
+    return SafeArea(
+      child: CustomScrollView(slivers: [
+        // greeting widget
+        SliverAppBar(
+          expandedHeight: 0,
+          centerTitle: false,
+          flexibleSpace: FlexibleSpaceBar(
+            background: ListTile(
+              contentPadding: const EdgeInsets.symmetric(horizontal: 8.0),
+              title: Text(
+                'Hi, ${user.name}',
+                style:
+                    const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
               ),
             ),
-            // categories and see all widget
-            SliverAppBar(
-              expandedHeight: 0.0,
-              floating: true,
-              flexibleSpace: FlexibleSpaceBar(
-                background: ListTile(
-                  leading: const Text(
-                    'Categories',
-                    style:
-                        TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
-                  ),
-                  trailing: TextButton(
-                    onPressed: () {},
-                    child: const Text('See all'),
-                  ),
-                ),
+          ),
+          actions: [
+            IconButton(
+              onPressed: () {
+                showSearch(
+                    context: context,
+                    delegate: SearchProductDelegate(ref: ref));
+                // addToFireBase(context, ref, product);
+              },
+              icon: const Icon(Icons.search_outlined),
+            ),
+            IconButton(
+              onPressed: () {
+                signOut(ref);
+                // addToFireBase(context, ref, product);
+              },
+              icon: const Icon(Icons.notifications_none_outlined),
+            ),
+          ],
+        ),
+        // categories and see all widget
+        SliverAppBar(
+          expandedHeight: 0.0,
+          floating: true,
+          flexibleSpace: FlexibleSpaceBar(
+            background: ListTile(
+              leading: const Text(
+                'Categories',
+                style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+              ),
+              trailing: TextButton(
+                onPressed: () {},
+                child: const Text('See all'),
               ),
             ),
-            SliverAppBar(
-              stretch: true,
-              pinned: true,
-              bottom: PreferredSize(
-                preferredSize: const Size.fromHeight(50),
-                child: Column(children: [
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 10.0),
-                    child: Material(
-                      shape: RoundedRectangleBorder(
-                        side: const BorderSide(
-                            width: 0.1,
-                            strokeAlign: BorderSide.strokeAlignOutside,
-                            color: Colors.grey),
-                        borderRadius: BorderRadius.circular(12.0),
-                      ),
-                      elevation: 1.0,
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 10.0, horizontal: 12.0),
-                        child: Row(
+          ),
+        ),
+        SliverAppBar(
+          stretch: true,
+          pinned: true,
+          bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(70),
+            child: Column(children: [
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10.0),
+                child: Material(
+                  color: ColorConstants.kCardColorD,
+                  shape: RoundedRectangleBorder(
+                    side: const BorderSide(
+                        width: 0.1,
+                        strokeAlign: BorderSide.strokeAlignOutside,
+                        color: ColorConstants.kCardColorD),
+                    borderRadius: BorderRadius.circular(12.0),
+                  ),
+                  elevation: 1.0,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 15.0, horizontal: 12.0),
+                    child: Row(
+                      children: [
+                        Expanded(
+                            child: Column(
                           children: [
-                            Expanded(
-                                child: Column(
-                              children: [
-                                CategoryIconButton(
-                                  iconData: Icons.shopping_cart_outlined,
-                                  onPressed: () {},
-                                  color: kButtonColor,
-                                ),
-                                const Text(
-                                  'Grocery',
-                                  style: kMediumFont,
-                                )
-                              ],
-                            )),
-                            Expanded(
-                                child: Column(
-                              children: [
-                                CategoryIconButton(
-                                  iconData: Icons.change_history_outlined,
-                                  onPressed: () {},
-                                  bgColor: kButtonColor,
-                                  color: kCardColor,
-                                ),
-                                const Text('Cloth', style: kMediumFont)
-                              ],
-                            )),
-                            Expanded(
-                                child: Column(
-                              children: [
-                                CategoryIconButton(
-                                  iconData: Icons.wine_bar_outlined,
-                                  onPressed: () {},
-                                  color: kButtonColor,
-                                ),
-                                const Text('Liquor', style: kMediumFont)
-                              ],
-                            )),
-                            Expanded(
-                                child: Column(
-                              children: [
-                                CategoryIconButton(
-                                  iconData: Icons.fastfood_outlined,
-                                  onPressed: () {},
-                                  bgColor: kButtonColor,
-                                  color: kCardColor,
-                                ),
-                                const Text('Food', style: kMediumFont)
-                              ],
-                            )),
+                            CategoryIconButton(
+                              iconData: Icons.shopping_cart_outlined,
+                              onPressed: () {},
+                              color: ColorConstants.kButtonColor,
+                            ),
+                            const Text(
+                              'Grocery',
+                              style: kMediumFont,
+                            )
                           ],
-                        ),
-                      ),
+                        )),
+                        Expanded(
+                            child: Column(
+                          children: [
+                            CategoryIconButton(
+                              iconData: Icons.change_history_outlined,
+                              onPressed: () {},
+                              bgColor: ColorConstants.kButtonColor,
+                              color: ColorConstants.kCardColor,
+                            ),
+                            const Text('Cloth', style: kMediumFont)
+                          ],
+                        )),
+                        Expanded(
+                            child: Column(
+                          children: [
+                            CategoryIconButton(
+                              iconData: Icons.wine_bar_outlined,
+                              onPressed: () {},
+                              color: ColorConstants.kButtonColor,
+                            ),
+                            const Text('Liquor', style: kMediumFont)
+                          ],
+                        )),
+                        Expanded(
+                            child: Column(
+                          children: [
+                            CategoryIconButton(
+                              iconData: Icons.fastfood_outlined,
+                              onPressed: () {},
+                              bgColor: ColorConstants.kButtonColor,
+                              color: ColorConstants.kCardColor,
+                            ),
+                            const Text('Food', style: kMediumFont)
+                          ],
+                        )),
+                      ],
                     ),
                   ),
-                ]),
+                ),
               ),
-            ),
-            const ProductListBuilder()
-          ]),
+            ]),
+          ),
         ),
-      ),
+        const ProductListBuilder()
+      ]),
     );
   }
 }
@@ -233,7 +243,7 @@ class ProductListBuilder extends ConsumerWidget {
                                       child: Row(children: [
                                         const Icon(
                                             Icons.store_mall_directory_outlined,
-                                            color: kGreyColor2),
+                                            color: ColorConstants.kGreyColor2),
                                         Padding(
                                           padding:
                                               const EdgeInsets.only(left: 3.0),
@@ -254,7 +264,7 @@ class ProductListBuilder extends ConsumerWidget {
                                       padding: EdgeInsets.only(bottom: 8.0),
                                       child: IconAnimation(
                                         iconData: Icons.favorite,
-                                        startColor: kGreyColor,
+                                        startColor: ColorConstants.kGreyColor,
                                         endColor: Colors.red,
                                       )),
                                   Padding(

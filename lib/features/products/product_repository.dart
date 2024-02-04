@@ -67,4 +67,32 @@ class ProductRepository {
         .snapshots()
         .map((event) => Product.fromMap(event.data() as Map<String, dynamic>));
   }
+
+  // GET ALL PRODUCTS IN THE PRODUCT COLLECTION
+  Stream<List<Product>> searchProducts(String query) {
+    return _products
+        .where(
+          'title',
+          isGreaterThanOrEqualTo: query.isEmpty ? 0 : query,
+          isLessThan: query.isEmpty
+              ? null
+              : query.substring(0, query.length - 1) +
+                  String.fromCharCode(
+                    query.codeUnitAt(query.length - 1) + 1,
+                  ),
+        )
+        .snapshots()
+        .map((event) {
+      List<Product> products = [];
+      for (var doc in event.docs) {
+        Product item = Product.fromMap(doc.data() as Map<String, dynamic>);
+        if (item.itemCount < 1) {
+          // _products.doc(item.id).delete();
+          continue;
+        }
+        products.add(item);
+      }
+      return products;
+    });
+  }
 }

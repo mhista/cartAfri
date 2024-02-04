@@ -1,3 +1,4 @@
+import 'package:cartafri/core/constants/color_constants.dart';
 import 'package:cartafri/core/constants/constants.dart';
 import 'package:cartafri/core/utils/reusables.dart';
 import 'package:cartafri/core/functionality/account_properties.dart';
@@ -97,7 +98,7 @@ class AccountListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      focusColor: kButtonColorOpaque,
+      focusColor: ColorConstants.kButtonColorOpaque,
       contentPadding: const EdgeInsets.symmetric(horizontal: 0),
       leading: accountTiles.getIcon(index),
       title: Text(accountTiles.getTitle(index), style: kMediumFont),

@@ -1,3 +1,4 @@
+import 'package:cartafri/core/constants/color_constants.dart';
 import 'package:cartafri/core/constants/constants.dart';
 import 'package:flutter/material.dart';
 
@@ -28,7 +29,7 @@ class InputTextWidget extends StatelessWidget {
           prefixIcon: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Material(
-              color: kButtonColor,
+              color: ColorConstants.kButtonColor,
               borderRadius: BorderRadius.circular(8.0),
               child: Icon(
                 iconData,
@@ -80,7 +81,7 @@ class CheckoutInputTextWidget extends StatelessWidget {
             ),
           ),
           filled: true,
-          fillColor: kCardColor,
+          fillColor: ColorConstants.kCardColor,
           focusedBorder: kOutlineInputBorder2,
           enabledBorder: kOutlineInputBorder2),
     );

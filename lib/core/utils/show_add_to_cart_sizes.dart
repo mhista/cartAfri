@@ -1,3 +1,4 @@
+import 'package:cartafri/core/constants/color_constants.dart';
 import 'package:cartafri/core/constants/constants.dart';
 import 'package:cartafri/core/utils/reusables.dart';
 import 'package:cartafri/features/products/product_model.dart';
@@ -42,7 +43,7 @@ Future<dynamic> showAddToCartSizeOptions(
                           CategoryIconButton(
                               elevation: 0.0,
                               color: Colors.white,
-                              bgColor: kButtonColor,
+                              bgColor: ColorConstants.kButtonColor,
                               iconData: Icons.open_in_new_outlined,
                               onPressed: () {}),
                           const SizedBox(height: 7),
@@ -59,7 +60,7 @@ Future<dynamic> showAddToCartSizeOptions(
                           CategoryIconButton(
                               elevation: 0.0,
                               color: Colors.white,
-                              bgColor: kButtonColor,
+                              bgColor: ColorConstants.kButtonColor,
                               iconData: Icons.emoji_emotions_outlined,
                               onPressed: () {}),
                           const SizedBox(height: 7),

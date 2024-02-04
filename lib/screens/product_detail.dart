@@ -1,3 +1,4 @@
+import 'package:cartafri/core/constants/color_constants.dart';
 import 'package:cartafri/core/utils/animations.dart';
 import 'package:cartafri/core/constants/constants.dart';
 import 'package:cartafri/core/utils/error_test.dart';
@@ -39,7 +40,7 @@ class ProductDetail extends ConsumerWidget {
                 actions: const [
                   IconAnimation(
                     iconData: Icons.favorite_border_outlined,
-                    startColor: kButtonColor,
+                    startColor: ColorConstants.kButtonColor,
                     endColor: Colors.red,
                     selectedIconData: Icons.favorite,
                   )
@@ -75,7 +76,7 @@ class ProductDetail extends ConsumerWidget {
                     const Center(child: ColumnTextReview()),
                     TextButton(
                       style: TextButton.styleFrom(
-                        backgroundColor: kYellow2,
+                        backgroundColor: ColorConstants.kYellow2,
                       ),
                       onPressed: () {},
                       child: const Text(
@@ -83,7 +84,7 @@ class ProductDetail extends ConsumerWidget {
                         style: TextStyle(
                             fontSize: 13,
                             fontWeight: FontWeight.w600,
-                            color: kYellow),
+                            color: ColorConstants.kYellow),
                       ),
                     ),
                     const SizedBox(height: 10),
@@ -155,7 +156,8 @@ class _ChipBuilderState extends ConsumerState<ChipBuilder> {
           final size = (widget.product.size)[index];
           return GestureDetector(
             child: Chip(
-              backgroundColor: selectedSize == size ? kButtonColor : null,
+              backgroundColor:
+                  selectedSize == size ? ColorConstants.kButtonColor : null,
               padding: const EdgeInsets.all(16.0),
               // labelPadding: EdgeInsets.all(16.0),
               label: Text(size.toString()),

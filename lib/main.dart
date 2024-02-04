@@ -1,3 +1,4 @@
+import 'package:cartafri/core/constants/color_constants.dart';
 import 'package:cartafri/core/constants/constants.dart';
 import 'package:cartafri/core/utils/error_test.dart';
 import 'package:cartafri/core/utils/isLoading.dart';
@@ -58,30 +59,38 @@ class _CartAfriState extends ConsumerState<CartAfri> {
               },
             ),
             routeInformationParser: const RoutemasterParser(),
-            theme: ThemeData(
-              useMaterial3: true,
-              colorScheme: ColorScheme.fromSeed(
-                seedColor: const Color(0xff4065f4),
-              ),
+            theme: ThemeData.dark().copyWith(
+              scaffoldBackgroundColor:
+                  ColorConstants.kScafffoldBackgroundColorD,
+              dialogBackgroundColor: ColorConstants.kScafffoldBackgroundColorD,
+              // colorScheme: ColorScheme.fromSeed(
+              //   seedColor: const Color(0xff4065f4),
+              // ),
+              chipTheme: ChipThemeData(
+                  backgroundColor: ColorConstants.kScafffoldBackgroundColorD),
               cardTheme: const CardTheme(
-                shadowColor: kCardColor,
-                surfaceTintColor: kCardColor,
-                color: kCardColor,
+                shadowColor: ColorConstants.kCardColorD,
+                surfaceTintColor: ColorConstants.kCardColorD,
+                color: ColorConstants.kCardColorD,
                 elevation: 2.0,
               ),
+              bottomSheetTheme: const BottomSheetThemeData(
+                modalBackgroundColor: ColorConstants.kCardColorD,
+              ),
               navigationBarTheme: NavigationBarThemeData(
-                backgroundColor: kCardColor,
-                indicatorColor: kButtonColorOpaque,
-                surfaceTintColor: kCardColor,
+                backgroundColor: ColorConstants.kCardColorD,
+                indicatorColor: ColorConstants.kButtonColorOpaque,
+                surfaceTintColor: ColorConstants.kCardColorD,
                 indicatorShape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(50.0),
                 ),
               ),
               floatingActionButtonTheme: const FloatingActionButtonThemeData(
-                  backgroundColor: kCardColor,
-                  splashColor: kCardColor,
-                  foregroundColor: kCardColor),
+                  backgroundColor: ColorConstants.kCardColorD,
+                  splashColor: ColorConstants.kCardColorD,
+                  foregroundColor: ColorConstants.kCardColorD),
               appBarTheme: AppBarTheme(
+                backgroundColor: ColorConstants.kScafffoldBackgroundColorD,
                 surfaceTintColor: null,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8)),
@@ -108,23 +117,23 @@ class Themeing {
         seedColor: const Color(0xff4065f4),
       ),
       cardTheme: const CardTheme(
-        shadowColor: kCardColor,
-        surfaceTintColor: kCardColor,
-        color: kCardColor,
+        shadowColor: ColorConstants.kCardColor,
+        surfaceTintColor: ColorConstants.kCardColor,
+        color: ColorConstants.kCardColor,
         elevation: 2.0,
       ),
       navigationBarTheme: NavigationBarThemeData(
-        backgroundColor: kCardColor,
-        indicatorColor: kButtonColorOpaque,
-        surfaceTintColor: kCardColor,
+        backgroundColor: ColorConstants.kCardColor,
+        indicatorColor: ColorConstants.kButtonColorOpaque,
+        surfaceTintColor: ColorConstants.kCardColor,
         indicatorShape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(50.0),
         ),
       ),
       floatingActionButtonTheme: const FloatingActionButtonThemeData(
-          backgroundColor: kCardColor,
-          splashColor: kCardColor,
-          foregroundColor: kCardColor),
+          backgroundColor: ColorConstants.kCardColor,
+          splashColor: ColorConstants.kCardColor,
+          foregroundColor: ColorConstants.kCardColor),
       appBarTheme: AppBarTheme(
         surfaceTintColor: null,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),

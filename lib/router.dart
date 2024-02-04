@@ -3,6 +3,7 @@
 // LOGGED IN ROUTE
 
 import 'package:cartafri/features/auth/screens/signup.dart';
+import 'package:cartafri/screens/AppScreen.dart';
 import 'package:cartafri/screens/cart.dart';
 import 'package:cartafri/screens/checkout.dart';
 import 'package:cartafri/screens/home.dart';
@@ -17,8 +18,8 @@ final loggedOutRoute =
     RouteMap(routes: {"/": (_) => const MaterialPage(child: SignUpPage())});
 final loggedInRoute = RouteMap(
   routes: {
-    "/": (_) => MaterialPage(
-          child: AppHomePage(),
+    "/": (_) => const MaterialPage(
+          child: HomePage(),
         ),
     '/product/:id': (route) => MaterialPage(
           child: ProductDetail(id: route.pathParameters['id']!),

@@ -1,3 +1,4 @@
+import 'package:cartafri/core/constants/color_constants.dart';
 import 'package:cartafri/core/constants/constants.dart';
 import 'package:cartafri/core/utils/reusables.dart';
 import 'package:cartafri/screens/cart.dart';
@@ -8,6 +9,8 @@ import 'package:cartafri/screens/search_page.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
   @override
   State<HomePage> createState() => _HomePageState();
 }
@@ -44,7 +47,7 @@ class _HomePageState extends State<HomePage> {
         ),
         child: const Icon(
           Icons.shopping_cart_outlined,
-          color: kButtonColor,
+          color: ColorConstants.kButtonColor,
         ),
       ),
       bottomNavigationBar: NavigationBar(

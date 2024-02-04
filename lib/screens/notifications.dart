@@ -1,3 +1,4 @@
+import 'package:cartafri/core/constants/color_constants.dart';
 import 'package:cartafri/core/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_lorem/flutter_lorem.dart';
@@ -105,7 +106,7 @@ class NotificationHeader extends StatelessWidget {
           padding: const EdgeInsets.only(left: 4.0),
           child: Badge(
             backgroundColor: const Color(0xffe2e8fe),
-            textColor: kButtonColor,
+            textColor: ColorConstants.kButtonColor,
             padding: const EdgeInsets.symmetric(horizontal: 5.0),
             label: Text(count.toString()),
           ),
