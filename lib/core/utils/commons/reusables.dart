@@ -1,0 +1,329 @@
+import 'package:cartafri/core/utils/constants/constants.dart';
+import 'package:cartafri/features/auth/controller/authController.dart';
+import 'package:cartafri/features/auth/repository/authRepository.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:cartafri/core/utils/constants/color_constants.dart';
+
+// Bottom Navigation Icons
+class BottomBarIcons extends StatelessWidget {
+  const BottomBarIcons(
+      {super.key,
+      required this.iconData,
+      required this.label,
+      this.selectedIcon});
+  final IconData iconData;
+  final String label;
+  final IconData? selectedIcon;
+  @override
+  Widget build(BuildContext context) {
+    return NavigationDestination(
+      icon: Icon(iconData),
+      label: label,
+      selectedIcon: Icon(selectedIcon, color: ColorConstants.kButtonColor),
+    );
+  }
+}
+
+// the star review icons
+class StarIcon extends StatelessWidget {
+  const StarIcon({super.key, required this.starType});
+  final IconData starType;
+  @override
+  Widget build(BuildContext context) {
+    return Icon(starType, size: 20, color: ColorConstants.kYellow);
+  }
+}
+
+class PrimaryIconButton extends StatelessWidget {
+  const PrimaryIconButton(
+      {super.key, required this.iconData, required this.onPressed});
+  final IconData iconData;
+  final Function()? onPressed;
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      icon: Icon(iconData),
+      color: ColorConstants.kButtonColor,
+      onPressed: onPressed,
+    );
+  }
+}
+
+// Icon button for the categories
+class CategoryIconButton extends StatelessWidget {
+  const CategoryIconButton(
+      {super.key,
+      required this.iconData,
+      required this.onPressed,
+      this.color,
+      this.bgColor,
+      this.elevation});
+  final IconData? iconData;
+  final Function()? onPressed;
+  final Color? color;
+  final Color? bgColor;
+  final double? elevation;
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      onPressed: onPressed,
+      style: ElevatedButton.styleFrom(
+          shape: const CircleBorder(),
+          backgroundColor: bgColor,
+          elevation: elevation,
+          padding: const EdgeInsets.all(14.0)),
+      child: Icon(iconData, size: 25, color: color),
+    );
+  }
+}
+
+class RoundIconButton extends StatelessWidget {
+  const RoundIconButton(
+      {super.key,
+      required this.iconChild,
+      required this.onPressed,
+      this.fillColor});
+
+  final IconData iconChild;
+  final Function() onPressed;
+  final Color? fillColor;
+
+  @override
+  Widget build(BuildContext context) {
+    return RawMaterialButton(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+      fillColor: fillColor,
+      constraints: const BoxConstraints.tightFor(width: 30.0, height: 30.0),
+      onPressed: onPressed,
+      child: Icon(iconChild, color: Colors.white70),
+    );
+  }
+}
+
+// the promo button
+class FilledTextButton extends StatelessWidget {
+  const FilledTextButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return FilledButton(onPressed: () {}, child: const Text('promo'));
+  }
+}
+
+//custom filled button for checkout, cart etc
+class CustomFilledButton extends StatelessWidget {
+  const CustomFilledButton({
+    super.key,
+    required this.text,
+    required this.onPress,
+  });
+  final String text;
+  final Function()? onPress;
+  @override
+  Widget build(BuildContext context) {
+    return FilledButton(
+        onPressed: onPress,
+        style: FilledButton.styleFrom(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8.0))),
+        child: Text(text, style: const TextStyle(color: Colors.white)));
+  }
+}
+
+//custom appbar for the project
+class CustomAppBar extends StatelessWidget {
+  const CustomAppBar({
+    super.key,
+    required this.title,
+  });
+  final String title;
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+        surfaceTintColor: null,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        scrolledUnderElevation: 0.0,
+        elevation: 0.0,
+        title: AppBarTitle(
+          title: title,
+        ));
+  }
+}
+
+// the appbar text widget
+class AppBarTitle extends StatelessWidget {
+  const AppBarTitle({
+    super.key,
+    required this.title,
+  });
+
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text(
+        title,
+        style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+      ),
+    );
+  }
+}
+
+//star review class with text
+class RowTextReview extends StatelessWidget {
+  const RowTextReview({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return const Row(
+      children: [
+        StarIcon(starType: Icons.star),
+        StarIcon(starType: Icons.star),
+        StarIcon(starType: Icons.star),
+        StarIcon(starType: Icons.star),
+        StarIcon(starType: Icons.star_border),
+        Text(' 4.5', style: kProductStyle),
+      ],
+    );
+  }
+}
+
+//Star review without text
+class ColumnTextReview extends StatelessWidget {
+  const ColumnTextReview({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return const Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        StarIcon(starType: Icons.star),
+        StarIcon(starType: Icons.star),
+        StarIcon(starType: Icons.star),
+        StarIcon(starType: Icons.star),
+        StarIcon(starType: Icons.star_border),
+      ],
+    );
+  }
+}
+
+// Icons used in the project
+class AuthIcons extends StatelessWidget {
+  const AuthIcons({super.key, required this.authIcon, this.size});
+  final IconData authIcon;
+  final double? size;
+  @override
+  Widget build(BuildContext context) {
+    return Icon(authIcon, size: size ?? 30, color: ColorConstants.kButtonColor);
+  }
+}
+
+// Expanded Flat Button
+class ExpandedButton extends StatelessWidget {
+  final Function()? onpress;
+  final Widget text;
+
+  const ExpandedButton({
+    super.key,
+    required this.text,
+    required this.onpress,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+        width: double.infinity,
+        child: FilledButton(
+          onPressed: onpress,
+          style: FilledButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0))),
+          child: text,
+        ));
+  }
+}
+
+// GOOGLE SIGIN BUTTON AND FUNCTIONALITY
+class SocialAccountButoons extends ConsumerWidget {
+  const SocialAccountButoons({
+    super.key,
+    required this.text,
+    required this.socialIcon,
+  });
+  final Widget text;
+  final IconData socialIcon;
+  void signInWithGoogle(WidgetRef ref, context) {
+    ref.read(authControllerProvider.notifier).signInWithGoogle(context);
+  }
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return FilledButton(
+      onPressed: () => signInWithGoogle(ref, context),
+      style: FilledButton.styleFrom(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0))),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 15.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              socialIcon,
+            ),
+            const SizedBox(
+              width: 10.0,
+            ),
+            text
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// PHONE SIGNIN
+class PhoneSigning extends ConsumerWidget {
+  const PhoneSigning({
+    super.key,
+    required this.text,
+    required this.socialIcon,
+  });
+  final Widget text;
+  final IconData socialIcon;
+  void signOut(WidgetRef ref) {
+    ref.read(authRepositoryProvider).signout();
+  }
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return FilledButton(
+      onPressed: () => signOut(ref),
+      style: FilledButton.styleFrom(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0))),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 15.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              socialIcon,
+            ),
+            const SizedBox(
+              width: 10.0,
+            ),
+            text
+          ],
+        ),
+      ),
+    );
+  }
+}

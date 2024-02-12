@@ -1,11 +1,11 @@
-import 'package:cartafri/core/constants/color_constants.dart';
-import 'package:cartafri/core/constants/constants.dart';
-import 'package:cartafri/core/utils/error_test.dart';
-import 'package:cartafri/core/utils/isLoading.dart';
+import 'package:cartafri/core/utils/constants/color_constants.dart';
+import 'package:cartafri/core/utils/commons/error_test.dart';
+import 'package:cartafri/core/utils/commons/isLoading.dart';
 import 'package:cartafri/features/auth/controller/authController.dart';
 import 'package:cartafri/firebase_options.dart';
 import 'package:cartafri/features/auth/models/user_model.dart';
 import 'package:cartafri/router.dart';
+import 'package:cartafri/core/utils/theme/pallete.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -59,48 +59,7 @@ class _CartAfriState extends ConsumerState<CartAfri> {
               },
             ),
             routeInformationParser: const RoutemasterParser(),
-            theme: ThemeData.dark().copyWith(
-              scaffoldBackgroundColor:
-                  ColorConstants.kScafffoldBackgroundColorD,
-              dialogBackgroundColor: ColorConstants.kScafffoldBackgroundColorD,
-              // colorScheme: ColorScheme.fromSeed(
-              //   seedColor: const Color(0xff4065f4),
-              // ),
-              chipTheme: ChipThemeData(
-                  backgroundColor: ColorConstants.kScafffoldBackgroundColorD),
-              cardTheme: const CardTheme(
-                shadowColor: ColorConstants.kCardColorD,
-                surfaceTintColor: ColorConstants.kCardColorD,
-                color: ColorConstants.kCardColorD,
-                elevation: 2.0,
-              ),
-              bottomSheetTheme: const BottomSheetThemeData(
-                modalBackgroundColor: ColorConstants.kCardColorD,
-              ),
-              navigationBarTheme: NavigationBarThemeData(
-                backgroundColor: ColorConstants.kCardColorD,
-                indicatorColor: ColorConstants.kButtonColorOpaque,
-                surfaceTintColor: ColorConstants.kCardColorD,
-                indicatorShape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(50.0),
-                ),
-              ),
-              floatingActionButtonTheme: const FloatingActionButtonThemeData(
-                  backgroundColor: ColorConstants.kCardColorD,
-                  splashColor: ColorConstants.kCardColorD,
-                  foregroundColor: ColorConstants.kCardColorD),
-              appBarTheme: AppBarTheme(
-                backgroundColor: ColorConstants.kScafffoldBackgroundColorD,
-                surfaceTintColor: null,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8)),
-                scrolledUnderElevation: 0.0,
-                elevation: 0.0,
-              ),
-            ),
-            // ThemeData.dark(
-            //   useMaterial3: true,
-            // ),
+            theme: ref.watch(themeNotifierProvider),
             debugShowCheckedModeBanner: false,
           ),
           error: (error, stackTrace) => ErrorText(error: error.toString()),

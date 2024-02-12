@@ -1,4 +1,4 @@
-import 'package:cartafri/core/constants/color_constants.dart';
+import 'package:cartafri/core/utils/constants/color_constants.dart';
 import 'package:flutter/material.dart';
 
 const kProductStyle = TextStyle(fontWeight: FontWeight.w500, fontSize: 14);
@@ -33,11 +33,11 @@ const kSizedBox = SizedBox(
   height: 15,
 );
 const kForgetPaswwordStyle =
-    TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: Colors.black);
-const kTextStyleSpacing =
-    TextStyle(fontWeight: FontWeight.bold, letterSpacing: 1.2);
+    TextStyle(fontSize: 12, fontWeight: FontWeight.w400);
+const kTextStyleSpacing = TextStyle(
+    fontWeight: FontWeight.bold, letterSpacing: 1.2, color: Colors.white);
 const kWTextStyleSpacing = TextStyle(
-    fontWeight: FontWeight.w500, letterSpacing: 1.2, color: Colors.black);
+    fontWeight: FontWeight.w500, letterSpacing: 1.2, color: Colors.white);
 const kChipBorder = BorderSide(
     width: 0.5,
     strokeAlign: BorderSide.strokeAlignOutside,

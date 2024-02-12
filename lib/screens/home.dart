@@ -1,15 +1,20 @@
-import 'package:cartafri/core/constants/color_constants.dart';
-import 'package:cartafri/core/utils/animations.dart';
-import 'package:cartafri/core/constants/constants.dart';
-import 'package:cartafri/core/utils/error_test.dart';
-import 'package:cartafri/core/utils/isLoading.dart';
-import 'package:cartafri/core/utils/reusables.dart';
+import 'dart:convert';
+
+import 'package:cartafri/core/utils/constants/color_constants.dart';
+import 'package:cartafri/core/utils/commons/animations.dart';
+import 'package:cartafri/core/utils/constants/constants.dart';
+import 'package:cartafri/core/utils/commons/error_test.dart';
+import 'package:cartafri/core/utils/commons/isLoading.dart';
+import 'package:cartafri/features/payment/paystack/payastack_utils.dart';
+import 'package:cartafri/core/utils/commons/reusables.dart';
 import 'package:cartafri/features/auth/controller/authController.dart';
 import 'package:cartafri/features/auth/repository/authRepository.dart';
 import 'package:cartafri/features/home/search_delegate.dart';
+import 'package:cartafri/features/payment/payment_models/initiate_transaction.dart';
 import 'package:cartafri/features/products/product_controller.dart';
 import 'package:cartafri/features/products/product_model.dart';
-import 'package:cartafri/theme/pallete.dart';
+import 'package:cartafri/core/utils/theme/pallete.dart';
+import 'package:cartafri/screens/product_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:routemaster/routemaster.dart';
@@ -36,14 +41,23 @@ class AppHomePage extends ConsumerWidget {
     }
   }
 
-  void signOut(WidgetRef ref) {
-    ref.read(authRepositoryProvider).signout();
+  void paystackInitialization(BuildContext context) {
+    final initiateModel = InitiateModel(
+      email: 'diweesomchi@gmail.com',
+      amount: '1000', //product.price.toString().split(".").join()
+      reference: Utills.uniqueReference(),
+    ).toJson();
+
+    Map<String, String> queryParameters = {
+      "initiateModel": initiateModel,
+    };
+    Routemaster.of(context).push("/payment", queryParameters: queryParameters);
   }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(userProvider)!;
-    final colorTheme = ref.watch(themeNotifierProvider);
+    final theme = ref.watch(themeNotifierProvider.notifier);
     return SafeArea(
       child: CustomScrollView(slivers: [
         // greeting widget
@@ -71,12 +85,17 @@ class AppHomePage extends ConsumerWidget {
               icon: const Icon(Icons.search_outlined),
             ),
             IconButton(
-              onPressed: () {
-                signOut(ref);
-                // addToFireBase(context, ref, product);
-              },
+              onPressed: () {},
               icon: const Icon(Icons.notifications_none_outlined),
             ),
+            IconButton(
+              onPressed: () {
+                theme.toggleTheme();
+              },
+              icon: theme.mode == ThemeMode.dark
+                  ? const Icon(Icons.light_mode)
+                  : const Icon(Icons.dark_mode),
+            )
           ],
         ),
         // categories and see all widget
@@ -105,12 +124,15 @@ class AppHomePage extends ConsumerWidget {
               Padding(
                 padding: const EdgeInsets.only(bottom: 10.0),
                 child: Material(
-                  color: ColorConstants.kCardColorD,
+                  color: Theme.of(context).cardTheme.surfaceTintColor,
                   shape: RoundedRectangleBorder(
-                    side: const BorderSide(
-                        width: 0.1,
-                        strokeAlign: BorderSide.strokeAlignOutside,
-                        color: ColorConstants.kCardColorD),
+                    side: BorderSide(
+                      width: 0.1,
+                      strokeAlign: BorderSide.strokeAlignOutside,
+                      color: theme.mode == ThemeMode.dark
+                          ? ColorConstants.kCardColorD
+                          : ColorConstants.kCardColor,
+                    ),
                     borderRadius: BorderRadius.circular(12.0),
                   ),
                   elevation: 1.0,
@@ -188,7 +210,9 @@ class ProductListBuilder extends ConsumerWidget {
   });
 
   void navigateToDetail(BuildContext context, Product product) {
-    Routemaster.of(context).push('/product/${product.id}');
+    // Routemaster.of(context).push('/product/${product.id}');
+    Navigator.of(context)
+        .push(PageTransition2(route: ProductDetail(id: product.id)));
   }
 
   @override
@@ -196,7 +220,7 @@ class ProductListBuilder extends ConsumerWidget {
     return ref.watch(productsProvider).when(
           data: (products) {
             return SliverList.builder(
-              itemCount: products.length,
+              itemCount: (products.length / 2).round(),
               itemBuilder: (context, index) {
                 final product = products[index];
                 final tag = product.id;

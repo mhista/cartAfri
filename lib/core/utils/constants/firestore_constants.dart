@@ -9,5 +9,6 @@ class FireStoreConstants {
   static const userOrderItemCollections = 'userOrders';
   static const orderItemCollections = 'orderItems';
   static const userOrderDocuments = 'userOrder';
-  static final currentUser = FirebaseAuth.instance.currentUser;
+  static const customerCollections = 'paystackCustomers';
+  static const category = "categories";
 }

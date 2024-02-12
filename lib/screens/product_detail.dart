@@ -1,11 +1,12 @@
-import 'package:cartafri/core/constants/color_constants.dart';
-import 'package:cartafri/core/utils/animations.dart';
-import 'package:cartafri/core/constants/constants.dart';
-import 'package:cartafri/core/utils/error_test.dart';
-import 'package:cartafri/core/utils/isLoading.dart';
-import 'package:cartafri/core/utils/reusables.dart';
-import 'package:cartafri/core/utils/show_add_to_cart_sizes.dart';
-import 'package:cartafri/core/utils/snackBar.dart';
+import 'package:cartafri/core/utils/constants/color_constants.dart';
+import 'package:cartafri/core/utils/commons/animations.dart';
+import 'package:cartafri/core/utils/constants/constants.dart';
+import 'package:cartafri/core/utils/commons/error_test.dart';
+import 'package:cartafri/core/utils/commons/isLoading.dart';
+import 'package:cartafri/core/utils/commons/reusables.dart';
+import 'package:cartafri/core/utils/commons/show_add_to_cart_sizes.dart';
+import 'package:cartafri/core/utils/commons/snackbar.dart';
+
 import 'package:cartafri/features/order_items/order_item_controller.dart';
 import 'package:cartafri/features/products/product_controller.dart';
 import 'package:cartafri/features/products/product_model.dart';

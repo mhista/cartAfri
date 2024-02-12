@@ -12,4 +12,5 @@ class ColorConstants {
   static const kCardColorD = Color(0xff373f4a);
   static const kScafffoldBackgroundColorD = Color(0xff464b51);
   static const kCategoryButtonColorD = Color(0xff384357);
+  static const kFormColor = Color.fromARGB(218, 234, 237, 244);
 }

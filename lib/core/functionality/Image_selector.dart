@@ -1,5 +1,6 @@
 class ImagePicker {
   var imageList = [
+    'images/shopping-onboarding-1.png',
     'images/bag (1).jpg',
     'images/bag (2).jpg',
     'images/bag (3).jpg',

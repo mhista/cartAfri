@@ -1,6 +1,6 @@
-import 'package:cartafri/core/constants/constants.dart';
-import 'package:cartafri/core/utils/reusables.dart';
-import 'package:cartafri/core/utils/shared_textfield.dart';
+import 'package:cartafri/core/utils/constants/constants.dart';
+import 'package:cartafri/core/utils/commons/reusables.dart';
+import 'package:cartafri/core/utils/commons/shared_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

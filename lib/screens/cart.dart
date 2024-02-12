@@ -1,8 +1,7 @@
-import 'package:cartafri/core/constants/constants.dart';
-import 'package:cartafri/core/utils/error_test.dart';
-import 'package:cartafri/core/utils/isLoading.dart';
-import 'package:cartafri/core/utils/reusables.dart';
-import 'package:cartafri/core/utils/snackBar.dart';
+import 'package:cartafri/core/utils/constants/constants.dart';
+import 'package:cartafri/core/utils/commons/error_test.dart';
+import 'package:cartafri/core/utils/commons/isLoading.dart';
+import 'package:cartafri/core/utils/commons/reusables.dart';
 import 'package:cartafri/features/order_items/order_item_controller.dart';
 import 'package:cartafri/features/order_items/order_item_model.dart';
 import 'package:cartafri/features/products/product_model.dart';
@@ -10,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:routemaster/routemaster.dart';
 import 'package:uuid/uuid.dart';
+import 'package:cartafri/core/utils/commons/snackbar.dart';
 
 GlobalKey _scaffold = GlobalKey();
 
@@ -37,11 +37,10 @@ class _CartPageState extends ConsumerState<CartPage> {
     ref
         .read(orderItemController.notifier)
         .decreaseOrderItem(context, orderItem: item);
-    showSnackbar2(context, '1 Item removed');
-    // Routemaster.of(context).pop();
   }
 
-  void navigateToCheckout() => Routemaster.of(context).push('/checkout');
+  void navigateToCheckout(String amount) => Routemaster.of(context)
+      .push('/checkout/payment', queryParameters: {"amount": amount});
   @override
   build(BuildContext context) {
     return Scaffold(
@@ -218,7 +217,8 @@ class _CartPageState extends ConsumerState<CartPage> {
                   child: CustomFilledButton(
                     text: 'CHECKOUT',
                     onPress: () {
-                      navigateToCheckout();
+                      navigateToCheckout(
+                          ref.watch(getOrderTotal).value!.round().toString());
                     },
                   ),
                 ),

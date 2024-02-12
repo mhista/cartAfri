@@ -1,26 +1,33 @@
-import 'package:cartafri/core/constants/color_constants.dart';
-import 'package:cartafri/core/constants/constants.dart';
-import 'package:cartafri/core/utils/reusables.dart';
-import 'package:cartafri/screens/cart.dart';
+import 'package:cartafri/core/utils/constants/color_constants.dart';
+import 'package:cartafri/core/utils/commons/reusables.dart';
+import 'package:cartafri/screens/account-settings.dart';
+import 'package:cartafri/screens/feeds.dart';
 import 'package:cartafri/screens/home.dart';
 
-import 'package:cartafri/features/auth/screens/signup.dart';
-import 'package:cartafri/screens/search_page.dart';
+import 'package:cartafri/screens/splashScreens/splash_screen1.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:routemaster/routemaster.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends ConsumerState<HomePage> {
   // var allItems = List.generate(50, (index) => 'item $index');
   // var item = [];
   // var searchHistory = [];
   int currentPageIndex = 0;
+
   // final TextEditingController searchController = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,23 +40,24 @@ class _HomePageState extends State<HomePage> {
           ),
           child: [
             AppHomePage(),
-            ColumnWidget(children: SearchPageWidget().widgetList()),
-            const CartPage(),
-            const SignUpPage()
+            const SplashScreen1(),
+            const Feeds(),
+            const AccountPage()
           ][currentPageIndex],
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(50.0),
-        ),
-        child: const Icon(
-          Icons.shopping_cart_outlined,
-          color: ColorConstants.kButtonColor,
-        ),
-      ),
+          onPressed: () {
+            Routemaster.of(context).push("/cart");
+          },
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(50.0),
+          ),
+          child: const Icon(
+            Icons.shopping_cart_outlined,
+            color: ColorConstants.kButtonColor,
+          )),
       bottomNavigationBar: NavigationBar(
         labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
         onDestinationSelected: (int index) {

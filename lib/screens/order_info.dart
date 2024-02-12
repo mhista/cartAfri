@@ -1,5 +1,5 @@
-import 'package:cartafri/core/constants/color_constants.dart';
-import 'package:cartafri/core/constants/constants.dart';
+import 'package:cartafri/core/utils/constants/color_constants.dart';
+import 'package:cartafri/core/utils/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_lorem/flutter_lorem.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';

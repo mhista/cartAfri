@@ -1,8 +1,9 @@
-import 'package:cartafri/core/constants/color_constants.dart';
-import 'package:cartafri/core/constants/constants.dart';
+import 'package:cartafri/core/utils/constants/color_constants.dart';
+import 'package:cartafri/core/utils/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_lorem/flutter_lorem.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:routemaster/routemaster.dart';
 
 class NotificationPage extends ConsumerWidget {
   const NotificationPage({super.key});
@@ -10,9 +11,12 @@ class NotificationPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
-        leading: const Icon(Icons.close),
+        leading: IconButton(
+            onPressed: () {
+              Routemaster.of(context).pop();
+            },
+            icon: const Icon(Icons.close)),
         centerTitle: false,
         title: const Text(
           'Notification',
@@ -48,7 +52,7 @@ class NotificationCard extends StatelessWidget {
     final String text = lorem(paragraphs: 1, words: 5);
 
     return Card(
-      color: Colors.white,
+      color: Theme.of(context).scaffoldBackgroundColor,
       elevation: 0.0,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -105,8 +109,7 @@ class NotificationHeader extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(left: 4.0),
           child: Badge(
-            backgroundColor: const Color(0xffe2e8fe),
-            textColor: ColorConstants.kButtonColor,
+            backgroundColor: ColorConstants.kButtonColor,
             padding: const EdgeInsets.symmetric(horizontal: 5.0),
             label: Text(count.toString()),
           ),

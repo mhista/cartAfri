@@ -1,17 +1,20 @@
-import 'package:cartafri/core/constants/color_constants.dart';
-import 'package:cartafri/core/constants/constants.dart';
-import 'package:cartafri/core/utils/reusables.dart';
+import 'package:cartafri/core/utils/constants/color_constants.dart';
+import 'package:cartafri/core/utils/constants/constants.dart';
+import 'package:cartafri/core/utils/commons/reusables.dart';
 import 'package:cartafri/core/functionality/account_properties.dart';
+import 'package:cartafri/features/auth/repository/authRepository.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:routemaster/routemaster.dart';
 
-class AccountPage extends StatefulWidget {
-  const AccountPage({Key? key}) : super(key: key);
+class AccountPage extends ConsumerStatefulWidget {
+  const AccountPage({super.key});
 
   @override
-  State<AccountPage> createState() => _AccountPageState();
+  ConsumerState<AccountPage> createState() => _AccountPageState();
 }
 
-class _AccountPageState extends State<AccountPage> {
+class _AccountPageState extends ConsumerState<AccountPage> {
   final accountTiles = ListTileProperties(size: 19.0);
   @override
   Widget build(BuildContext context) {
@@ -58,7 +61,9 @@ class _AccountPageState extends State<AccountPage> {
                   child: const Text('Privacy policy', style: kSmallFont)),
             ]),
             ExpandedButton(
-              onpress: () {},
+              onpress: () {
+                ref.read(authRepositoryProvider).signout();
+              },
               text: const Text('Sign Out'),
             ),
             const Padding(
@@ -98,6 +103,10 @@ class AccountListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      onTap: () {
+        Routemaster.of(context)
+            .push("/account/${accountTiles.getRoute(index)}");
+      },
       focusColor: ColorConstants.kButtonColorOpaque,
       contentPadding: const EdgeInsets.symmetric(horizontal: 0),
       leading: accountTiles.getIcon(index),

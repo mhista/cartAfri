@@ -1,8 +1,8 @@
 import 'dart:io';
 
-import 'package:cartafri/core/failure.dart';
+import 'package:cartafri/core/utils/commons/failure.dart';
 import 'package:cartafri/core/functionality/firebase_provider.dart';
-import 'package:cartafri/core/type_defs.dart';
+import 'package:cartafri/core/utils/commons/type_defs.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fpdart/fpdart.dart';
